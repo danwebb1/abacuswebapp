@@ -1,9 +1,6 @@
-import { Myfirebase } from "../config/firebase";
-
-
-export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
-export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
-export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
+import {db, Myfirebase} from "../config/firebase";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useRef} from "react";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -14,24 +11,8 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 
 export const VERIFY_REQUEST = "VERIFY_REQUEST";
-export const VERIFY_SUCCESS = "VERIFY_SUCCESS";
+export const VERIFY_FINISHED = "VERIFY_FINISHED";
 
-const requestSignUp = () => {
-  return {
-    type: SIGNUP_REQUEST
-  };
-};
-const receiveSignUp = user => {
-  return {
-    type: SIGNUP_SUCCESS,
-    user
-  };
-};
-const SignUpError = () => {
-  return {
-    type: SIGNUP_FAILURE
-  };
-};
 
 const requestLogin = () => {
   return {
@@ -44,9 +25,10 @@ const receiveLogin = user => {
     user
   };
 };
-const loginError = () => {
+const loginError = (error) => {
   return {
-    type: LOGIN_FAILURE
+    type: LOGIN_FAILURE,
+    error
   };
 };
 
@@ -74,9 +56,9 @@ const verifyRequest = () => {
   };
 };
 
-const verifySuccess = () => {
+export const verifyFinished = () => {
   return {
-    type: VERIFY_SUCCESS
+    type: VERIFY_FINISHED,
   };
 };
 
@@ -87,22 +69,11 @@ export const loginUser = (email, password) => dispatch => {
     .signInWithEmailAndPassword(email, password)
     .then(user => {
       dispatch(receiveLogin(user));
+      dispatch(verifyFinished())
     })
     .catch(error => {
-      dispatch(loginError());
-    });
-};
-
-export const SignUpUser = (userObject) => dispatch => {
-  dispatch(requestSignUp());
-  Myfirebase
-    .auth()
-    .createUserWithEmailAndPassword(userObject.email, userObject.password)
-    .then(user => {
-      dispatch(receiveSignUp(user));
-    })
-    .catch(error => {
-      dispatch(loginError());
+      dispatch(loginError(error));
+      dispatch(verifyFinished())
     });
 };
 
@@ -113,20 +84,127 @@ export const logoutUser = () => dispatch => {
     .signOut()
     .then(() => {
       dispatch(receiveLogout());
+      dispatch(verifyFinished())
     })
     .catch(error => {
       dispatch(logoutError());
+      dispatch(verifyFinished())
     });
 };
+export const CLEAR_ERROR = "CLEAR_ERROR";
+
+/**
+ * Redux Action to clear errors
+ * @return {{type: string}}
+ */
+export function clearError(){
+    return {
+        type: CLEAR_ERROR
+    }
+}
+
+export const SET_RETRY = "SET_RETRY";
+/**
+ * Redux action to set Retry
+ * @param latch
+ * @return {{latch: *, type: string}}
+ */
+export function setRetry(retry){
+    return {
+        type: SET_RETRY,
+        retry
+    }
+}
+
+/**
+ * Determine if Login request should be made to the API
+ * @param state
+ * @return {boolean}
+ */
+function shouldLogin(state){
+    const authState = state.auth;
+    if(authState.isLoggingIn){
+        return false
+    }
+    return !authState.isAuthenticated
+}
 
 export const verifyAuth = () => dispatch => {
   dispatch(verifyRequest());
   Myfirebase
     .auth()
     .onAuthStateChanged(user => {
-      if (user !== null) {
+      if (user) {
         dispatch(receiveLogin(user));
+        dispatch(verifyFinished())
+      } else {
+        dispatch(logoutUser());
       }
-      dispatch(verifySuccess());
     });
 };
+/**
+ * Do the actual login and dispatch appropriate actions
+ * @return {Function}
+ */
+function doLogin(){
+    return function(dispatch, getState){
+        if(shouldLogin(getState())){
+            dispatch(requestLogin());
+            loginUser().then(loggedIn => {
+                dispatch(receiveLogin(loggedIn))
+            }).catch(error => {
+                dispatch(receiveLogin(false, true))
+            })
+        }
+    }
+}
+/**
+ * Helper hook to keep a interval and execute a callback
+ * @param callback: function to invoke
+ * @param delay: delay in ms to wait between callbacks, set to null to turn off
+ */
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    let id = setInterval(tick, delay);
+    if (delay !== null) {
+      return () => clearInterval(id);  //Clear on component un mounting
+    } else{
+        clearInterval(id); //Clear immediately
+    }
+  }, [delay]);
+}
+/**
+ * Hook to Login into the api
+ * If failure, will retry every 5 seconds
+ * @return {boolean[]}[0] is logged in [1] errors have occurred
+ */
+export function useLogin(){
+    const dispatch = useDispatch();
+    const loggedIn = useSelector(state => state.auth.isAuthenticated);
+    const error = useSelector(state => state.auth.loginError);
+    const retryLatch = useSelector(state => state.auth.retry);
+    useEffect(() => {
+        if(!error && !loggedIn){
+            dispatch(doLogin());
+            setRetry(false)
+        }
+    }, [loggedIn])
+    useInterval(() => {
+        if(error && !retryLatch){
+            dispatch(setRetry(true))
+            dispatch(doLogin())
+        }
+    }, loggedIn ? null : 5000)
+    return [loggedIn, error]
+}

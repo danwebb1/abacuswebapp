@@ -1,5 +1,159 @@
 @import url(https://fonts.googleapis.com/css?family=Bebas+Neue);
 body {
  background-color: #3196b2;
-    font-family: 'Bebas Neue', cursive;
+    font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.main-body {
+    margin: 0 15%;
+    width: 78%;
+}
+.card {
+    display:block;
+    margin: 0 auto;
+    background: #fff;
+    color: rgb(25, 30, 40);
+}
+.card-header {
+    background: rgb(35, 42, 56);
+    color: #fff;
+    font-weight: bold;
+}
+.card-header a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+.warning.list-group-item {
+    border: none;
+    border-left: 5px solid darkred;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1025);
+}
+.caution.list-group-item {
+    border: none;
+    border-left: 5px solid yellow;
+    border-bottom: 1px solid rgba(0,0,0,0.1025);
+}
+.list-group-item{
+    margin: .25em 0;
+}
+.quick-table{
+    border: none;
+    margin-left: 2em;
+    background: none;
+}
+ th, td{
+    text-align: inherit;
+    font-size: 14px;
+    font-weight: normal;
+}
+ th{
+    border-bottom: 1px solid rgba(0,0,0,0.1025)!important;
+    border-top: none;
+    font-weight: bold;
+}
+ td{
+    margin: 1em 0;
+    border:none;
+}
+.quick-table td.premium-element svg{
+    color: #3196b2;
+    font-size:18px;
+}
+.card-prefix {
+    display:block;
+    text-align:right;
+    margin: 1em 0;
+}
+.card-prefix a{
+    color:gray;
+    text-decoration: none;
+}
+.btn.btn-primary, .btn.btn-default {
+    background-color:#3196b2;
+    border: 1px solid #3196b2;
+    color: white;
+    margin-left:.5rem;
+}
+.btn.btn-primary:hover, .btn.btn-default:hover{
+    background-color: rgb(35, 42, 56);
+    border: 1px solid rgb(35, 42, 56);
+    color:white;
+}
+.jumbotron {
+    padding: 1rem;
+    background: #fafafa;
+}
+.react-bootstrap-table {
+    padding: 1rem 3rem;
+    margin-bottom: 1em;
+    border: none;
+}
+.react-bootstrap-table tbody{
+    box-shadow: 1px 4px 4px 4px #e9ecef;
+    border: none;
+}
+.react-bootstrap-table table{
+    border: none;
+}
+.react-bootstrap-table th{
+    background-color: #3196b2;
+    color: white;
+    border: none;
+}
+.react-bootstrap-table tr:nth-child{
+    background-color: #fafafa;
+}
+
+.react-bootstrap-table td svg{
+    color: green;
+}
+.react-bootstrap-table th:first-child{
+    border-radius: 10px 0 0 0;
+}
+.react-bootstrap-table th:last-child{
+    border-radius:0 10px 0 0;
+}
+.btn.dropdown-toggle{
+    background: white;
+    color: rgb(35, 42, 56);
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: white;
+    font-weight:bold;
+    background-color: #3196b2;
+    border-color: #3196b2;
+}
+.pagination {
+    float:right;
+}
+.breadcrumb-item a {
+    text-decoration: none;
+    color: rgb(25, 30, 40);
+}
+#app_nav a {
+    color: white;
+    text-decoration:none;
+}
+.dot {
+  float: right;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.locked {
+    text-align: center;
+}
+.locked a{
+    color: #3196b2;
+    text-decoration: none;
+    text-align: center;
+}
+.locked svg{
+  font-size: 10em;
+  margin: 0 auto;
+    display: block;
+    color:#3196b2;
 }

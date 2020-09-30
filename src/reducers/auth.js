@@ -6,7 +6,9 @@ import {
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
   VERIFY_REQUEST,
-  VERIFY_SUCCESS
+  VERIFY_FINISHED,
+  CLEAR_ERROR,
+  SET_RETRY
 } from "../actions/";
 
 export default (
@@ -17,7 +19,9 @@ export default (
     loginError: false,
     logoutError: false,
     isAuthenticated: false,
-    user: {}
+    retry: false,
+    user: {},
+    error: {}
   },
   action
 ) => {
@@ -26,13 +30,16 @@ export default (
       return {
         ...state,
         isLoggingIn: true,
-        loginError: false
+        loginError: false,
+
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         isLoggingIn: false,
         isAuthenticated: true,
+        isVerifying: false,
+        newLoad: false,
         user: action.user
       };
     case LOGIN_FAILURE:
@@ -40,39 +47,62 @@ export default (
         ...state,
         isLoggingIn: false,
         isAuthenticated: false,
-        loginError: true
+        loginError: true,
+        newLoad: false,
+        isVerifying: false,
+        error: action.error
       };
+
     case LOGOUT_REQUEST:
       return {
         ...state,
         isLoggingOut: true,
-        logoutError: false
+        logoutError: false,
+        isVerifying: true,
+        user: false
       };
     case LOGOUT_SUCCESS:
       return {
         ...state,
         isLoggingOut: false,
         isAuthenticated: false,
-        user: {}
+        isVerifying: false,
+        user: false,
+        newLoad: true
       };
     case LOGOUT_FAILURE:
       return {
         ...state,
         isLoggingOut: false,
-        logoutError: true
+        logoutError: true,
+        newLoad: false,
+        isVerifying: false,
       };
+      case CLEAR_ERROR: {
+        return {
+          ...state,
+          error: false
+            }
+        }
+        case SET_RETRY:
+          return {
+            ...state,
+            retryLatch: action.latch
+          }
     case VERIFY_REQUEST:
       return {
         ...state,
         isVerifying: true,
         verifyingError: false
       };
-    case VERIFY_SUCCESS:
+    case VERIFY_FINISHED:
       return {
         ...state,
-        isVerifying: false
+        isVerifying: false,
+        newLoad: true
       };
     default:
       return state;
+
   }
 };

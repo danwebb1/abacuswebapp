@@ -130,3 +130,87 @@ const homepage_styles = {
     }
 };
 export const homepage_style = homepage_styles;
+
+const menu_styles = {
+    menu: {
+        position: 'fixed',
+        maxWidth: '15%',
+        left: '0',
+        right: '0',
+        top: '-1em',
+        borderTop: '4px solid #3196b2',
+        borderBottom: '1px solid #ced0d5',
+        height: '102%',
+        backgroundColor: '#191e28',
+        overflowX: 'hidden',
+    },
+    menuLogoImg: {
+        verticalAlign: 'middle',
+        borderStyle: 'none',
+        width: '95%',
+        margin: '3em auto',
+        display: 'block'
+    },
+    appNav: {
+        width: '100%',
+        adminLinks: {
+            marginBottom: '10%',
+         },
+        bottomNav: {
+            bottom: '10px',
+            display: 'block',
+            position: 'absolute',
+            width: '100%',
+        }
+    },
+    menuLinks:{
+      padding: '8px 8px 8px 32px',
+      textDecoration: 'none',
+      fontSize: '16px',
+      color: '#d6d6d6',
+      display: 'block',
+      transition: '0.3s',
+      letterSpacing: '.2em',
+      background: '#232a38',
+      margin: '8px',
+      cursor: 'pointer'
+    },
+    openNav: {
+      position: 'absolute',
+      color: 'black',
+      left: '255px',
+      top: '3px',
+      display: 'none',
+      fontSize: '30px',
+      cursor: 'pointer',
+    },
+    hr: {
+        height: '1px',
+        backgroundColor: '#364157',
+        border: 'none',
+        width: '95%',
+        margin: '1em auto',
+        display: 'block',
+    }
+};
+
+export const menu_style = menu_styles;
+
+const app_styles = {
+    bodyStyle: {
+        backgroundColor: '#e9ecef'
+    },
+    loggoutOutbackground: {
+        backgroundColor: '#3196b2'
+    },
+    containerStyle: {
+        marginTop: '2em',
+        marginBottom: '5em'
+    },
+    inventoryQuickViewTable:{
+        backgroundColor: '#fafafa',
+        margin: '1em 0'
+    }
+};
+
+export const app_style = app_styles;

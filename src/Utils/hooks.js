@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import { auth, generateUserDocument } from ".././config/firebase.js";
+import {db, Myfirebase} from "../config/firebase";
 
-const useFirebaseAuthentication = () => {
+const useAuth = () => {
     const [authUser, setAuthUser] = useState(null);
 
     useEffect(() => {
        async function getUserData() {
-           auth.onAuthStateChanged(async userAuth => {
+           Myfirebase
+               .auth()
+               .onAuthStateChanged(async userAuth => {
                const user = await generateUserDocument(userAuth);
                if (user) {
                    setAuthUser(user)

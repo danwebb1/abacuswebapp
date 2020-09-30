@@ -1,6 +1,6 @@
-import React, {useState, useCallback} from "react";
+import React, {useState, useCallback, useEffect} from "react";
 import { Link } from '@reach/router';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -11,17 +11,20 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { homepage_style } from './Styles.js';
 import { loginUser } from "./actions";
 import './App.css'
+import Alert from "react-bootstrap/Alert";
+import {sign_up_style} from "./Styles";
 const logo = '/images/abacus_logo.png';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(false);
     const dispatch = useDispatch();
-
+    let state = useSelector(state => state);
 
    const handler = useCallback (() =>{
         dispatch(loginUser(email,password))
-    }, [password],);
+    }, [password]);
 
     const onChangeHandler = (event) => {
         const {name, value} = event.currentTarget;
@@ -33,8 +36,27 @@ const Login = () => {
           }
       };
 
+    useEffect( () =>{
+        if(state.auth.loginError){
+            setError(state.auth.error.message);
+        }
+    },[error]);
+
+    function showAlert(){
+          if (error) {
+              return (
+                    <Alert variant='danger' style={sign_up_style.alertStyle} >
+                        {error}
+                    </Alert>
+              );
+          }else{
+              return <div></div>
+          }
+      }
+
     return (
                 <Container style={homepage_style.containerStyle}>
+                    {showAlert()}
                     <Row>
                         <img src={logo} alt="Logo" style={homepage_style.logoStyle}/>
                     </Row>
@@ -77,12 +99,12 @@ const Login = () => {
                                 Log In
                             </Button>
                                 <Form.Text className="text-muted">
-                                    <Link to="reset-password" style={homepage_style.link}>Forgot Your Password?</Link>
+                                    <a href="/reset-password" style={homepage_style.link}>Forgot Your Password?</a>
                                 </Form.Text>
                         </Form>
                     </Row>
                     <Row>
-                        <h5 style={homepage_style.h5Style}><Link to="sign-up" style={homepage_style.signUpLink}>Don't have an account? Sign Up!</Link></h5>
+                        <h5 style={homepage_style.h5Style}><a href="/sign-up" style={homepage_style.signUpLink}>Don't have an account? Sign Up!</a></h5>
                     </Row>
                 </Container>
 

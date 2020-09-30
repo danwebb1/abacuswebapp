@@ -25,7 +25,7 @@ const ResetPassword = () => {
   };
     return (
         <div>
-            <Link to="/" style={sign_up_style.back_nav}><FontAwesomeIcon icon={faArrowLeft}/> Back</Link>
+            <a href="/" style={sign_up_style.back_nav}><FontAwesomeIcon icon={faArrowLeft}/> Back</a>
                 <Container style={homepage_style.containerStyle}>
                     <Row>
                         <img src={logo} alt="Logo" style={sign_up_style.logoStyle}/>
