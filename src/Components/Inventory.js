@@ -2,20 +2,17 @@ import React, {useState, useEffect} from "react";
 import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
-import cellEditFactory, { Type } from 'react-bootstrap-table2-editor';
-import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowsAltV, faBell, faListAlt} from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-
+import {Link} from "react-router-dom";
+const inventory = require('.././dummy.json');
 
 const Inventory = (props) => {
 
     const { SearchBar, ClearSearchButton } = Search;
     const { ExportCSVButton } = CSVExport;
-    let inventory = JSON.parse(localStorage.getItem("abacusInventory"));
-    inventory = inventory.inventory;
 
     function sortFormatter(column, colIndex) {
         return (
@@ -75,7 +72,7 @@ const Inventory = (props) => {
                 <Card.Body>
                     <ToolkitProvider
                        keyField='item'
-                       data={ inventory }
+                       data={ inventory.inventory }
                        columns={ columns }
                        bordered={ false }
                        defaultSorted={ defaultSorted}

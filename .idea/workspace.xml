@@ -2,39 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94597bb8-8622-4fee-a5ae-16ab34d6223d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Components/Analytics.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/DashboardAlert.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Inventory.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/InventoryAlertSettings.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/InventoryQuickViewTableView.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/MyAccount.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Order.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Portal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/PortalInventoryQuickView.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/Support.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/UpdatePassword.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/actions/register.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/actions/support.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/actions/user.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/register.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/support.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/user.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dummy.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setupProxy.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Dashboard.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ResetPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ResetPassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Signup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Styles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/hooks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/hooks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/firebase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/InventoryAlertSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/InventoryAlertSettings.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +86,7 @@
       <workItem from="1601040276021" duration="108000" />
       <workItem from="1601204977472" duration="48729000" />
       <workItem from="1601387984113" duration="600000" />
-      <workItem from="1601427054084" duration="570000" />
+      <workItem from="1601427054084" duration="7353000" />
     </task>
     <task id="LOCAL-00001" summary="inital commit">
       <created>1599876859676</created>
@@ -122,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599876859676</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Build out the front end">
+      <created>1601427811374</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1601427811374</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,6 +123,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="inital commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="inital commit" />
+    <MESSAGE value="Build out the front end" />
+    <option name="LAST_COMMIT_MESSAGE" value="Build out the front end" />
   </component>
 </project>

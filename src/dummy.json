@@ -1,0 +1,54 @@
+{
+  "inventory": [
+    {
+      "item": "5700632",
+      "name": "Gloves",
+      "quantity": 20
+    },
+    {
+      "item": "1047799",
+      "name": "Mask",
+      "quantity": 15
+    },
+    {
+      "item": "1126757",
+      "name": "2x2",
+      "quantity": 15
+    },
+    {
+      "item": "1124855",
+      "name": "Pouch",
+      "quantity": 15
+    },
+    {
+      "item": "1346583",
+      "name": "Barrier",
+      "quantity": 10
+    },
+    {
+      "item": "1126749",
+      "name": "Bib",
+      "quantity": 30
+    },
+    {
+      "item": "1043977",
+      "name": "Angle",
+      "quantity": 10
+    },
+    {
+      "item": "1010353",
+      "name": "Paste",
+      "quantity": 15
+    },
+    {
+      "item": "2670005",
+      "name": "Wipes",
+      "quantity": 20
+    },
+    {
+      "item": "1004092",
+      "name": "Saliva Ej",
+      "quantity": 10
+    }
+  ]
+}

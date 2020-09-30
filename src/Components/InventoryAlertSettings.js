@@ -8,12 +8,9 @@ import { faEdit, faBell} from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {Link} from "react-router-dom";
-
+const inventory = require('.././dummy.json');
 
 const InventoryAlertSettings = (props) => {
-
-    let inventory = JSON.parse(localStorage.getItem("abacusInventory"));
-    inventory = inventory.inventory;
 
     function editFormatter(cell) {
         return (
@@ -72,7 +69,7 @@ const InventoryAlertSettings = (props) => {
                     a noticiation text message and/or email based on your settings.</p>
                     <ToolkitProvider
                        keyField='item'
-                       data={ inventory }
+                       data={ inventory.inventory }
                        columns={ columns }
                        bordered={ false }
                        search

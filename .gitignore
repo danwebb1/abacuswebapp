@@ -26,4 +26,4 @@ yarn.lock
 # firebase
 firebase-debug.log
 firestore-debug.log
-/config
+/src/config
