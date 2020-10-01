@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {getProfile} from "../actions";
+import {getProfile} from "../../actions";
 
 const DashboardAlert = (props) => {
     const [userName, setUserName] = useState([]);

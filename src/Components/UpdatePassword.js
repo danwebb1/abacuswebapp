@@ -33,7 +33,6 @@ const UpdatePassword = () => {
         }
          if(app_state.user.user_profile.hasOwnProperty('first_name')) {
                setUser(app_state.user.user_profile)
-             console.log(app_state.auth)
            }
     }, );
 

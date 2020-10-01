@@ -8,7 +8,7 @@ import { faEdit, faBell} from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {Link} from "react-router-dom";
-const inventory = require('.././dummy.json');
+const inventory = require('../../dummy.json');
 
 const InventoryAlertSettings = (props) => {
 

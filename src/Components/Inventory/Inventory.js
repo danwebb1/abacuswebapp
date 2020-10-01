@@ -7,9 +7,9 @@ import {faArrowsAltV, faBell, faListAlt} from "@fortawesome/free-solid-svg-icons
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {Link} from "react-router-dom";
-const inventory = require('.././dummy.json');
+const inventory = require('../../dummy.json');
 
-const Inventory = (props) => {
+const Inventory = () => {
 
     const { SearchBar, ClearSearchButton } = Search;
     const { ExportCSVButton } = CSVExport;
@@ -20,11 +20,6 @@ const Inventory = (props) => {
         );
     }
 
-    function statusFormatter(cell, row, rowIndex, formatExtraData) {
-      return (
-        <i className={ formatExtraData[cell] } />
-      );
-    }
     const columns = [{
         dataField: 'item',
         text: 'Item ID',
@@ -39,12 +34,12 @@ const Inventory = (props) => {
         headerFormatter: sortFormatter,
         formatter: (cell) => {
             if (cell === 0) {
-                return <div>{cell} <span className="dot" style={{backgroundColor: "darkred"}}></span></div>
+                return <div>{cell} <span className="dot" style={{backgroundColor: "darkred", float:"right" }}></span></div>
 
             } else if (cell < 11 && cell > 0) {
-                return <div>{cell} <span className="dot" style={{backgroundColor: "#ffd500"}}></span></div>
+                return <div>{cell} <span className="dot" style={{backgroundColor: "#ffd500", float:"right"}}></span></div>
             } else {
-                return <div>{cell} <span className="dot" style={{backgroundColor: "green"}}></span></div>
+                return <div>{cell} <span className="dot" style={{backgroundColor: "green", float:"right"}}></span></div>
             }
         },
         sort: true,
@@ -58,7 +53,6 @@ const Inventory = (props) => {
       mode: 'checkbox',
       clickToSelect: true,
     };
-
 
     return (
         <div>

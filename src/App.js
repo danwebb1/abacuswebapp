@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import LoadingBar from 'react-top-loading-bar'
-import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Link, useRouteMatch} from "react-router-dom";
 import { useSelector, useDispatch} from "react-redux";
 import './App.css';
 import Login from "./Login.js"
@@ -13,15 +13,18 @@ import Nav from "react-bootstrap/Nav";
 import {homepage_style, menu_style, app_style} from "./Styles";
 import {logoutUser, verifyFinished} from "./actions";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faListAlt, faChartBar, faSlidersH, faUserEdit, faSignOutAlt, faTruck, faHeadset, faCog } from '@fortawesome/free-solid-svg-icons'
-import Inventory from "./Components/Inventory";
-import InventoryAlertSettings from "./Components/InventoryAlertSettings";
+import { faListAlt, faChartBar, faBars, faUserEdit, faSignOutAlt, faTruck, faHeadset, faCog } from '@fortawesome/free-solid-svg-icons'
+import Inventory from "./Components/Inventory/Inventory";
+import InventoryAlertSettings from "./Components/Inventory/InventoryAlertSettings";
 import MyAccount from "./Components/MyAccount";
 import UpdatePassword from "./Components/UpdatePassword";
 import Order from "./Components/Order";
 import Analytics from "./Components/Analytics";
 import Support from "./Components/Support";
 import {Redirect} from "react-router";
+import Settings from "./Components/SettingsViews/Settings";
+import TopNav from "./Components/TopNav";
+import TopNotifications from "./Components/TopNotifications";
 const logo = '/images/abacus_logo.png';
 
 function App(){
@@ -29,7 +32,6 @@ function App(){
     const [isAuth, setIsAuth] = useState(false);
     let state = useSelector(state => state);
     let dispatch = useDispatch();
-
     useEffect(() => {
         if (!state.auth.isLoggingOut){
             let _check_auth = state.auth.isAuthenticated;
@@ -68,6 +70,14 @@ function App(){
                     </Nav>
                 </div>
             </div>
+            <div id="top-nav">
+                <div className="navDropDown">
+                    <TopNav/>
+                </div>
+                <div id="top-notification">
+                    <TopNotifications/>
+                </div>
+            </div>
              <div className="main-body">
                  <Container style={app_style.containerStyle}>
                         <Switch>
@@ -79,6 +89,7 @@ function App(){
                             <Route exact path="/order" component={Order}/>
                             <Route exact path="/analytics" component={Analytics}/>
                             <Route exact path="/support" component={Support}/>
+                            <Route exact path="/settings" component={Settings}/>
                             <Route render={() => <Redirect to="/" />} />
                         </Switch>
                     </Container>

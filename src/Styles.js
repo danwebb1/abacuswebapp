@@ -69,11 +69,11 @@ const homepage_styles = {
     containerStyle: {
         marginTop: '10em',
     },
-    logoStyle: {
+    logoStyle: { /*80% width on mobile*/
         margin: '1em auto 3em auto',
-        width: '50%'
+        maxWidth: '50%'
     },
-    formStyle: {
+    formStyle: { /*80% width on mobile*/
         margin: '0 auto',
         background: '#fff',
         width: '50%',
@@ -110,7 +110,7 @@ const homepage_styles = {
         textDecoration: 'none',
         cursor: 'pointer',
     },
-    h2Style: {
+    h2Style: { /*80% width on mobile with 1.3em font*/
         color: '#3196b2',
         margin: '0 auto',
         background: '#efefef',
@@ -120,7 +120,7 @@ const homepage_styles = {
         textAlign: 'center'
 
     },
-    h5Style: {
+    h5Style: { /*80% width on mobile*/
         background: '#efefef',
         borderRadius: '0px 0px 10px 10px',
         width: '50%',
@@ -134,7 +134,7 @@ export const homepage_style = homepage_styles;
 const menu_styles = {
     menu: {
         position: 'fixed',
-        maxWidth: '15%',
+        maxWidth: '18%',
         left: '0',
         right: '0',
         top: '-1em',

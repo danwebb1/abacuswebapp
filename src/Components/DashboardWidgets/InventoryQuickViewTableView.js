@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import {faLock} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {app_style} from ".././Styles";
+import {app_style} from "../../Styles";
 import Tooltip from "react-bootstrap/Tooltip";
 
 const InventoryQuickViewTableView = (props) => {

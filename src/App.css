@@ -5,7 +5,7 @@ body {
 }
 
 .main-body {
-    margin: 0 15%;
+    margin: 4% 15%;
     width: 78%;
 }
 .card {
@@ -137,7 +137,6 @@ body {
     text-decoration:none;
 }
 .dot {
-  float: right;
   height: 25px;
   width: 25px;
   border-radius: 50%;
@@ -156,4 +155,63 @@ body {
   margin: 0 auto;
     display: block;
     color:#3196b2;
+}
+#top-nav {
+    width: 82%;
+    background: white;
+    box-shadow: 0 1px 4px rgba(50,50,50,.2);
+    border-bottom: 3px solid #3196b2;
+    position: fixed;
+    top: 0;
+    left: 18%;
+    height:3em;
+    z-index: 5;
+}
+.navDropDown {
+    position: absolute;
+    top: .25em;
+
+}
+.navDropDown a {
+    color: rgb(25, 30, 40);
+    text-decoration: none;
+    font-weight: bold;
+}
+.navDropDown span {
+    margin-right: 1em;
+}
+#top-notification {
+    position: absolute;
+    top: .25em;
+    right:3em;
+}
+#top-notification span {
+    border-radius: 50%;
+    min-width: 35px;
+    min-height: 35px;
+    padding:8px;
+    display: inline-block;
+    text-align:center;
+    line-height: 0px;
+}
+#top-notification span a{
+    color:white;
+    font-weight:bold;
+    display: inline-block;
+    padding-top: 50%;
+    padding-bottom: 50%;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+#top-notification svg {
+    margin-right: 2em;
+    font-size: 20px;
+    color: gray;
+    vertical-align: middle;
+}
+.accordion .btn-link {
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    padding:0px;
 }

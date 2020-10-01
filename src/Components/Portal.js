@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from ".././actions";
-import PortalInventoryQuickView from "./PortalInventoryQuickView";
-import DashboardAlert from "./DashboardAlert";
+import PortalInventoryQuickView from "./DashboardWidgets/PortalInventoryQuickView";
+import DashboardAlert from "./DashboardWidgets/DashboardAlert";
 
 
 
