@@ -10,12 +10,11 @@ import SignUp from "./Signup";
 import Row from "react-bootstrap/Row"
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
-import {homepage_style, menu_style, app_style} from "./Styles";
-import {logoutUser, verifyFinished} from "./actions";
+import {homepage_style, app_style} from "./Styles";
+import {logoutUser} from "./actions";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faListAlt, faChartBar, faBars, faUserEdit, faSignOutAlt, faTruck, faHeadset, faCog } from '@fortawesome/free-solid-svg-icons'
 import Inventory from "./Components/Inventory/Inventory";
-import InventoryAlertSettings from "./Components/Inventory/InventoryAlertSettings";
 import MyAccount from "./Components/MyAccount";
 import UpdatePassword from "./Components/UpdatePassword";
 import Order from "./Components/Order";
@@ -25,6 +24,7 @@ import {Redirect} from "react-router";
 import Settings from "./Components/SettingsViews/Settings";
 import TopNav from "./Components/TopNav";
 import TopNotifications from "./Components/TopNotifications";
+import Notifications from "./Components/Notifications";
 const logo = '/images/abacus_logo.png';
 
 function App(){
@@ -50,22 +50,24 @@ function App(){
         return (
             <div>
                 <Router>
-                 <div id="menu" style={menu_style.menu}>
-                    <div id="app_nav" style={menu_style.appNav}>
+                 <div id="menu">
+                    <div id="app_nav" >
                     <Nav defaultActiveKey="/" className="flex-column" onSelect={signOut}>
-                        <Nav.Link id="menu-logo"><Link to="/"><img src={logo} style={menu_style.menuLogoImg} alt="Logo" /></Link></Nav.Link>
-                        <div className="admin-links" style={menu_style.appNav.adminLinks}>
-                            <Nav.Link style={menu_style.menuLinks}><Link to="/my-account"><FontAwesomeIcon icon={faUserEdit} /> My Account</Link></Nav.Link>
-                            <Nav.Link style={menu_style.menuLinks} ><Link to="/settings"><FontAwesomeIcon icon={faCog} /> Settings</Link></Nav.Link>
+                        <Nav.Link id="menu-logo"><Link to="/"><img src={logo} alt="Logo" /></Link></Nav.Link>
+                        <div className="admin-links">
+                            <Nav.Link ><Link to="/my-account"><FontAwesomeIcon icon={faUserEdit} /> My Account</Link></Nav.Link>
+                            <Nav.Link  ><Link to="/settings"><FontAwesomeIcon icon={faCog} /> Settings</Link></Nav.Link>
                         </div>
-                        <span style={menu_style.hr}></span>
-                        <Nav.Link style={menu_style.menuLinks} ><Link to="/inventory"><FontAwesomeIcon icon={faListAlt} /> Inventory</Link></Nav.Link>
-                        <Nav.Link style={menu_style.menuLinks}><Link to="/order"><FontAwesomeIcon icon={faTruck} /> Order Inventory</Link></Nav.Link>
-                        <Nav.Link style={menu_style.menuLinks}><Link to="/analytics"><FontAwesomeIcon icon={faChartBar} /> Analytics</Link></Nav.Link>
-                        <span style={menu_style.hr}></span>
-                        <div className="bottom-nav" style={menu_style.appNav.bottomNav}>
-                            <Nav.Link style={menu_style.menuLinks}  eventKey="/logout"><FontAwesomeIcon icon={faSignOutAlt} /> Sign Out</Nav.Link>
-                            <Nav.Link style={menu_style.menuLinks}><Link to="/support"><FontAwesomeIcon icon={faHeadset} /> Contact Support</Link></Nav.Link>
+                        <span ></span>
+                        <div className="main-links">
+                        <Nav.Link  ><Link to="/inventory"><FontAwesomeIcon icon={faListAlt} /> Inventory</Link></Nav.Link>
+                        <Nav.Link ><Link to="/order"><FontAwesomeIcon icon={faTruck} /> Order Inventory</Link></Nav.Link>
+                        <Nav.Link ><Link to="/analytics"><FontAwesomeIcon icon={faChartBar} /> Analytics</Link></Nav.Link>
+                        </div>
+                        <span ></span>
+                        <div className="bottom-nav" >
+                            <Nav.Link   eventKey="/logout"><FontAwesomeIcon icon={faSignOutAlt} /> Sign Out</Nav.Link>
+                            <Nav.Link ><Link to="/support"><FontAwesomeIcon icon={faHeadset} /> Contact Support</Link></Nav.Link>
                         </div>
                     </Nav>
                 </div>
@@ -83,13 +85,13 @@ function App(){
                         <Switch>
                             <Route exact path="/" component={Portal}/>
                             <Route exact path="/inventory" component={Inventory}/>
-                            <Route exact path="/inventory/settings" component={InventoryAlertSettings}/>
                             <Route exact path="/my-account" component={MyAccount} />
                             <Route exact path="/my-account/update-password" component={UpdatePassword}/>
                             <Route exact path="/order" component={Order}/>
                             <Route exact path="/analytics" component={Analytics}/>
                             <Route exact path="/support" component={Support}/>
                             <Route exact path="/settings" component={Settings}/>
+                            <Route exact path="/notifications" component={Notifications}/>
                             <Route render={() => <Redirect to="/" />} />
                         </Switch>
                     </Container>

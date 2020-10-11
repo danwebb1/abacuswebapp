@@ -3,7 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowsAltV, faBell, faListAlt} from "@fortawesome/free-solid-svg-icons";
+import {faArrowsAltV, faBell, faListAlt,faCalendarDay} from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {Link} from "react-router-dom";
@@ -15,9 +15,13 @@ const Inventory = () => {
     const { ExportCSVButton } = CSVExport;
 
     function sortFormatter(column, colIndex) {
-        return (
-            <div> {column.text} <FontAwesomeIcon icon={faArrowsAltV}></FontAwesomeIcon></div>
-        );
+        if(column.text === 'Item Quantity') {
+            return (
+                <div> {column.text} <FontAwesomeIcon icon={faArrowsAltV}></FontAwesomeIcon></div>
+            );
+        }else{
+           return <div> {column.text} <FontAwesomeIcon icon={faArrowsAltV}></FontAwesomeIcon></div>
+        }
     }
 
     const columns = [{
@@ -30,20 +34,29 @@ const Inventory = () => {
        sort: true
     }, {
         dataField: 'quantity',
-        text: 'Item Quantity',
+        text: 'Item Quantity'
+        /*
         headerFormatter: sortFormatter,
         formatter: (cell) => {
             if (cell === 0) {
-                return <div>{cell} <span className="dot" style={{backgroundColor: "darkred", float:"right" }}></span></div>
+                return <div>{cell} <span className="dot" style={{backgroundColor: "darkred", float: "right"}}></span>
+                </div>
 
             } else if (cell < 11 && cell > 0) {
-                return <div>{cell} <span className="dot" style={{backgroundColor: "#ffd500", float:"right"}}></span></div>
+                return <div>{cell} <span className="dot" style={{backgroundColor: "#ffd500", float: "right"}}></span>
+                </div>
             } else {
-                return <div>{cell} <span className="dot" style={{backgroundColor: "green", float:"right"}}></span></div>
+                return <div>{cell} <span className="dot" style={{backgroundColor: "green", float: "right"}}></span>
+                </div>
             }
-        },
-        sort: true,
-     },];
+        },*/
+    },{
+       dataField: 'last_used',
+       text: 'Last Used',
+       headerFormatter: sortFormatter,
+       sort: true
+
+    }];
     const defaultSorted = [{
       dataField: 'quantity',
       order: 'desc',
@@ -60,7 +73,6 @@ const Inventory = () => {
               <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
               <Breadcrumb.Item active>Inventory</Breadcrumb.Item>
             </Breadcrumb>
-        <span className="card-prefix"><Link to={`/inventory/settings`}><FontAwesomeIcon icon={faBell}/> Manage Inventory Alerts</Link></span>
             <Card>
                 <Card.Header><FontAwesomeIcon icon={faListAlt} /> Inventory <span style={{float:'right'}}></span></Card.Header>
                 <Card.Body>

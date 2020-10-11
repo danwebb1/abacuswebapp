@@ -203,10 +203,6 @@ const app_styles = {
     loggoutOutbackground: {
         backgroundColor: '#3196b2'
     },
-    containerStyle: {
-        marginTop: '2em',
-        marginBottom: '5em'
-    },
     inventoryQuickViewTable:{
         backgroundColor: '#fafafa',
         margin: '1em 0'
@@ -214,3 +210,13 @@ const app_styles = {
 };
 
 export const app_style = app_styles;
+
+const settings_card_style = {
+    card: {
+        boxShadow: "rgba(0, 0, 0, 0.08) 0px 15px 25px -1px",
+        border: "none",
+        margin: "1em",
+        minHeight: "440px",
+    }
+};
+export const settings_card_styles = settings_card_style;

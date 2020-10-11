@@ -16,9 +16,10 @@ export const receiveProfile = user_profile => {
     user_profile
   };
 };
-const getProfileError = () => {
+const getProfileError = (error) => {
   return {
-    type: PROFILE_FAILURE
+    type: PROFILE_FAILURE,
+     error
   };
 };
 
@@ -32,7 +33,7 @@ export const getProfile = (uid) => dispatch => {
                 dispatch(receiveProfile(profile.data()))
             })
             .catch(error => {
-                dispatch(getProfileError());
+                dispatch(getProfileError(error));
             });
     }
 }

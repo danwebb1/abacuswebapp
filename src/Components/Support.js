@@ -88,19 +88,15 @@ const Support = () => {
 
         if (name === "contactEmail") {
              setEmail(value);
-             console.log(value)
         }
         else if (name === "contactPhone") {
             setPhone(value);
-            console.log(value)
         }
         else if (name === "contactMessage") {
             setMessage(value);
-            console.log(value)
         }
         else if (name === "respondPreference") {
             setMethod(value);
-            console.log(value)
         }
       };
 

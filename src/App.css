@@ -3,12 +3,19 @@ body {
  background-color: #3196b2;
     font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
+h1, h2, h3, h4, h5, h6{
+    font-weight: 200;
+}
+.btn a {
+    color: white;
+    text-decoration: none;
+}
 .main-body {
-    margin: 4% 15%;
-    width: 78%;
+    width: 88%;
+    margin: 4% 10%;
 }
 .card {
+    position: inherit;
     display:block;
     margin: 0 auto;
     background: #fff;
@@ -25,11 +32,13 @@ body {
     cursor: pointer;
 }
 .warning.list-group-item {
+    position: inherit;
     border: none;
     border-left: 5px solid darkred;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1025);
 }
 .caution.list-group-item {
+    position: inherit;
     border: none;
     border-left: 5px solid yellow;
     border-bottom: 1px solid rgba(0,0,0,0.1025);
@@ -137,8 +146,8 @@ body {
     text-decoration:none;
 }
 .dot {
-  height: 25px;
-  width: 25px;
+  height: 12px;
+  width: 12px;
   border-radius: 50%;
   display: inline-block;
 }
@@ -202,6 +211,7 @@ body {
     padding-bottom: 50%;
     margin-left: 1px;
     margin-right: 1px;
+    text-decoration: none;
 }
 #top-notification svg {
     margin-right: 2em;
@@ -213,5 +223,286 @@ body {
     font-weight: bold;
     color: white;
     text-decoration: none;
-    padding:0px;
+    padding: 0px;
+}
+
+#menu {
+    position: fixed;
+    max-width: 18%;
+    left: 0;
+    right: 0;
+    top: -1em;
+    border-top: 4px solid #3196b2;
+    border-bottom: 1px solid #ced0d5;
+    height: 102%;
+    background-color: #191e28;
+    overflow-x: hidden;
+}
+#menu-logo img {
+    vertical-align: middle;
+    border-style: none;
+    width: 95%;
+    margin: 3em auto;
+    display: block;
+    }
+#app_nav {
+    width: 100%;
+}
+.admin-links {
+    margin-bottom: 10%;
+}
+.bottom-nav {
+   bottom: 10px;
+   display: block;
+   position: absolute;
+   width: 100%;
+}
+
+.admin-links .nav-link, .bottom-nav .nav-link, .main-links .nav-link{
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #d6d6d6;
+    display: block;
+    transition:0.3s;
+    letter-spacing: .2em;
+    background: #232a38;
+    margin: 8px;
+    cursor: pointer;
+    }
+.hr {
+    height: 1px;
+    background-color: #364157;
+    border: none;
+    width: 95%;
+    margin: 1em auto;
+    display: block;
+}
+#top-notification svg:hover {
+  box-shadow: 3px 3px rgb(233, 236, 239);
+    border-radius:4px;
+}
+
+#top-notification .badge {
+    position: absolute;
+    right: 75%;
+    border-radius: 50%;
+    background: rgb(49, 150, 178);
+    color: white;
+}
+.nav-tabs .nav-link{
+    border:none;
+    padding: 0;
+    margin: 1rem 1rem 0 1rem;
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:active, .nav-tabs .nav-link.active{
+    outline:none;
+    text-decoration: none;
+    border-bottom:3px solid #3196b2!important;
+}
+.card-header-tabs a{
+    text-decoration: none;
+    color: #191e28;
+}
+.tab-content{
+    margin-top:2em;
+}
+svg.feature {
+    border-radius: 3px;
+    font-size: 28px;
+    float:right;
+    display:inline-block;
+    margin:.5rem;
+}
+svg.feature.active{
+    color:limegreen;
+}
+svg.feature.inactive{
+    color:#ccc;
+}
+.settingsList .list-group-item p {
+    font-size: 14px;
+    font-weight: bold;
+    width: 75%;
+    padding: 0;
+    display:inline-block;
+    margin: 0;
+}
+.settingsList .list-group-item {
+    position: relative;
+    display: block;
+    padding: .25rem 1.25rem;
+    border:none;
+    border-left: 3px solid #3196b2;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin: 1em;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: limegreen;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px limegreen
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.table-bordered .unread-alert td {
+    font-weight: bold!important;
+}
+.table-bordered tr, .table-bordered tr td {
+    cursor:pointer
+}
+#portal_data span {
+    color: #3196b2;
+}
+#portal_data .list-group-item{
+    border: none;
+}
+#portal_users .list-group-item{
+    border: none;
+    padding: 0px 0px 0px 1rem;
+    color: #3196b2;
+}
+#portal_users{
+    margin-bottom: 1em;
+}
+@media only screen and (max-width: 500px) {
+    #menu {
+        display:none;
+    }
+    #top-nav {
+        width: 100%;
+        left: 0;
+    }
+    .main-body {
+        margin: 10% 10%;
+        width: 100%;
+    }
+    .row{
+        display:block;
+    }
+}
+@media only screen and (max-width: 700px) {
+   #menu {
+    display:none;
+  }
+    #top-nav {
+        width: 100%;
+        left: 0;
+    }
+    .main-body {
+        margin: 10% 0;
+        width: 100%;
+    }
+    .container {
+        width: 100%!important;
+        padding-left: 0!important;
+        padding-right:0!important;
+    }
+    .breadcrumb{
+        margin:0;
+    }
+    .card-prefix{
+        margin: 0;
+    }
+    .row{
+        display:block;
+    }
+}
+@media only screen and (min-width: 700px) and (max-width: 1100px) {
+    #menu {
+        max-width: 30%;
+    }
+    .main-body {
+        margin: 10% 35%;
+        width: 60%;
+    }
+    #top-nav {
+        left: 30%;
+        width: 70%;
+    }
+    .row {
+        display:block;
+    }
+}
+@media only screen and (min-width: 1100px) and (max-width: 1400px) {
+    #menu {
+        max-width: 30%;
+    }
+    .main-body {
+        margin: 10% 35%;
+        width: 60%;
+    }
+    #top-nav {
+        left: 30%;
+        width: 70%;
+    }
+    .row{
+        display: block;
+    }
+}
+@media only screen and (min-width: 1400px) and (max-width: 1800px) {
+    #menu {
+        max-width: 18%;
+    }
+    .main-body {
+        margin: 4% 25%;
+        width: 60%;
+    }
+    #top-nav {
+        left: 18%;
+        width: 82%;
+    }
 }

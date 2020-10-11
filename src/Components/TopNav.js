@@ -25,51 +25,66 @@ const TopNav = () => {
            }
     }, );
 
-    const subMenuMapper = (path) => {
-        console.log(path)
-        if( path === '/inventory') {
-            return {
-                parent: {
-                    path: "/inventory",
-                    label: "Inventory"
-                },
-                subMenus: [{
-                    path: "/inventory/settings",
-                    label: "Manage Inventory Alerts"
-                }]
+
+    const menu = [
+        {
+            path: "/",
+            label: "Home"
+        },{
+            path: "/my-account",
+            label: "My Account"
+        },{
+            path: "/my-account/update-password",
+            label: "Update Password"
+        },{
+            path: "/settings",
+            label: "Settings"
+        },{
+            path: "/inventory",
+            label: "Inventory"
+        },{
+            path: "/order",
+            label: "Order"
+        },{
+            path: "/analytics",
+            label: "Analytics"
+        },{
+            path: "/support",
+            label: "Contact Support"
+        },{
+            path: "/notifications",
+            label: "Notifications"
+        }
+    ];
+
+    const menuMapper = (path) => {
+        let displayItem;
+        for(let i = 0; i < menu.length; i++){
+            if(path === menu[i].path){
+                displayItem = menu[i].label
             }
         }
-        if( path === '/my-account') {
-            return {
-                parent: {
-                    path: "/my-account",
-                    label: "My Account"
-                },
-                subMenus: [{
-                    path: "/my-account/update-password",
-                    label: "Update Password"
-                }]
-            }
-        }
+
+        return displayItem ? displayItem : '';
     };
 
-    let menuProps = subMenuMapper(window.location.pathname);
-    if (menuProps) {
-        return (
+    const display = menuMapper(window.location.pathname);
+
+    return (
 
             <Dropdown as={NavItem}>
-                <Dropdown.Toggle as={NavLink}><span><FontAwesomeIcon icon={faBars}/></span> <Link
-                    to={menuProps.parent.path}>{menuProps.parent.label}</Link></Dropdown.Toggle>
+                <Dropdown.Toggle as={NavLink}><span><FontAwesomeIcon icon={faBars}/></span>
+                    { display }</Dropdown.Toggle>
                 <Dropdown.Menu>
-                    {menuProps.subMenus.map((submenu) => {
-                        return <Dropdown.Item><Link to={submenu.path}>{submenu.label}</Link></Dropdown.Item>
+                    {menu.map((menu) => {
+                        if(window.location.pathname !== menu.path) {
+                            return <Dropdown.Item><Link to={menu.path}>{menu.label}</Link></Dropdown.Item>
+                        }
                     })}
                 </Dropdown.Menu>
             </Dropdown>
         )
-    }else{
-       return <div></div>
-    }
+
 };
 
 export default TopNav;

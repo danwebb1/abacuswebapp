@@ -103,31 +103,6 @@ export function clearError(){
     }
 }
 
-export const SET_RETRY = "SET_RETRY";
-/**
- * Redux action to set Retry
- * @param latch
- * @return {{latch: *, type: string}}
- */
-export function setRetry(retry){
-    return {
-        type: SET_RETRY,
-        retry
-    }
-}
-
-/**
- * Determine if Login request should be made to the API
- * @param state
- * @return {boolean}
- */
-function shouldLogin(state){
-    const authState = state.auth;
-    if(authState.isLoggingIn){
-        return false
-    }
-    return !authState.isAuthenticated
-}
 
 export const verifyAuth = () => dispatch => {
   dispatch(verifyRequest());
@@ -142,69 +117,4 @@ export const verifyAuth = () => dispatch => {
       }
     });
 };
-/**
- * Do the actual login and dispatch appropriate actions
- * @return {Function}
- */
-function doLogin(){
-    return function(dispatch, getState){
-        if(shouldLogin(getState())){
-            dispatch(requestLogin());
-            loginUser().then(loggedIn => {
-                dispatch(receiveLogin(loggedIn))
-            }).catch(error => {
-                dispatch(receiveLogin(false, true))
-            })
-        }
-    }
-}
-/**
- * Helper hook to keep a interval and execute a callback
- * @param callback: function to invoke
- * @param delay: delay in ms to wait between callbacks, set to null to turn off
- */
-function useInterval(callback, delay) {
-  const savedCallback = useRef();
 
-  // Remember the latest callback.
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    let id = setInterval(tick, delay);
-    if (delay !== null) {
-      return () => clearInterval(id);  //Clear on component un mounting
-    } else{
-        clearInterval(id); //Clear immediately
-    }
-  }, [delay]);
-}
-/**
- * Hook to Login into the api
- * If failure, will retry every 5 seconds
- * @return {boolean[]}[0] is logged in [1] errors have occurred
- */
-export function useLogin(){
-    const dispatch = useDispatch();
-    const loggedIn = useSelector(state => state.auth.isAuthenticated);
-    const error = useSelector(state => state.auth.loginError);
-    const retryLatch = useSelector(state => state.auth.retry);
-    useEffect(() => {
-        if(!error && !loggedIn){
-            dispatch(doLogin());
-            setRetry(false)
-        }
-    }, [loggedIn])
-    useInterval(() => {
-        if(error && !retryLatch){
-            dispatch(setRetry(true))
-            dispatch(doLogin())
-        }
-    }, loggedIn ? null : 5000)
-    return [loggedIn, error]
-}

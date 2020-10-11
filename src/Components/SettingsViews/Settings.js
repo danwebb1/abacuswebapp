@@ -9,11 +9,16 @@ import {getProfile} from "../../actions";
 import Spinner from "react-bootstrap/Spinner";
 import {Link} from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
+import SettingsFeatures from "./SettingsFeatures";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+import PortalSettings from "./PortalSettings";
 
 
 const Settings = () => {
     const [profile, setProfile] = useState(false);
     const [user, setUser] = useState([]);
+    const [activeKey, setActiveKey] = useState(0);
 
     const dispatch = useDispatch();
 
@@ -29,28 +34,6 @@ const Settings = () => {
            }
     }, );
 
-        /*function handler() {
-            let userObject = {
-
-            };
-            ValidatorSchema.validate(userObject)
-                .then(function() {
-                })
-                .catch(function(err) {
-                    setError(err.errors);
-                    setShow(true);
-            });
-        }
-
-      const onChangeHandler = event => {
-        const { name, value } = event.currentTarget;
-
-        if (name === "first_name") {
-          setFirstName(value);
-            lastName(value);
-        }
-
-      };*/
 
     if(user.hasOwnProperty('first_name')) {
         return (
@@ -60,40 +43,18 @@ const Settings = () => {
                     <Breadcrumb.Item active>Settings</Breadcrumb.Item>
                 </Breadcrumb>
                 <Card>
-                    <Card.Header><FontAwesomeIcon icon={faCog} /> Settings <span style={{float:'right'}}></span></Card.Header>
                     <Card.Body>
-                        <Accordion defaultActiveKey="0">
-                              <Card>
-                                <Card.Header style={{backgroundColor: '#3196b2'}}>
-                                  <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                    <FontAwesomeIcon icon={faFileInvoiceDollar} /> Manage Features
-                                  </Accordion.Toggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="0">
-                                  <Card.Body>[Feature content]</Card.Body>
-                                </Accordion.Collapse>
-                              </Card>
-                            <Card>
-                                <Card.Header style={{backgroundColor: '#3196b2'}}>
-                                  <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                    <FontAwesomeIcon icon={faCloud} /> Practice Management Integrations
-                                  </Accordion.Toggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="1">
-                                  <Card.Body>[API integrations content]</Card.Body>
-                                </Accordion.Collapse>
-                              </Card>
-                            <Card>
-                                <Card.Header style={{backgroundColor: '#3196b2'}}>
-                                  <Accordion.Toggle as={Button} variant="link" eventKey="2">
-                                    <FontAwesomeIcon icon={faUsers} /> User Management
-                                  </Accordion.Toggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="2">
-                                  <Card.Body>[User managenent content]</Card.Body>
-                                </Accordion.Collapse>
-                              </Card>
-                        </Accordion>
+                        <h4><FontAwesomeIcon icon={faCog}/> Manage Your Account Settings</h4>
+                        <Tabs defaultActiveKey="overview">
+                            <Tab eventKey="overview" title="Overview">
+                            <SettingsFeatures/>
+                            </Tab>
+                            <Tab eventKey="integrations" title="Practice Management Integrations">
+                            </Tab>
+                            <Tab eventKey="portal" title="My Practice">
+                                <PortalSettings/>
+                            </Tab>
+                        </Tabs>
                     </Card.Body>
                 </Card>
 
@@ -107,8 +68,8 @@ const Settings = () => {
                     <Breadcrumb.Item active>Settings</Breadcrumb.Item>
                 </Breadcrumb>
                 <Card>
-                    <Card.Header><FontAwesomeIcon icon={faCog}/> Settings</Card.Header>
                     <Card.Body>
+                        <h4>Manage Your Account Settings</h4>
                         <Spinner animation="border" role="status" style={{display:'block', margin: '5em auto'}}>
                                  <span className="sr-only">Loading...</span>
                         </Spinner>

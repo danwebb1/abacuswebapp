@@ -8,7 +8,6 @@ import {
   VERIFY_REQUEST,
   VERIFY_FINISHED,
   CLEAR_ERROR,
-  SET_RETRY
 } from "../actions/";
 
 export default (
@@ -84,11 +83,6 @@ export default (
           error: false
             }
         }
-        case SET_RETRY:
-          return {
-            ...state,
-            retryLatch: action.latch
-          }
     case VERIFY_REQUEST:
       return {
         ...state,

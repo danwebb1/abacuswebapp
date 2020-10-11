@@ -2,23 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94597bb8-8622-4fee-a5ae-16ab34d6223d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/images/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/TopNav.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/TopNotifications.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Notifications.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/PortalInfo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/SettingsViews/PortalSettings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/SettingsViews/SettingsFeatures.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Users.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/Utils/Toggle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Utils/hooks/Notifications.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Utils/hooks/UserAuth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/actions/notifications.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/actions/portal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/notifications.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/portal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/firestore.rules" beforeDir="false" afterPath="$PROJECT_DIR$/firestore.rules" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DashboardAlert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DashboardWidgets/DashboardAlert.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/InventoryAlertSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/InventoryAlertSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/InventoryQuickViewTableView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DashboardWidgets/InventoryQuickViewTableView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/DashboardWidgets/DashboardAlert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DashboardWidgets/DashboardAlert.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Portal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Portal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/PortalInventoryQuickView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DashboardWidgets/PortalInventoryQuickView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/UpdatePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/UpdatePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Support.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Support.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/TopNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TopNav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/TopNotifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TopNotifications.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Styles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setupProxy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/_setupProxy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dummy.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/dummy.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,14 +63,15 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public" />
-      <recent name="$PROJECT_DIR$/public/images" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/Utils" />
       <recent name="$PROJECT_DIR$/src/Components/SettingsViews" />
       <recent name="$PROJECT_DIR$/src/Components/DashboardWidgets" />
       <recent name="$PROJECT_DIR$/src/Components/Inventory" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/public/images" />
     </key>
   </component>
@@ -78,7 +95,7 @@
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="server" />
+        <script value="dev" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -108,7 +125,11 @@
       <workItem from="1601435663256" duration="1477000" />
       <workItem from="1601470323355" duration="6000" />
       <workItem from="1601513605483" duration="9992000" />
-      <workItem from="1601524212986" duration="1115000" />
+      <workItem from="1601524212986" duration="2644000" />
+      <workItem from="1601855380451" duration="1700000" />
+      <workItem from="1601948568880" duration="6847000" />
+      <workItem from="1602244124296" duration="35748000" />
+      <workItem from="1602343116921" duration="24715000" />
     </task>
     <task id="LOCAL-00001" summary="inital commit">
       <created>1599876859676</created>
@@ -131,11 +152,28 @@
       <option name="project" value="LOCAL" />
       <updated>1601435705236</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update favicon, re organize folders, add top nav, add settings page">
+      <created>1601525664256</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1601525664256</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -154,6 +192,18 @@
     <MESSAGE value="inital commit" />
     <MESSAGE value="Build out the front end" />
     <MESSAGE value="fixed inventory, added working build script, added proxy" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed inventory, added working build script, added proxy" />
+    <MESSAGE value="update favicon, re organize folders, add top nav, add settings page" />
+    <option name="LAST_COMMIT_MESSAGE" value="update favicon, re organize folders, add top nav, add settings page" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/Components/Utils/Toggle.js</url>
+          <line>2</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
