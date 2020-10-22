@@ -39,7 +39,8 @@ export default (
         isAuthenticated: true,
         isVerifying: false,
         newLoad: false,
-        user: action.user
+        user: action.user,
+        token: action.user.getIdToken()
       };
     case LOGIN_FAILURE:
       return {

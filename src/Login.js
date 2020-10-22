@@ -57,14 +57,14 @@ const Login = () => {
     return (
                 <Container style={homepage_style.containerStyle}>
                     {showAlert()}
-                    <Row>
+                    <Row id="login-logo">
                         <img src={logo} alt="Logo" style={homepage_style.logoStyle}/>
                     </Row>
                     <Row>
-                        <h2 style={homepage_style.h2Style}>Provider Login</h2>
+                        <h2 className="login-form" style={homepage_style.h2Style}>Provider Login</h2>
                     </Row>
                     <Row>
-                        <Form style={homepage_style.formStyle}>
+                        <Form style={homepage_style.formStyle} className="login-form">
                             <Form.Group controlid="formLoginEmail">
                                 <InputGroup className="mb-3">
                                     <InputGroup.Prepend>
@@ -104,7 +104,7 @@ const Login = () => {
                         </Form>
                     </Row>
                     <Row>
-                        <h5 style={homepage_style.h5Style}><a href="/sign-up" style={homepage_style.signUpLink}>Don't have an account? Sign Up!</a></h5>
+                        <h5 style={homepage_style.h5Style} className="login-form"><a href="/sign-up" style={homepage_style.signUpLink}>Don't have an account? Sign Up!</a></h5>
                     </Row>
                 </Container>
 

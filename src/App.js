@@ -45,7 +45,6 @@ function App(){
         window.location.pathname = '/';
     };
     if(isAuth){
-
         document.body.style.backgroundColor = app_style.bodyStyle.backgroundColor;
         return (
             <div>

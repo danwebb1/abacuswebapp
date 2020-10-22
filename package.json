@@ -6,7 +6,7 @@
   "proxy": "http://localhost:4001",
   "repository": "https://github.com/danwebb1/abacus-dental",
   "scripts": {
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "dotenv GENERATE_SOURCEMAP=false react-scripts build",
     "dev": "run-p --race dev:firebase dev:react",
     "dev:firebase": "firebase serve -p 4001",
     "dev:react": "react-scripts start"
@@ -39,6 +39,8 @@
     "core-js": "3",
     "css-loader": "^3.6.0",
     "csv": "^5.3.2",
+    "dotenv": "^8.2.0",
+    "dotenv-cli": "^4.0.0",
     "dotenv-webpack": "^1.7.0",
     "file-loader": "^6.0.0",
     "firebase": "^7.19.1",
@@ -70,6 +72,7 @@
     "react-top-loading-bar": "^2.0.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "regenerator-runtime": "latest",
     "style-loader": "^1.2.1",
     "webpack": "4.39.1",
     "webpack-bundle-tracker": "^0.4.3",

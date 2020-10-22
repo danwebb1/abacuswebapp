@@ -7,12 +7,14 @@ import {faArrowsAltV, faBell, faListAlt,faCalendarDay} from "@fortawesome/free-s
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {Link} from "react-router-dom";
+import {useInventory} from '../../Utils/hooks/inventory'
 const inventory = require('../../dummy.json');
 
 const Inventory = () => {
 
     const { SearchBar, ClearSearchButton } = Search;
     const { ExportCSVButton } = CSVExport;
+    const _inv = useInventory();
 
     function sortFormatter(column, colIndex) {
         if(column.text === 'Item Quantity') {
@@ -23,7 +25,7 @@ const Inventory = () => {
            return <div> {column.text} <FontAwesomeIcon icon={faArrowsAltV}></FontAwesomeIcon></div>
         }
     }
-
+    //console.log(_inv)
     const columns = [{
         dataField: 'item',
         text: 'Item ID',
