@@ -21,7 +21,7 @@ let ValidatorSchema = yup.object().shape({
     }
   ),
   address1: yup.string().required(),
-  address2: yup.string().required(),
+  address2: yup.string(),
   city: yup.string().required(),
   state: yup.string().required().max(2),
   zip: yup.string().min(5, 'zip code invalid').max(5).matches(/^\d+$/).required(),

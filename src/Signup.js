@@ -102,7 +102,7 @@ const SignUp = () => {
           if(app_state.register.SignUpError){
               setError(app_state.register.error.message)
           }
-      });
+      }, [error]);
       function showAlert(){
           if (error) {
               return (

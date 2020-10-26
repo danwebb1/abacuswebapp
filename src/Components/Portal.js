@@ -21,7 +21,6 @@ const Portal = (props) => {
                setUser(state.user.user_profile)
            }
     }, [profile]);
-
     return (
         <React.Fragment>
             <PortalInventoryQuickView profile={user}/>

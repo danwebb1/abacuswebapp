@@ -2,23 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94597bb8-8622-4fee-a5ae-16ab34d6223d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Utils/hooks/inventory.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/actions/inventory.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/AbacusAPIClient.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/storage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/inventory.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Utils/crudFunction.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firestore.rules" beforeDir="false" afterPath="$PROJECT_DIR$/firestore.rules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/DashboardWidgets/DashboardAlert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DashboardWidgets/DashboardAlert.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Portal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Portal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/TopNotifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TopNotifications.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Signup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/form_validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/form_validator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/hooks/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/hooks/inventory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/inventory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/portal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/portal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/register.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -119,6 +115,10 @@
       <workItem from="1603151591015" duration="3917000" />
       <workItem from="1603238888181" duration="8783000" />
       <workItem from="1603326451649" duration="9166000" />
+      <workItem from="1603371480582" duration="550000" />
+      <workItem from="1603412641302" duration="3537000" />
+      <workItem from="1603458717531" duration="38000" />
+      <workItem from="1603625886409" duration="21248000" />
     </task>
     <task id="LOCAL-00001" summary="inital commit">
       <created>1599876859676</created>

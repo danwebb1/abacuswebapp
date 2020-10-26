@@ -33,8 +33,6 @@ const Settings = () => {
                setUser(app_state.user.user_profile);
            }
     }, );
-
-
     if(user.hasOwnProperty('first_name')) {
         return (
             <div>

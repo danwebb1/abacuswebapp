@@ -24,7 +24,7 @@ const portalError = (error) => {
 };
 
 export const getPortal = (portal) => dispatch => {
-    dispatch(requestPortal())
+    dispatch(requestPortal());
       db.collection('portal')
           .doc(portal)
           .get()

@@ -15,7 +15,7 @@ const DashboardAlert = (props) => {
             if (state.user.user_profile.first_name)
                 setUserName(state.user.user_profile.first_name.charAt(0).toUpperCase() + state.user.user_profile.first_name.slice(1))
             }
-    },);
+    },[userName]);
 
     return (
         <Jumbotron>

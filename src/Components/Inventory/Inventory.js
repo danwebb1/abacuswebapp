@@ -8,15 +8,23 @@ import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {Link} from "react-router-dom";
 import {useInventory} from '../../Utils/hooks/inventory'
-const inventory = require('../../dummy.json');
+import Spinner from "react-bootstrap/Spinner";
 
 const Inventory = () => {
 
     const { SearchBar, ClearSearchButton } = Search;
     const { ExportCSVButton } = CSVExport;
-    const _inv = useInventory();
-
-    function sortFormatter(column, colIndex) {
+    const inventory = useInventory();
+    const [displayInventory, setDisplayInventory] = useState([]);
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    useEffect( () => {
+        if(inventory) {
+            if (inventory.supply) {
+                setDisplayInventory(inventory.supply)
+            }
+        }
+    },[inventory]);
+    function sortFormatter(column, cell) {
         if(column.text === 'Item Quantity') {
             return (
                 <div> {column.text} <FontAwesomeIcon icon={faArrowsAltV}></FontAwesomeIcon></div>
@@ -25,37 +33,30 @@ const Inventory = () => {
            return <div> {column.text} <FontAwesomeIcon icon={faArrowsAltV}></FontAwesomeIcon></div>
         }
     }
-    //console.log(_inv)
+    function dateFormatter(cell) {
+        let date = new Date(cell);
+        let date_time = date.toLocaleTimeString('en-US');
+            return (
+                <div style={{fontSize:'12px', color:"#6c757d"}}> {date.toLocaleDateString(undefined, options)} {date_time} </div>
+            );
+
+    }
+
     const columns = [{
-        dataField: 'item',
+        dataField: 'item_id__item_code',
         text: 'Item ID',
     }, {
-       dataField: 'name',
+       dataField: 'item_id__item_name',
        text: 'Item Name',
        headerFormatter: sortFormatter,
        sort: true
     }, {
-        dataField: 'quantity',
+        dataField: 'amount',
         text: 'Item Quantity'
-        /*
-        headerFormatter: sortFormatter,
-        formatter: (cell) => {
-            if (cell === 0) {
-                return <div>{cell} <span className="dot" style={{backgroundColor: "darkred", float: "right"}}></span>
-                </div>
-
-            } else if (cell < 11 && cell > 0) {
-                return <div>{cell} <span className="dot" style={{backgroundColor: "#ffd500", float: "right"}}></span>
-                </div>
-            } else {
-                return <div>{cell} <span className="dot" style={{backgroundColor: "green", float: "right"}}></span>
-                </div>
-            }
-        },*/
     },{
-       dataField: 'last_used',
+       dataField: 'date',
        text: 'Last Used',
-       headerFormatter: sortFormatter,
+       headerFormatter: sortFormatter, formatter: dateFormatter,
        sort: true
 
     }];
@@ -68,46 +69,66 @@ const Inventory = () => {
       mode: 'checkbox',
       clickToSelect: true,
     };
-
-    return (
-        <div>
-         <Breadcrumb>
-              <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-              <Breadcrumb.Item active>Inventory</Breadcrumb.Item>
-            </Breadcrumb>
-            <Card>
-                <Card.Header><FontAwesomeIcon icon={faListAlt} /> Inventory <span style={{float:'right'}}></span></Card.Header>
-                <Card.Body>
-                    <ToolkitProvider
-                       keyField='item'
-                       data={ inventory.inventory }
-                       columns={ columns }
-                       bordered={ false }
-                       defaultSorted={ defaultSorted}
-                       exportCSV={ { onlyExportSelection: true, exportAll: false } }
-                       search
-                        >
-                         {
-                        props => (
-                          <div>
-                            <h4>Search for items</h4>
-                            <SearchBar { ...props.searchProps } />
-                            <ClearSearchButton { ...props.searchProps } />
-                            <ExportCSVButton style={{float:'right'}} { ...props.csvProps }>Export CSV</ExportCSVButton>
-                            <hr />
-                            <BootstrapTable
-                              { ...props.baseProps }
-                                selectRow={ selectRow }
-                                pagination={ paginationFactory() }
-                            />
-                          </div>
-                        )
-                      }
-                    </ToolkitProvider>
-                </Card.Body>
-            </Card>
-        </div>
-    )
+    if(displayInventory.length > 0){
+        return (
+            <div>
+             <Breadcrumb>
+                  <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                  <Breadcrumb.Item active>Inventory</Breadcrumb.Item>
+                </Breadcrumb>
+                <Card>
+                    <Card.Header><FontAwesomeIcon icon={faListAlt} /> Inventory <span style={{float:'right'}}></span></Card.Header>
+                    <Card.Body>
+                        <ToolkitProvider
+                           keyField='item'
+                           data={ displayInventory }
+                           columns={ columns }
+                           bordered={ false }
+                           defaultSorted={ defaultSorted}
+                           exportCSV={ { onlyExportSelection: true, exportAll: false } }
+                           search
+                            >
+                             {
+                            props => (
+                              <div>
+                                <h4>Search for items</h4>
+                                <SearchBar { ...props.searchProps } />
+                                <ClearSearchButton { ...props.searchProps } />
+                                <ExportCSVButton style={{float:'right'}} { ...props.csvProps }>Export CSV</ExportCSVButton>
+                                <hr />
+                                <BootstrapTable
+                                  { ...props.baseProps }
+                                    selectRow={ selectRow }
+                                    pagination={ paginationFactory() }
+                                />
+                              </div>
+                            )
+                          }
+                        </ToolkitProvider>
+                    </Card.Body>
+                </Card>
+            </div>
+        )
+    }else{
+        return (
+             <div>
+             <Breadcrumb>
+                  <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                  <Breadcrumb.Item active>Inventory</Breadcrumb.Item>
+                </Breadcrumb>
+                <Card>
+                    <Card.Header><FontAwesomeIcon icon={faListAlt} /> Inventory <span style={{float:'right'}}></span></Card.Header>
+                    <Card.Body>
+                        <div className="locked" style={{padding: '5rem'}}>
+                        <Spinner animation="border" role="status">
+                              <span className="sr-only">Loading...</span>
+                        </Spinner>
+                        </div>
+                        </Card.Body>
+                </Card>
+            </div>
+        )
+    }
 };
 
 export default Inventory;
