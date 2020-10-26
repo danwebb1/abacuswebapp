@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94597bb8-8622-4fee-a5ae-16ab34d6223d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Utils/crudFunction.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DashboardWidgets/DashboardAlert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DashboardWidgets/DashboardAlert.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Portal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Portal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/TopNotifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TopNotifications.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Signup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/form_validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/form_validator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/hooks/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/hooks/inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/portal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/portal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/actions/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/register.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -118,7 +107,7 @@
       <workItem from="1603371480582" duration="550000" />
       <workItem from="1603412641302" duration="3537000" />
       <workItem from="1603458717531" duration="38000" />
-      <workItem from="1603625886409" duration="21248000" />
+      <workItem from="1603625886409" duration="22035000" />
     </task>
     <task id="LOCAL-00001" summary="inital commit">
       <created>1599876859676</created>
@@ -155,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602452160977</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added crud functions and sign up automatic functions&#10;added inventory api integration&#10;changed validation schema requirements">
+      <created>1603677794951</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1603677794951</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,7 +186,8 @@
     <MESSAGE value="fixed inventory, added working build script, added proxy" />
     <MESSAGE value="update favicon, re organize folders, add top nav, add settings page" />
     <MESSAGE value="added alerts, notifications, responsiveness, settings pages, new inventory set up, new responsive menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="added alerts, notifications, responsiveness, settings pages, new inventory set up, new responsive menu" />
+    <MESSAGE value="Added crud functions and sign up automatic functions&#10;added inventory api integration&#10;changed validation schema requirements" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added crud functions and sign up automatic functions&#10;added inventory api integration&#10;changed validation schema requirements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
