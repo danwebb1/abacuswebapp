@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
+import {db, Myfirebase} from "./config/firebase";
 import Container from "react-bootstrap/Container";
-import {Link} from "@reach/router";
 import {homepage_style, sign_up_style, reset_pass_style} from "./Styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
@@ -14,15 +14,27 @@ const ResetPassword = () => {
   const [email, setEmail] = useState("");
   const [emailHasBeenSent, setEmailHasBeenSent] = useState(false);
   const [error, setError] = useState(null);
+
   const onChangeHandler = event => {
     const { name, value } = event.currentTarget;
     if (name === "userEmail") {
       setEmail(value);
     }
   };
-  const sendResetEmail = event => {
-    event.preventDefault();
-  };
+  function handler(){
+        if(email){
+            Myfirebase
+                .auth()
+                .sendPasswordResetEmail(email)
+                .then(user => {
+                    setEmailHasBeenSent(true)
+                    setError(false)
+                }).catch(error => {
+                    setError(1)
+                })
+
+        }
+    };
     return (
         <div>
             <a href="/" style={sign_up_style.back_nav}><FontAwesomeIcon icon={faArrowLeft}/> Back</a>
@@ -33,7 +45,7 @@ const ResetPassword = () => {
                     <Row>
                         <h2 style={sign_up_style.h2}>Reset Your Password</h2>
                     </Row>
-                        <Form style={reset_pass_style.formStyle}>
+                        <div style={reset_pass_style.formStyle}>
                             {emailHasBeenSent && (
                             <Row>
                                 If your email matches the one we have on file for your account, we have sent you an
@@ -42,22 +54,22 @@ const ResetPassword = () => {
                             )}
                             {error !== null && (
                                 <Row>
-                                    {error}
+                                    <span style={{color:"red",display:"block", margin: "0 auto"}}>A user with your email does not exist</span>
                                 </Row>
                             )}
                             <Form.Row>
                                 <Col>
                                     <Form.Group controlid="formSignUpEmail">
                                         <Form.Label>Email address</Form.Label>
-                                        <Form.Control type="email" placeholder="" style={homepage_style.inputStyle}/>
+                                        <Form.Control type="email" name="userEmail" placeholder="" onChange={event => onChangeHandler(event)} style={homepage_style.inputStyle}/>
                                     </Form.Group>
                                 </Col>
                             </Form.Row>
 
-                            <Button variant="primary" type="submit" style={homepage_style.button}>
+                            <Button variant="primary" type="submit" style={homepage_style.button} onClick={ () =>  handler()  }>
                                 Reset
                             </Button>
-                        </Form>
+                        </div>
                 </Container>
         </div>
   );

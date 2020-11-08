@@ -6,4 +6,5 @@ import support from "./support";
 import notifications from "./notifications";
 import portal from "./portal";
 import inventory from "./inventory";
-export default combineReducers({ auth, user, register, support, notifications, portal, inventory});
+import settings from "./settings";
+export default combineReducers({ auth, user, register, support, notifications, portal, inventory, settings});
