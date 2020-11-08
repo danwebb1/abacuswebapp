@@ -9,7 +9,7 @@ import {useNotifications} from "../Utils/hooks/Notifications";
 const TopNotifications = () => {
     const [profile, setProfile] = useState(false);
     const [user, setUser] = useState([]);
-    const [firstLetter, setFirstLetter] = useState('');
+    const [alert, setAlert] = useState([]);
     let dispatch = useDispatch();
     let app_state = useSelector(state => state);
     const notifications = useNotifications();
@@ -31,24 +31,24 @@ const TopNotifications = () => {
         }
     }
 
-    function check_for_new(){
-        let count = 0;
-        for(let i = 0; i < notifications.length; i++){
-            if(notifications[i].read === false){
-                count = count + 1;
-            }
+    useEffect( () => {
+        if(notifications.length > 0) {
+                let count = 0;
+                for (let i = 0; i < notifications.length; i++) {
+                    if (notifications[i].read === false) {
+                        count = count + 1;
+                    }
+                }
+                if (count > 0) {
+                    setAlert(<div className="badge">{count}</div>)
+                }
         }
-        if(count > 0){
-            return <div className="badge">{count}</div>
-        }else{
-            return '';
-        }
-    }
+    },[notifications]);
 
 
     return (
-        <div>
-            {check_for_new()}<Link to="/notifications"><FontAwesomeIcon icon={faBell} /></Link>
+        <div onClick={() => setAlert('')}>
+            {alert}<Link to="/notifications"><FontAwesomeIcon icon={faBell} /></Link>
             <span style={{backgroundColor: '#3196b2'}}><Link to="/my-account">{fetchLetter()}</Link></span>
         </div>
     )

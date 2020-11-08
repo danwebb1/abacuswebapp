@@ -439,81 +439,15 @@ input:checked + .slider:before {
     border:none;
     box-shadow: none!important;
 }
-#autoComplete::placeholder{
-    font-size:14px;
+#add-field button:hover{
+    color:#191e28;
 }
-#autoComplete_list {
-    position: relative;
-    z-index: 1000;
-    padding: 0;
-    margin-top: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    transition: all 0.1s ease-in-out;
-    -webkit-transition: -webkit-transform 0.1s ease;
-}
-.autoComplete_result, .no_result {
-  margin: 0.15rem auto;
-  padding: 0.6rem;
-  max-width:100%;
-  border: 0.05rem solid #e3e3e3;
-  list-style: none;
-  text-align: left;
-  font-size: 1rem;
-  color: #191e28;
-  transition: all 0.1s ease-in-out;
-  background-color: #fff;
-}
-.no_result {
-  text-align:center;
-  color:red;
-}
-.autoComplete_result::selection {
-  color: #fff;
-  background-color: #ffffff;
-}
-.autoComplete_result:last-child {
-  border-radius: 0 0 1rem 1rem;
-}
-
-.autoComplete_result:hover {
-  cursor: pointer;
-  background-color: rgba(49, 150, 178, 0.1);
-  border-left: 2px solid #3196b2;
-  border-right: 2px solid #3196b2;
-  border-top: 2px solid transparent;
-  border-bottom: 2px solid transparent;
-}
-
-.autoComplete_result:focus {
-  outline: none;
-  background-color: rgba(255, 248, 248, 0.9);
-  border-left: 2px solid rgba(255, 122, 122, 1);
-  border-right: 2px solid rgba(255, 122, 122, 1);
-  border-top: 2px solid transparent;
-  border-bottom: 2px solid transparent;
-}
-
-.autoComplete_highlighted {
-  opacity: 1;
-  color: #3196b2;
-  font-weight: bold;
-}
-
-.autoComplete_highlighted::selection {
-  color: #fff;
-  background-color: #fff;
-}
-
-.autoComplete_selected {
-  cursor: pointer;
-  background-color: rgba(255, 248, 248, 0.9);
-  border-left: 2px solid rgba(255, 122, 122, 1);
-  border-right: 2px solid rgba(255, 122, 122, 1);
-  border-top: 2px solid transparent;
-  border-bottom: 2px solid transparent;
-}
+.border-success{border-color:#3196b2!important}
+.card.card-callout > .card-body {
+        border-left-width: 5px;
+        border-left-style: solid;
+        border-radius: 3px;
+    }
 @media only screen and (max-width: 500px) {
     #menu {
         display:none;

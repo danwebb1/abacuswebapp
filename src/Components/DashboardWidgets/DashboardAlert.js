@@ -15,20 +15,27 @@ const DashboardAlert = (props) => {
             if (state.user.user_profile.first_name)
                 setUserName(state.user.user_profile.first_name.charAt(0).toUpperCase() + state.user.user_profile.first_name.slice(1))
             }
-    },[userName]);
-
-    return (
-        <Jumbotron>
-          <h1>Welcome, {userName}</h1>
-          <p>
-            Welcome to Abacus Dental Inventory Management System! Feel free to look around. We've populated the application
-              and dashboard with dummy data to help you get a sense of what your experience will be like. When you're ready, go to your <a href="/settings">settings</a> page to get started!
-          </p>
-          <p>
-              <Button variant="primary"><Link to="/settings">Set Up My Abacus</Link></Button>
-          </p>
-        </Jumbotron>
-    )
+    },);
+    if(userName.length > 0) {
+        return (
+            <Jumbotron>
+                <h1>Welcome, {userName}</h1>
+                <p>
+                    Welcome to Abacus Dental Inventory Management System! Feel free to look around. We've populated the
+                    application
+                    and dashboard with some placeholder data to help you get a sense of what your experience will be
+                    like. When you're ready,
+                    click the buttons below to get started with your account set up!
+                </p>
+                <p>
+                    <Button variant="primary"><Link to="/settings">Set Up My Portal</Link></Button>
+                     <Button variant="primary"><Link to="/inventory/setup">Set Up My Inventory</Link></Button>
+                </p>
+            </Jumbotron>
+        )
+    }else{
+        return <></>
+    }
 };
 
 export default DashboardAlert;

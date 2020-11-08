@@ -14,8 +14,12 @@ import Alert from "react-bootstrap/Alert";
 import {getProfile} from "../../actions";
 import {useHistory} from "react-router-dom";
 import {useInventory} from "../../Utils/hooks/inventory";
-import ScriptTag from 'react-script-tag';
-
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import {dental_code} from "./dental_codes";
+import TextField from "@material-ui/core/TextField";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import {submitInitialInventory} from "../../Utils/crudFunction";
 
 const InventorySetUp = () => {
     const [profile, setProfile] = useState(false);
@@ -46,18 +50,18 @@ const InventorySetUp = () => {
         }
          if(app_state.user && app_state.user.user_profile.hasOwnProperty('first_name')) {
              setUser(app_state.user.user_profile);
-
+            console.log(app_state)
+             console.log(app_state.user.user_profile.portal.id)
            }
     }, );
-
     const handleInputChange = (index, event) => {
+        const { name, value } = event.currentTarget;
         const values = [...inputFields];
-        if (event.target.name === "item") {
-          values[index].item = event.target.value;
+        if (name === "item") {
+          values[index].item = value;
         } else {
-          values[index].amount = event.target.value;
+          values[index].amount = value;
         }
-
         setInputFields(values);
     };
 
@@ -65,12 +69,6 @@ const InventorySetUp = () => {
         const values = [...inputFields];
         values.push({ item: '', amount: 0 });
         setInputFields(values);
-        let script = document.createElement( 'script' );
-        script.type = 'text/javascript';
-        script.src = '/js/autocomplete.js';
-        script.id = 'ac_script';
-        document.getElementById("ac_script").remove()
-        document.body.appendChild(script)
     };
 
     const handleRemoveFields = index => {
@@ -79,8 +77,16 @@ const InventorySetUp = () => {
         setInputFields(values);
     };
 
-
+    function item_to_name(item){
+        for(let i = 0; i < dental_code.length; i++){
+            if(item === dental_code[i].item){
+                return dental_code[i].name
+            }
+        }
+    }
     function handleSubmit() {
+        let payload = JSON.stringify(inputFields);
+        return submitInitialInventory(user.portal.id, app_state.auth.token.i, payload)
 
     }
     return (
@@ -90,9 +96,21 @@ const InventorySetUp = () => {
                     <Breadcrumb.Item><Link to="/inventory">Inventory</Link></Breadcrumb.Item>
                     <Breadcrumb.Item active>Inventory Set Up</Breadcrumb.Item>
                 </Breadcrumb>
-                <Card>
+                    <Card>
                     <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory Set Up</Card.Header>
                     <Card.Body>
+                         <Card variant="success" className="mb-3 card-callout">
+                            <Card.Body className="border-success">
+                                <Card.Title>
+                                    Initial Inventory Supply Set Up
+                                </Card.Title>
+                                <p>
+                                    Use the form below to add the amount of each inventory supply item you currently have in stock as of
+                                    right now. Make sure these counts are accurate. Once this set up is complete, Abacus will handle the rest!
+                                </p>
+
+                            </Card.Body>
+                         </Card>
                         <Form style={sign_up_style.formStyle} onSubmit={handleSubmit}>
                             {
                                     show && (
@@ -102,38 +120,47 @@ const InventorySetUp = () => {
                                 }
                                 {inputFields.map((inputField, index) => (
                                     <Fragment key={`${inputField}~${index}`}>
-                                        <Form.Row>
+                                        <Form.Row style={{marginBottom:"1em"}}>
                                         <Col></Col>
                                         <Col>
-                                        <Form.Group controlid="formSignUpFirstName">
-                                            <Form.Label>Item</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                id={`autoComplete`}
-                                                className={`autoComplete${index}`}
-                                                placeholder="Start typing item by ID or name"
-                                                name="item"
-                                                value={inputField.item}
-                                                onChange={event => handleInputChange(index, event)}
-                                                style={homepage_style.inputStyle}
-                                            />
-                                            </Form.Group>
-                                        </Col>
-                                        <Col>
-                                            <Form.Group controlid="formSignUpLastName">
-                                                <Form.Label>Amount</Form.Label>
-                                                <Form.Control
-                                                    type="number"
-                                                    min="0"
-                                                    name="amount"
-                                                    value={inputField.amount}
-                                                    onChange={event => handleInputChange(index, event)}
-                                                    style={homepage_style.inputStyle}
+
+                                            <OverlayTrigger key='right' placement="top" overlay={
+                                                <Tooltip id="overlay-upgrade">
+                                                    Select item based on item code or the name of the item. The form value will be the item code.
+                                                </Tooltip>
+                                            } >
+                                                <Autocomplete
+                                                      id="combo-box-demo"
+                                                      options={dental_code}
+                                                      value={inputField.value}
+                                                      getOptionLabel={(option) => option.item}
+                                                      renderOption={(option) => {return (
+                                                          <React.Fragment>
+                                                              {item_to_name(option.item)}
+                                                          </React.Fragment>
+                                                      )}}
+                                                      renderInput={(params) => <TextField {...params}
+                                                          onBlur={event => handleInputChange(index, event)}
+                                                                                          label="Supply item"
+                                                                                          variant="outlined"
+                                                                                          name="item"
+                                                                                          inputProps={{
+                                                                                            ...params.inputProps}}/>}
                                                 />
-                                            </Form.Group>
+                                        </OverlayTrigger>
                                         </Col>
                                         <Col>
-                                            <div id="add-field" style={{marginTop:"1.5em"}}>
+                                            <TextField
+                                                label="Supply Amount"
+                                                variant="outlined"
+                                                type="number"
+                                                name="amount"
+                                                value={inputField.value}
+                                                onChange={event => handleInputChange(index, event)}
+                                            />
+                                        </Col>
+                                        <Col>
+                                            <div id="add-field">
                                                 <Button className="remove" onClick={() => handleRemoveFields(index)}>
                                                   -
                                                 </Button>
@@ -144,11 +171,11 @@ const InventorySetUp = () => {
                                         </Col>
                                         </Form.Row>
                                     </Fragment>))}
-                            <Form.Row>
+                            <Form.Row style={{marginBottom:"1em"}}>
                                 <Col></Col>
-                                     <div style={{width:"25%"}}>
+                                     <div style={{width:"25%", marginTop:"1em"}}>
                                      <Button variant="primary" style={homepage_style.button}
-                                            onSubmit={handleSubmit}>
+                                            onClick={handleSubmit}>
                                         Save
                                     </Button>
                                      </div>
@@ -157,8 +184,6 @@ const InventorySetUp = () => {
                         </Form>
                     </Card.Body>
                 </Card>
-                <ScriptTag type="text/javascript" src="/inventory/dental_codes.json" />
-                <ScriptTag type="text/javascript" src="/js/autocomplete.js" id="ac_script"/>
             </div>
         );
 

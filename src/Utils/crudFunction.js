@@ -2,9 +2,10 @@ import AbacusAPIClient from "./../api/AbacusAPIClient";
 import MemoryCache from "./../api/storage";
 import React from "react";
 
-export async function registerNewApiPortal(portal_id, token){
-        const cache = new MemoryCache().enclosure();
-        if(token){
+
+function handleCredentials(token){
+    const cache = new MemoryCache().enclosure();
+        if(token) {
             cache.put('auth-token', JSON.stringify(token), 100);
             let authToken;
             if (cache.get('auth-token')) {
@@ -19,11 +20,27 @@ export async function registerNewApiPortal(portal_id, token){
                     'Authorization': authToken
                 }
             };
+            return headers;
+        }
+        return '';
+}
+export async function registerNewApiPortal(portal_id, token){
+            const headers = handleCredentials(token);
             const data = {
                 'portal': portal_id
             };
             AbacusAPIClient.post('/v1/inventory/auth/create_portal', data, headers).then(res =>{
                 AbacusAPIClient.post('/v1/inventory/auth/create_inventory', data, headers);
             });
-        }
+}
+export async function submitInitialInventory(portal_id, token, payload){
+        const headers = handleCredentials(token);
+            const data = {
+                'portal': portal_id,
+                'inventory': payload
+            };
+            console.log(data)
+            AbacusAPIClient.post('/v1/inventory/supply/set_initial_inventory', data, headers).then(res =>{
+                return ''
+            });
 }

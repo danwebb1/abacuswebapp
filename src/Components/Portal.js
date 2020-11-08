@@ -23,6 +23,7 @@ const Portal = (props) => {
     }, [profile]);
     return (
         <React.Fragment>
+            <DashboardAlert/>
             <PortalInventoryQuickView profile={user}/>
         </React.Fragment>
     )

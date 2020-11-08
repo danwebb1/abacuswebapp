@@ -15,7 +15,7 @@ const PortalInventoryQuickView = (props) => {
     let warning = 'warning';
     return (
         <div>
-            <span className="card-prefix"><Link to={`/inventory/settings`}><FontAwesomeIcon icon={faBell}/> Manage Inventory Alerts</Link></span>
+            <span className="card-prefix"></span>
             <Card>
                 <Card.Header><FontAwesomeIcon icon={faListAlt} /> Inventory Quick View<span style={{float:'right'}}>
                     <Link to={`/inventory`}>[<FontAwesomeIcon icon={faEllipsisH} />] See All</Link></span></Card.Header>
