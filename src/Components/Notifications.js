@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch} from 'react-redux';
-import {faArrowsAltV, faEnvelope, faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons'
+import {faEnvelope, faEnvelopeOpen} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {Link} from "react-router-dom";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
@@ -115,7 +114,7 @@ const Notifications = () => {
                     <Card.Header><FontAwesomeIcon icon={faEnvelopeOpen}/> Subject: {subject} <span style={{float:'right'}}>{dateFormatterMessage(date)}</span></Card.Header>
                     <Card.Body>
                         <h5>From: {from}</h5>
-                        {message}
+                        <div dangerouslySetInnerHTML={{__html: message}}/>
                     </Card.Body>
                 </Card>
             </div>

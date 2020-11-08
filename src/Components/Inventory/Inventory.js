@@ -9,6 +9,7 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {Link} from "react-router-dom";
 import {useInventory} from '../../Utils/hooks/inventory'
 import Spinner from "react-bootstrap/Spinner";
+import {useSelector} from "react-redux";
 
 const Inventory = () => {
 
@@ -17,6 +18,15 @@ const Inventory = () => {
     const inventory = useInventory();
     const [displayInventory, setDisplayInventory] = useState([]);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const state = useSelector(state => state);
+    const [setup, setSetUp] = useState(true);
+    useEffect( () => {
+        if(state.settings) {
+            if(!state.settings.settings.inventorySetUp) {
+                setSetUp(false)
+            }
+        }
+    },);
     useEffect( () => {
         if(inventory) {
             if (inventory.supply) {
@@ -69,47 +79,66 @@ const Inventory = () => {
       mode: 'checkbox',
       clickToSelect: true,
     };
-    if(displayInventory.length > 0){
+    if  (displayInventory.length > 0) {
         return (
             <div>
-             <Breadcrumb>
-                  <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                  <Breadcrumb.Item active>Inventory</Breadcrumb.Item>
+                <Breadcrumb>
+                    <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item active>Inventory</Breadcrumb.Item>
                 </Breadcrumb>
                 <Card>
-                    <Card.Header><FontAwesomeIcon icon={faListAlt} /> Inventory <span style={{float:'right'}}></span></Card.Header>
+                    <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory <span
+                        style={{float: 'right'}}></span></Card.Header>
                     <Card.Body>
                         <ToolkitProvider
-                           keyField='item'
-                           data={ displayInventory }
-                           columns={ columns }
-                           bordered={ false }
-                           defaultSorted={ defaultSorted}
-                           exportCSV={ { onlyExportSelection: true, exportAll: false } }
-                           search
-                            >
-                             {
-                            props => (
-                              <div>
-                                <h4>Search for items</h4>
-                                <SearchBar { ...props.searchProps } />
-                                <ClearSearchButton { ...props.searchProps } />
-                                <ExportCSVButton style={{float:'right'}} { ...props.csvProps }>Export CSV</ExportCSVButton>
-                                <hr />
-                                <BootstrapTable
-                                  { ...props.baseProps }
-                                    selectRow={ selectRow }
-                                    pagination={ paginationFactory() }
-                                />
-                              </div>
-                            )
-                          }
+                            keyField='item'
+                            data={displayInventory}
+                            columns={columns}
+                            bordered={false}
+                            defaultSorted={defaultSorted}
+                            exportCSV={{onlyExportSelection: true, exportAll: false}}
+                            search
+                        >
+                            {
+                                props => (
+                                    <div>
+                                        <h4>Search for items</h4>
+                                        <SearchBar {...props.searchProps} />
+                                        <ClearSearchButton {...props.searchProps} />
+                                        <ExportCSVButton style={{float: 'right'}} {...props.csvProps}>Export
+                                            CSV</ExportCSVButton>
+                                        <hr/>
+                                        <BootstrapTable
+                                            {...props.baseProps}
+                                            selectRow={selectRow}
+                                            pagination={paginationFactory()}
+                                        />
+                                    </div>
+                                )
+                            }
                         </ToolkitProvider>
                     </Card.Body>
                 </Card>
             </div>
         )
     }else{
+        if(!setup) {
+            return (
+                <div>
+                    <Breadcrumb>
+                        <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item active>Inventory</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <Card>
+                        <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory <span
+                            style={{float: 'right'}}></span></Card.Header>
+                        <Card.Body style={{padding:"5em"}}>
+                            <h4 style={{textAlign:"center", fontWeight:"bold"}}><Link to={"/inventory/setup"} style={{textDecoration:"none", color:"#3196b2"}}>Begin Inventory Set Up</Link></h4>
+                        </Card.Body>
+                    </Card>
+                </div>
+            )
+        }
         return (
              <div>
              <Breadcrumb>

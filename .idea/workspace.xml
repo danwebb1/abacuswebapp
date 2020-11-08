@@ -2,8 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94597bb8-8622-4fee-a5ae-16ab34d6223d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.env.dev" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/inventory/dental_codes.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/js/autocomplete.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/AddUser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/EditAdmins.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/EditUsers.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/actions/settings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/MyAccount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/MyAccount.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Notifications.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/PortalSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/PortalSettings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/InventorySetUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/TopNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TopNav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/TopNotifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TopNotifications.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ResetPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ResetPassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/crudFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/crudFunction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/hooks/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/hooks/inventory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/actions/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,16 +58,16 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/Utils" />
-      <recent name="$PROJECT_DIR$/src/Components/SettingsViews" />
-      <recent name="$PROJECT_DIR$/src/Components/DashboardWidgets" />
-      <recent name="$PROJECT_DIR$/src/Components/Inventory" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/public/images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/inventory" />
+      <recent name="$PROJECT_DIR$/public/js" />
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/Utils" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -60,6 +86,16 @@
     <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
       <method v="2" />
     </configuration>
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="npm start" type="js.build_tools.npm">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -70,6 +106,11 @@
       <envs />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.build" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -107,7 +148,12 @@
       <workItem from="1603371480582" duration="550000" />
       <workItem from="1603412641302" duration="3537000" />
       <workItem from="1603458717531" duration="38000" />
-      <workItem from="1603625886409" duration="22035000" />
+      <workItem from="1603625886409" duration="22058000" />
+      <workItem from="1603764411771" duration="4254000" />
+      <workItem from="1603844271803" duration="5278000" />
+      <workItem from="1604023747080" duration="4286000" />
+      <workItem from="1604536371807" duration="10565000" />
+      <workItem from="1604629128398" duration="29368000" />
     </task>
     <task id="LOCAL-00001" summary="inital commit">
       <created>1599876859676</created>
@@ -151,7 +197,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603677794951</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add welcome message">
+      <created>1603678524129</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1603678524129</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,7 +240,8 @@
     <MESSAGE value="update favicon, re organize folders, add top nav, add settings page" />
     <MESSAGE value="added alerts, notifications, responsiveness, settings pages, new inventory set up, new responsive menu" />
     <MESSAGE value="Added crud functions and sign up automatic functions&#10;added inventory api integration&#10;changed validation schema requirements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added crud functions and sign up automatic functions&#10;added inventory api integration&#10;changed validation schema requirements" />
+    <MESSAGE value="add welcome message" />
+    <option name="LAST_COMMIT_MESSAGE" value="add welcome message" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

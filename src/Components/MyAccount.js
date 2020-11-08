@@ -14,11 +14,14 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {getProfile} from "../actions";
 import Spinner from "react-bootstrap/Spinner";
 import {Link} from "react-router-dom";
+import {db} from "../config/firebase";
+import Alert from "react-bootstrap/Alert";
 
 
 const MyAccount = () => {
     const [profile, setProfile] = useState(false);
     const [user, setUser] = useState([]);
+    const [alert, setAlert] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [phone, setPhone] = useState("");
@@ -31,6 +34,7 @@ const MyAccount = () => {
     const [state, setState] = useState("");
     const [zip, setZip] = useState("");
     const [website, setWebsite] = useState("");
+    const [stateKey, setStateKey] = useState("")
     const [error, setError] = useState(null);
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
@@ -43,7 +47,19 @@ const MyAccount = () => {
            setProfile(true);
         }
          if(app_state.user && app_state.user.user_profile.hasOwnProperty('first_name')) {
-               setUser(app_state.user.user_profile);
+             setUser(app_state.user.user_profile);
+             if(firstName === "") {
+                 setFirstName(app_state.user.user_profile.first_name);
+                 setLastName(app_state.user.user_profile.last_name);
+                 setPhone(app_state.user.user_profile.phone);
+                 setEmail(app_state.user.user_profile.email);
+                 setAddress1(app_state.user.user_profile.address1);
+                 setAddress2(app_state.user.user_profile.address2);
+                 setCity(app_state.user.user_profile.city);
+                 setState(app_state.user.user_profile.state);
+                 setZip(app_state.user.user_profile.zip);
+                 setWebsite(app_state.user.user_profile.website);
+             }
            }
     }, );
 
@@ -62,20 +78,17 @@ const MyAccount = () => {
                 state: state,
                 zip: zip
             };
-            ValidatorSchema.validate(userObject)
-                .then(function() {
-                })
-                .catch(function(err) {
-                    setError(err.errors);
-                    setShow(true);
-            });
+
+            const ref = db.collection('users').doc(app_state.user.user_profile.uid);
+            ref.update(userObject);
+            setAlert(true)
         }
 
       const onChangeHandler = event => {
         const { name, value } = event.currentTarget;
 
         if (name === "first_name") {
-          setFirstName(value);
+           setFirstName(value);
         }
         else if (name === "last_name") {
           setLastName(value);
@@ -124,6 +137,13 @@ const MyAccount = () => {
                     <Card.Header><FontAwesomeIcon icon={faUserEdit}/> My Account</Card.Header>
                     <Card.Body>
                         <Form style={sign_up_style.formStyle}>
+                            {
+                                    alert && (
+                                        <Alert key={1} variant={'success'}>
+                                            {email} updated!
+                                        </Alert>
+                                    )
+                                }
                             <Form.Row>
                                 <Col>
                                     <Form.Group controlid="formSignUpFirstName">
@@ -132,7 +152,7 @@ const MyAccount = () => {
                                             type="text"
                                             placeholder=""
                                             name="first_name"
-                                            value={user.first_name}
+                                            value={firstName}
                                             onChange={event => onChangeHandler(event)}
                                             style={homepage_style.inputStyle}
                                         />
@@ -145,7 +165,7 @@ const MyAccount = () => {
                                             type="text"
                                             placeholder=""
                                             name="last_name"
-                                            value={user.last_name}
+                                            value={lastName}
                                             onChange={event => onChangeHandler(event)}
                                             style={homepage_style.inputStyle}
                                         />
@@ -160,7 +180,7 @@ const MyAccount = () => {
                                             type="email"
                                             placeholder=""
                                             name="email"
-                                            value={user.email}
+                                            value={email}
                                             onChange={event => onChangeHandler(event)}
                                             style={homepage_style.inputStyle}
                                         />
@@ -173,7 +193,7 @@ const MyAccount = () => {
                                             type="tel"
                                             placeholder=""
                                             name="phone"
-                                            value={user.phone}
+                                            value={phone}
                                             onChange={event => onChangeHandler(event)}
                                             style={homepage_style.inputStyle}
                                         />
@@ -188,7 +208,7 @@ const MyAccount = () => {
                                             type="website"
                                             placeholder="www.yourdentalsite.com"
                                             name="website"
-                                            value={user.website}
+                                            value={website}
                                             onChange={event => onChangeHandler(event)}
                                             style={homepage_style.inputStyle}
                                         />
@@ -207,7 +227,7 @@ const MyAccount = () => {
                                     type="text"
                                     placeholder=""
                                     name="address1"
-                                    value={user.address1}
+                                    value={address1}
                                     onChange={event => onChangeHandler(event)}
                                     style={homepage_style.inputStyle}/>
                             </Form.Group>
@@ -219,7 +239,7 @@ const MyAccount = () => {
                                     type="text"
                                     placeholder=""
                                     name="address2"
-                                    value={user.address2}
+                                    value={address2}
                                     onChange={event => onChangeHandler(event)}
                                     style={homepage_style.inputStyle}
                                 />
@@ -232,7 +252,7 @@ const MyAccount = () => {
                                             type="text"
                                             placeholder=""
                                             name="city"
-                                            value={user.city}
+                                            value={city}
                                             onChange={event => onChangeHandler(event)}
                                             style={homepage_style.inputStyle}
                                         />
@@ -244,8 +264,7 @@ const MyAccount = () => {
                                         <Form.Control
                                             as="select"
                                             name="state"
-                                            value={user.state}
-                                            defaultValue="Choose state..."
+                                            value={state}
                                             style={homepage_style.inputStyle}
                                             onChange={event => onChangeHandler(event)}
                                         >
@@ -264,7 +283,7 @@ const MyAccount = () => {
                                             type="text"
                                             placeholder=""
                                             name="zip"
-                                            value={user.zip}
+                                            value={zip}
                                             onChange={event => onChangeHandler(event)}
                                             style={homepage_style.inputStyle}
                                         />

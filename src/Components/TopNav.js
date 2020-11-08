@@ -43,6 +43,9 @@ const TopNav = () => {
             path: "/inventory",
             label: "Inventory"
         },{
+            path: "/inventory/setup",
+            label: "Inventory Set Up"
+        },{
             path: "/order",
             label: "Order"
         },{

@@ -9,6 +9,7 @@ import {useNotifications} from "../Utils/hooks/Notifications";
 const TopNotifications = () => {
     const [profile, setProfile] = useState(false);
     const [user, setUser] = useState([]);
+    const [firstLetter, setFirstLetter] = useState('');
     let dispatch = useDispatch();
     let app_state = useSelector(state => state);
     const notifications = useNotifications();
