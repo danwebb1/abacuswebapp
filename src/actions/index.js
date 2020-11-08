@@ -5,3 +5,4 @@ export * from "./support";
 export * from "./notifications";
 export * from "./portal";
 export * from "./inventory";
+export * from "./settings";

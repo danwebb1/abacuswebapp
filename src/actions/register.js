@@ -1,4 +1,4 @@
-import {db, Myfirebase} from "../config/firebase";
+import {db, Myfirebase, time} from "../config/firebase";
 import {registerNewApiPortal} from "../Utils/crudFunction";
 
 export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
@@ -70,12 +70,12 @@ async function createNewPortal(userObject, user_auth) {
 
 export const welcome_notification = (user_ref) => {
      let welcome_message = db.collection('user_messages').add({
-        date: db.ServerValue.TIMESTAMP,
+        date: time.serverTimestamp(),
         from: 'Abacus Support Team',
         message: `Welcome to Abacus Dental Inventory Management System! Feel free to look around. 
                   We've populated the application and dashboard with dummy data to help you get a sense of what your experience will be like. 
                   When you're ready, go to your <a href="settings">settings</a> page to get started!`,
-        phone: false,
+        read: false,
         subject: "Welcome!",
         user: user_ref
     });
