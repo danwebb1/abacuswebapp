@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import {requestInventory, receiveInventory, inventoryError} from "../../actions/inventory";
 import MemoryCache from "../../api/storage";
 import AbacusAPIClient from "../../api/AbacusAPIClient";
+import {getSettings} from "../../actions";
 
 export function useInventory() {
     const cache = new MemoryCache().enclosure();
@@ -16,6 +17,7 @@ export function useInventory() {
         if(auth) {
             if(user && user.portal) {
                 if (state.auth.token.i) {
+                    dispatch(getSettings(user.portal.id));
                     async function fetchInventory(){
                         dispatch(requestInventory());
                         let authToken;

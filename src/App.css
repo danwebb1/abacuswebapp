@@ -30,6 +30,7 @@ h1, h2, h3, h4, h5, h6{
     color: white;
     text-decoration: none;
     cursor: pointer;
+    margin: .25rem;
 }
 .warning.list-group-item {
     position: inherit;
@@ -410,13 +411,108 @@ input:checked + .slider:before {
 #portal_data .list-group-item{
     border: none;
 }
-#portal_users .list-group-item{
+.portal_users .list-group-item{
     border: none;
     padding: 0px 0px 0px 1rem;
     color: #3196b2;
 }
-#portal_users{
+.portal_users{
     margin-bottom: 1em;
+}
+.portal_users button {
+    margin:.2rem;
+}
+#add-field button{
+    border-radius:50%;
+    color: #3196b2;
+    font-weight: bold;
+    margin-left: 1px;
+    margin-right: 1rem;
+    text-decoration: none;
+    font-size:35px;
+    padding:0px;
+    background-color:white;
+    border:none!important;
+    box-shadow: none!important;
+}
+#add-field button:visited, #add-field button:active, #add-field button:focus{
+    border:none;
+    box-shadow: none!important;
+}
+#autoComplete::placeholder{
+    font-size:14px;
+}
+#autoComplete_list {
+    position: relative;
+    z-index: 1000;
+    padding: 0;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    transition: all 0.1s ease-in-out;
+    -webkit-transition: -webkit-transform 0.1s ease;
+}
+.autoComplete_result, .no_result {
+  margin: 0.15rem auto;
+  padding: 0.6rem;
+  max-width:100%;
+  border: 0.05rem solid #e3e3e3;
+  list-style: none;
+  text-align: left;
+  font-size: 1rem;
+  color: #191e28;
+  transition: all 0.1s ease-in-out;
+  background-color: #fff;
+}
+.no_result {
+  text-align:center;
+  color:red;
+}
+.autoComplete_result::selection {
+  color: #fff;
+  background-color: #ffffff;
+}
+.autoComplete_result:last-child {
+  border-radius: 0 0 1rem 1rem;
+}
+
+.autoComplete_result:hover {
+  cursor: pointer;
+  background-color: rgba(49, 150, 178, 0.1);
+  border-left: 2px solid #3196b2;
+  border-right: 2px solid #3196b2;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+
+.autoComplete_result:focus {
+  outline: none;
+  background-color: rgba(255, 248, 248, 0.9);
+  border-left: 2px solid rgba(255, 122, 122, 1);
+  border-right: 2px solid rgba(255, 122, 122, 1);
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+
+.autoComplete_highlighted {
+  opacity: 1;
+  color: #3196b2;
+  font-weight: bold;
+}
+
+.autoComplete_highlighted::selection {
+  color: #fff;
+  background-color: #fff;
+}
+
+.autoComplete_selected {
+  cursor: pointer;
+  background-color: rgba(255, 248, 248, 0.9);
+  border-left: 2px solid rgba(255, 122, 122, 1);
+  border-right: 2px solid rgba(255, 122, 122, 1);
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
 }
 @media only screen and (max-width: 500px) {
     #menu {

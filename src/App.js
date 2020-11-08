@@ -25,6 +25,11 @@ import Settings from "./Components/SettingsViews/Settings";
 import TopNav from "./Components/TopNav";
 import TopNotifications from "./Components/TopNotifications";
 import Notifications from "./Components/Notifications";
+import {db} from "./config/firebase";
+import AddUser from "./Components/SettingsViews/Portal/AddUser";
+import EditUsers from "./Components/SettingsViews/Portal/EditUsers";
+import EditAdmins from "./Components/SettingsViews/Portal/EditAdmins";
+import InventorySetUp from "./Components/Inventory/InventorySetUp";
 const logo = '/images/abacus_logo.png';
 
 function App(){
@@ -84,12 +89,16 @@ function App(){
                         <Switch>
                             <Route exact path="/" component={Portal}/>
                             <Route exact path="/inventory" component={Inventory}/>
+                            <Route exact path="/inventory/setup" component={InventorySetUp}/>
                             <Route exact path="/my-account" component={MyAccount} />
                             <Route exact path="/my-account/update-password" component={UpdatePassword}/>
                             <Route exact path="/order" component={Order}/>
                             <Route exact path="/analytics" component={Analytics}/>
                             <Route exact path="/support" component={Support}/>
                             <Route exact path="/settings" component={Settings}/>
+                            <Route exact path="/settings/users/add" component={AddUser}/>
+                            <Route exact path="/settings/users/edit" component={EditUsers}/>
+                            <Route exact path="/settings/admins/edit" component={EditAdmins}/>
                             <Route exact path="/notifications" component={Notifications}/>
                             <Route render={() => <Redirect to="/" />} />
                         </Switch>

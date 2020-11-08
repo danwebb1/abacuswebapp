@@ -22,8 +22,8 @@ export async function registerNewApiPortal(portal_id, token){
             const data = {
                 'portal': portal_id
             };
-            let response = await AbacusAPIClient.post('/v1/inventory/auth/create_portal', data, headers);
-            response = await response;
-            return response;
+            AbacusAPIClient.post('/v1/inventory/auth/create_portal', data, headers).then(res =>{
+                AbacusAPIClient.post('/v1/inventory/auth/create_inventory', data, headers);
+            });
         }
 }
