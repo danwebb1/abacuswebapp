@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
 import List from "react-bootstrap/ListGroup";
 import {fetchUser, usePortal} from "../../Utils/hooks/UserAuth"
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faBuilding, faUserShield, faUsers, faEdit} from '@fortawesome/free-solid-svg-icons'
-import {getMessage} from "../../Utils/hooks/Notifications";
-import Badge from "react-bootstrap/Badge";
+import {faBuilding, faUserShield, faUsers, faEdit, faPlus} from '@fortawesome/free-solid-svg-icons'
 import {Link} from "react-router-dom";
 
 
@@ -57,9 +54,10 @@ const PortalSettings = () => {
                     <Col>
                         <Card>
                             <Card.Header><FontAwesomeIcon icon={faUserShield} /> Admins<span style={{float:'right'}}>
-                    <Link to={`/settings/admins/edit`}><FontAwesomeIcon icon={faEdit} /> Edit</Link></span></Card.Header>
+                                <Link to={`/settings/users/add#kind=admin`}><FontAwesomeIcon icon={faPlus} /> Add</Link>
+                                <Link to={`/settings/admins/edit`}><FontAwesomeIcon icon={faEdit} /> Edit</Link></span></Card.Header>
                             <Card.Body>
-                                <List id="portal_users">
+                                <List className="portal_users">
                                 {
                                     adminList.map(admin => {
                                         return (
@@ -76,9 +74,10 @@ const PortalSettings = () => {
                     <Col>
                          <Card>
                             <Card.Header><FontAwesomeIcon icon={faUsers} /> Users<span style={{float:'right'}}>
-                    <Link to={`/settings/users/edit`}><FontAwesomeIcon icon={faEdit} /> Edit</Link></span></Card.Header>
+                    <Link to={`/settings/users/add#kind=user`}><FontAwesomeIcon icon={faPlus} /> Add</Link>
+                             <Link to={`/settings/users/edit`}><FontAwesomeIcon icon={faEdit} /> Edit</Link></span></Card.Header>
                             <Card.Body>
-                                <List id="portal_users">
+                                <List className="portal_users">
                                         {
                                             userList.map(user => {
                                                 return (

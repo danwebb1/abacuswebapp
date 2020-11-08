@@ -1,29 +1,35 @@
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCog, faFileInvoiceDollar, faCloud, faUsers} from "@fortawesome/free-solid-svg-icons";
-import Button from "react-bootstrap/Button";
+import {faCog} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {getProfile} from "../../actions";
 import Spinner from "react-bootstrap/Spinner";
-import {Link} from "react-router-dom";
-import Accordion from "react-bootstrap/Accordion";
+import {Link, useLocation, useHistory} from "react-router-dom";
 import SettingsFeatures from "./SettingsFeatures";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import PortalSettings from "./PortalSettings";
+import QueryString from 'query-string'
 
 
 const Settings = () => {
     const [profile, setProfile] = useState(false);
     const [user, setUser] = useState([]);
-    const [activeKey, setActiveKey] = useState(0);
-
+    const location = useLocation();
+    const hash = QueryString.parse(location.hash);
+    const tabKey = hash.eventKey;
+    const [_eventKey, setEventKey] = useState('overview');
     const dispatch = useDispatch();
-
+    const history = useHistory();
     let app_state = useSelector(state => state);
 
+    useEffect(() => {
+        if (tabKey) {
+            setEventKey(tabKey)
+        }
+    }, [_eventKey]);
     useEffect(() => {
         if (!profile) {
            dispatch(getProfile(app_state.auth.user.uid));
@@ -43,7 +49,7 @@ const Settings = () => {
                 <Card>
                     <Card.Body>
                         <h4><FontAwesomeIcon icon={faCog}/> Manage Your Account Settings</h4>
-                        <Tabs defaultActiveKey="overview">
+                        <Tabs defaultActiveKey={_eventKey}>
                             <Tab eventKey="overview" title="Overview">
                             <SettingsFeatures/>
                             </Tab>
