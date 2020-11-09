@@ -2,14 +2,14 @@ import React, {Fragment, useEffect, useState} from "react";
 import {sign_up_style} from "../../Styles";
 import {homepage_style} from "../../Styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faListAlt, faUserEdit} from "@fortawesome/free-solid-svg-icons";
+import {faListAlt} from "@fortawesome/free-solid-svg-icons";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {useDispatch, useSelector} from "react-redux";
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-import {Link} from "react-router-dom";
+import {Link, Redirect, Route} from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import {getProfile} from "../../actions";
 import {useHistory} from "react-router-dom";
@@ -86,8 +86,8 @@ const InventorySetUp = () => {
     }
     function handleSubmit() {
         let payload = JSON.stringify(inputFields);
-        return submitInitialInventory(user.portal.id, app_state.auth.token.i, payload)
-
+        const submitted = submitInitialInventory(user.portal.id, app_state.auth.token.i, payload)
+        history.push("/inventory")
     }
     return (
             <div>

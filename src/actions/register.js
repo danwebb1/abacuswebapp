@@ -60,6 +60,7 @@ async function createNewPortal(userObject, user_auth) {
         portal: portal_ref,
         products: [products_ref],
         integration: "",
+        inventorySetUp: false
     });
     settings = await settings.update({portal: portal_ref});
     const _ref = await ref.update({portal: portal_ref});

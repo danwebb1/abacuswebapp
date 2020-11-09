@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 const DashboardAlert = (props) => {
     const [userName, setUserName] = useState([]);
     const dispatch = useDispatch();
+    const [setup, setSetUp] = useState(true);
     let state = useSelector(state => state);
     useEffect( () => {
         if(userName.length < 1){
@@ -16,7 +17,17 @@ const DashboardAlert = (props) => {
                 setUserName(state.user.user_profile.first_name.charAt(0).toUpperCase() + state.user.user_profile.first_name.slice(1))
             }
     },);
-    if(userName.length > 0) {
+
+
+    useEffect( () => {
+        if(state.settings) {
+            if(!state.settings.settings.inventorySetUp) {
+                setSetUp(false)
+            }
+        }
+    },);
+
+    if(userName.length > 0 && !setup) {
         return (
             <Jumbotron>
                 <h1>Welcome, {userName}</h1>

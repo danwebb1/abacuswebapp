@@ -3,7 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowsAltV, faBell, faListAlt,faCalendarDay} from "@fortawesome/free-solid-svg-icons";
+import {faArrowsAltV, faBell, faListAlt, faCloudUploadAlt} from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {Link} from "react-router-dom";
@@ -133,7 +133,17 @@ const Inventory = () => {
                         <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory <span
                             style={{float: 'right'}}></span></Card.Header>
                         <Card.Body style={{padding:"5em"}}>
-                            <h4 style={{textAlign:"center", fontWeight:"bold"}}><Link to={"/inventory/setup"} style={{textDecoration:"none", color:"#3196b2"}}>Begin Inventory Set Up</Link></h4>
+
+                            <Card variant="success" className="mb-3 card-callout">
+                            <Card.Body className="border-success">
+                                <Card.Title>
+                                </Card.Title>
+                                <p>
+                                    <button style={{backgroundColor:"#3196b2", borderColor:"#3196b2", display:"block", margin:"0 auto"}}><h3 style={{textAlign:"center", fontWeight:"bold", margin:"1em"}}> <FontAwesomeIcon icon={faCloudUploadAlt} style={{color:"#fff"}}/> <Link to={"/inventory/setup"} style={{textDecoration:"none", color:"#fff"}}>Begin Inventory Set Up</Link></h3></button>
+                                </p>
+
+                            </Card.Body>
+                         </Card>
                         </Card.Body>
                     </Card>
                 </div>

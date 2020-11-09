@@ -1,7 +1,8 @@
 import AbacusAPIClient from "./../api/AbacusAPIClient";
 import MemoryCache from "./../api/storage";
 import React from "react";
-
+import {db} from "../config/firebase";
+import {useHistory} from "react-router-dom";
 
 function handleCredentials(token){
     const cache = new MemoryCache().enclosure();
@@ -39,8 +40,13 @@ export async function submitInitialInventory(portal_id, token, payload){
                 'portal': portal_id,
                 'inventory': payload
             };
-            console.log(data)
             AbacusAPIClient.post('/v1/inventory/supply/set_initial_inventory', data, headers).then(res =>{
-                return ''
+                if (res.status === 200) {
+                    const portal = db.collection('portal').doc(data.portal);
+                    portal.update({
+                        inventorySetUp: true
+                    })
+                }
             });
+
 }

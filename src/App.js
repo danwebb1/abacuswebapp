@@ -51,6 +51,12 @@ function App(){
     };
     if(isAuth){
         document.body.style.backgroundColor = app_style.bodyStyle.backgroundColor;
+        window.onload = function () {
+            if (! localStorage.justOnce) {
+                localStorage.setItem("justOnce", "true");
+                window.location.reload();
+            }
+        };
         return (
             <div>
                 <Router>

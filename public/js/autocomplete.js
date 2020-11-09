@@ -463,21 +463,17 @@
 
 })));
 
+// The autoComplete.js Engine instance creator
 const autoCompletejs = new autoComplete({
-
 	data: {
 		src: async () => {
-		  document.querySelector("#autoComplete")
-              .addEventListener("autoComplete", function(event) {
-                window.source_class = event.target.className.split(" ")[0]
-            });
 			// Loading placeholder text
 			document
 				.querySelector("#autoComplete")
 				.setAttribute("placeholder", "Loading...");
 			// Fetch External Data Source
 			const source = await fetch(
-				'./dental_codes.json'
+				'./dental_codes.js'
 			);
 			const data = await source.json();
 			// Post loading placeholder text
@@ -490,7 +486,6 @@ const autoCompletejs = new autoComplete({
 		key: ["name", "item"],
 		cache: false
 	},
-
 	sort: (a, b) => {
 		if (a.match < b.match) return -1;
 		if (a.match > b.match) return 1;
@@ -513,7 +508,7 @@ const autoCompletejs = new autoComplete({
 		element: "ul"
 	},
 	resultItem: {
-		content: (data, source, source_class) => {
+		content: (data, source) => {
       source.innerHTML = data.match;
 		},
 		element: "li"
@@ -534,12 +529,22 @@ const autoCompletejs = new autoComplete({
 		time_element.className = "item-time";
 		let time_span = document.createTextNode(time_readable);
 		time_element.appendChild(time_span);
-		const selection_key = feedback.selection.value.name;
-		const selection_items = feedback.selection.value.item;
-		document.getElementsByClassName(window.source_class)[0].value = selection_items;
-		document.getElementsByClassName(window.source_class)[0].setAttribute("id", 'complete')
+
+		let input = document.querySelector('[name="item"]');
+		let setValue = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+        setValue.call(input, feedback.selection.value.item);
+		let e = new Event('input',{ bubbles: true });
+        input.dispatchEvent(e);
         document
-			.querySelector("#autoComplete")
-			.setAttribute("placeholder",'');
+			.querySelector("#autoComplete").setAttribute("id", "complete")
+
+        let input_reset = document.querySelector("#complete");
+        let setValue_reset = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+        setValue_reset.call(input_reset, feedback.selection.value.item);
+        let e_reset = new Event('input',{ bubbles: true });
+        input.dispatchEvent(e_reset);
+		//document
+		//	.querySelector("#autoComplete")
+		//	.setAttribute("placeholder",'');
 	}
 });
