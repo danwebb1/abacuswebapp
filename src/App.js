@@ -30,6 +30,7 @@ import AddUser from "./Components/SettingsViews/Portal/AddUser";
 import EditUsers from "./Components/SettingsViews/Portal/EditUsers";
 import EditAdmins from "./Components/SettingsViews/Portal/EditAdmins";
 import InventorySetUp from "./Components/Inventory/InventorySetUp";
+import EditPortal from "./Components/SettingsViews/Portal/EditPortal";
 const logo = '/images/abacus_logo.png';
 
 function App(){
@@ -105,6 +106,7 @@ function App(){
                             <Route exact path="/settings/users/add" component={AddUser}/>
                             <Route exact path="/settings/users/edit" component={EditUsers}/>
                             <Route exact path="/settings/admins/edit" component={EditAdmins}/>
+                            <Route exact path="/settings/practice/edit" component={EditPortal}/>
                             <Route exact path="/notifications" component={Notifications}/>
                             <Route render={() => <Redirect to="/" />} />
                         </Switch>

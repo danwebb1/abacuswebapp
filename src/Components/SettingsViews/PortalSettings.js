@@ -41,7 +41,9 @@ const PortalSettings = () => {
                 <Row>
                     <Col>
                         <Card>
-                            <Card.Header><FontAwesomeIcon icon={faBuilding} /> Practice Information</Card.Header>
+                            <Card.Header><FontAwesomeIcon icon={faBuilding} /> Practice Information
+                            <span style={{float:'right'}}>
+                                <Link to={`/settings/practice/edit`}><FontAwesomeIcon icon={faEdit} /> Edit</Link></span></Card.Header>
                             <Card.Body>
                                 <List id="portal_data">
                                     <List.Item>Display Name: <span>{portal.display_name}</span></List.Item>
