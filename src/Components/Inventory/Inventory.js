@@ -19,11 +19,11 @@ const Inventory = () => {
     const [displayInventory, setDisplayInventory] = useState([]);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const state = useSelector(state => state);
-    const [setup, setSetUp] = useState(true);
+    const [setup, setSetUp] = useState(false);
     useEffect( () => {
         if(state.settings) {
             if(!state.settings.settings.inventorySetUp) {
-                setSetUp(false)
+                setSetUp(true)
             }
         }
     },);

@@ -20,7 +20,7 @@ const PortalInventoryQuickView = (props) => {
                 <Card.Header><FontAwesomeIcon icon={faListAlt} /> Inventory Quick View<span style={{float:'right'}}>
                     <Link to={`/inventory`}>[<FontAwesomeIcon icon={faEllipsisH} />] See All</Link></span></Card.Header>
                 <Card.Body>
-                    <ListGroup>
+                    <ListGroup style={{padding:"0"}}>
                         <ListGroup.Item className="caution">Inventory Items Running Low</ListGroup.Item>
                             <InventoryQuickViewTableView inventorySet={caution}/>
                         <ListGroup.Item className="warning">Inventory Items Out of Stock</ListGroup.Item>

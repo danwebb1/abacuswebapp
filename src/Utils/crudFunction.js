@@ -50,3 +50,17 @@ export async function submitInitialInventory(portal_id, token, payload){
             });
 
 }
+
+export async function submitUpc(portal_id, token, payload){
+        const headers = handleCredentials(token);
+            const data = {
+                'portal': portal_id,
+                'upc_list': payload
+            };
+            AbacusAPIClient.post('/v1/inventory/supply/submit_upc', data, headers).then(res =>{
+                if (res.status === 200) {
+
+                }
+            });
+
+}

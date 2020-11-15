@@ -6,3 +6,5 @@ export * from "./notifications";
 export * from "./portal";
 export * from "./inventory";
 export * from "./settings";
+export * from "./upc";
+export * from "./upc_list";

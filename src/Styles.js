@@ -205,7 +205,7 @@ const app_styles = {
     },
     inventoryQuickViewTable:{
         backgroundColor: '#fafafa',
-        margin: '1em 0'
+        margin: '.25em 0'
     }
 };
 
@@ -215,7 +215,7 @@ const settings_card_style = {
     card: {
         boxShadow: "rgba(0, 0, 0, 0.08) 0px 15px 25px -1px",
         border: "none",
-        margin: "1em",
+        margin: ".5em",
         minHeight: "440px",
     }
 };

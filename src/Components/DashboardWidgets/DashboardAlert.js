@@ -2,27 +2,29 @@ import React, {useEffect, useState} from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Button from "react-bootstrap/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {getProfile} from "../../actions";
+import {getProfile, getSettings} from "../../actions";
 import {Link} from "react-router-dom";
 
 const DashboardAlert = (props) => {
     const [userName, setUserName] = useState([]);
     const dispatch = useDispatch();
-    const [setup, setSetUp] = useState(true);
+    const [setup, setSetUp] = useState(false);
     let state = useSelector(state => state);
     useEffect( () => {
-        if(userName.length < 1){
+        if(userName.length < 1) {
             dispatch(getProfile(state.auth.user.uid));
-            if (state.user.user_profile.first_name)
+            if (state.user.user_profile.first_name) {
+                dispatch(getSettings(state.user.user_profile.portal.id))
                 setUserName(state.user.user_profile.first_name.charAt(0).toUpperCase() + state.user.user_profile.first_name.slice(1))
             }
+        }
     },);
 
 
     useEffect( () => {
         if(state.settings) {
             if(!state.settings.settings.inventorySetUp) {
-                setSetUp(false)
+                setSetUp(true)
             }
         }
     },);

@@ -25,7 +25,6 @@ import Settings from "./Components/SettingsViews/Settings";
 import TopNav from "./Components/TopNav";
 import TopNotifications from "./Components/TopNotifications";
 import Notifications from "./Components/Notifications";
-import {db} from "./config/firebase";
 import AddUser from "./Components/SettingsViews/Portal/AddUser";
 import EditUsers from "./Components/SettingsViews/Portal/EditUsers";
 import EditAdmins from "./Components/SettingsViews/Portal/EditAdmins";

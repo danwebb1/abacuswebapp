@@ -19,10 +19,6 @@ const InventoryQuickViewTableView = (props) => {
                 column_val = 'Gloves';
             if (column === 'qty')
                 column_val = '10';
-            if (column === 'lastUsed')
-                column_val = '9/27/2020';
-            if (column === 'nextUse')
-                column_val = <FontAwesomeIcon icon={faLock} />
         }
         if (inventorySet === 'warning') {
             if (column === 'id')
@@ -31,10 +27,6 @@ const InventoryQuickViewTableView = (props) => {
                 column_val = 'Angle';
             if (column === 'qty')
                 column_val = '0';
-            if (column === 'lastUsed')
-                column_val = '9/27/2020';
-            if (column === 'nextUse')
-                column_val = <FontAwesomeIcon icon={faLock} />
         }
         return column_val
     };
@@ -46,8 +38,6 @@ const InventoryQuickViewTableView = (props) => {
                 <th>Item ID</th>
                 <th>Item Name</th>
                 <th>Quantity</th>
-                <th>Last Used</th>
-                <th>Next Scheduled Use</th>
               </tr>
             </thead>
             <tbody>
@@ -55,16 +45,6 @@ const InventoryQuickViewTableView = (props) => {
                     <td>{itemGet('id')}</td>
                     <td>{itemGet('name')}</td>
                     <td>{itemGet('qty')}</td>
-                    <td>{itemGet('lastUsed')}</td>
-                    <td className="premium-element">
-                    <OverlayTrigger key='right' placement="right" overlay={
-                        <Tooltip id="overlay-upgrade" {...props}>
-                            Upgrade for appointment schedule integration
-                        </Tooltip>
-                    } >
-                        {itemGet('nextUse')}
-                    </OverlayTrigger>
-                    </td>
                 </tr>
             </tbody>
           </Table>

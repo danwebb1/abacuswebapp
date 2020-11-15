@@ -80,6 +80,7 @@
     "style-loader": "^1.2.1",
     "webpack": "4.39.1",
     "webpack-bundle-tracker": "^0.4.3",
+    "xlsx": "^0.16.8",
     "yup": "^0.29.3"
   },
   "author": "dan.webb8706@gmail.com",

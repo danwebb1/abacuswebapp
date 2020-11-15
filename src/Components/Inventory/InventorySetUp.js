@@ -27,7 +27,7 @@ const InventorySetUp = () => {
     const [error, setError] = useState(null);
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
-    const history = useHistory()
+    const history = useHistory();
     let app_state = useSelector(state => state);
     const inventory = useInventory();
 
@@ -50,8 +50,6 @@ const InventorySetUp = () => {
         }
          if(app_state.user && app_state.user.user_profile.hasOwnProperty('first_name')) {
              setUser(app_state.user.user_profile);
-            console.log(app_state)
-             console.log(app_state.user.user_profile.portal.id)
            }
     }, );
     const handleInputChange = (index, event) => {
