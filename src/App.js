@@ -30,6 +30,7 @@ import EditUsers from "./Components/SettingsViews/Portal/EditUsers";
 import EditAdmins from "./Components/SettingsViews/Portal/EditAdmins";
 import InventorySetUp from "./Components/Inventory/InventorySetUp";
 import EditPortal from "./Components/SettingsViews/Portal/EditPortal";
+import InventorySettings from "./Components/Inventory/InventorySettings";
 const logo = '/images/abacus_logo.png';
 
 function App(){
@@ -96,6 +97,7 @@ function App(){
                             <Route exact path="/" component={Portal}/>
                             <Route exact path="/inventory" component={Inventory}/>
                             <Route exact path="/inventory/setup" component={InventorySetUp}/>
+                            <Route exact path="/inventory/settings" component={InventorySettings}/>
                             <Route exact path="/my-account" component={MyAccount} />
                             <Route exact path="/my-account/update-password" component={UpdatePassword}/>
                             <Route exact path="/order" component={Order}/>

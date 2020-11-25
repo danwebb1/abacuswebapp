@@ -2,33 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94597bb8-8622-4fee-a5ae-16ab34d6223d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.env.dev" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/inventory/dental_codes.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/js/autocomplete.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/AddUser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/EditAdmins.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/EditUsers.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/actions/settings.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/settings.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers/upc_map.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/autocomplete.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/autocomplete.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/DashboardWidgets/AddProcedures.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DashboardWidgets/AddProcedures.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/MyAccount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/MyAccount.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Notifications.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Inventory/InventoryAlertSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/InventorySettings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Inventory/InventorySetUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/InventorySetUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/EditAdmins.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/EditAdmins.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/PortalInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/upc_map.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/PortalSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/PortalSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/InventorySetUp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/TopNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TopNav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/TopNotifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TopNotifications.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ResetPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ResetPassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Signup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Utils/crudFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/crudFunction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/hooks/UserAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/hooks/UserAuth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Utils/hooks/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/hooks/inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/register.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/upc_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/upc_list.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,16 +52,16 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Components/Inventory" />
+      <recent name="$PROJECT_DIR$/public/js" />
+      <recent name="$PROJECT_DIR$/public/inventory" />
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/public/images" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/inventory" />
-      <recent name="$PROJECT_DIR$/public/js" />
-      <recent name="$PROJECT_DIR$/public" />
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/Utils" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -154,6 +148,13 @@
       <workItem from="1604023747080" duration="4286000" />
       <workItem from="1604536371807" duration="10565000" />
       <workItem from="1604629128398" duration="29368000" />
+      <workItem from="1604797762459" duration="27958000" />
+      <workItem from="1604977969779" duration="217000" />
+      <workItem from="1605221039820" duration="88000" />
+      <workItem from="1605229192125" duration="4413000" />
+      <workItem from="1605320297371" duration="21014000" />
+      <workItem from="1605573063680" duration="6339000" />
+      <workItem from="1605971020640" duration="53673000" />
     </task>
     <task id="LOCAL-00001" summary="inital commit">
       <created>1599876859676</created>
@@ -204,7 +205,84 @@
       <option name="project" value="LOCAL" />
       <updated>1603678524129</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="added autocomplete product codes for set up">
+      <created>1604797802011</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1604797802011</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added redux actions for register and settings">
+      <created>1604797853602</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1604797853602</updated>
+    </task>
+    <task id="LOCAL-00010" summary="added inventory setup, inventory from API">
+      <created>1604797884752</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1604797884752</updated>
+    </task>
+    <task id="LOCAL-00011" summary="updated settings">
+      <created>1604797910598</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1604797910598</updated>
+    </task>
+    <task id="LOCAL-00012" summary="added reducers for settings">
+      <created>1604797931730</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1604797931730</updated>
+    </task>
+    <task id="LOCAL-00013" summary="added inventory hook, api set up code, app routes, css">
+      <created>1604797959891</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1604797959891</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Add initial inventory setup page, add crud method for sending it to the api, fix notifications alerts, add portal jumbo">
+      <created>1604858776973</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1604858776973</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add initial inventory setup">
+      <created>1604892395702</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1604892395702</updated>
+    </task>
+    <task id="LOCAL-00016" summary="updated env URLS">
+      <created>1605221053851</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1605221053851</updated>
+    </task>
+    <task id="LOCAL-00017" summary="can edit portal">
+      <created>1605236038582</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1605236038582</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add upc, bulk form, upc list pull,">
+      <created>1605465087626</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1605465087626</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,7 +319,18 @@
     <MESSAGE value="added alerts, notifications, responsiveness, settings pages, new inventory set up, new responsive menu" />
     <MESSAGE value="Added crud functions and sign up automatic functions&#10;added inventory api integration&#10;changed validation schema requirements" />
     <MESSAGE value="add welcome message" />
-    <option name="LAST_COMMIT_MESSAGE" value="add welcome message" />
+    <MESSAGE value="added autocomplete product codes for set up" />
+    <MESSAGE value="added redux actions for register and settings" />
+    <MESSAGE value="added inventory setup, inventory from API" />
+    <MESSAGE value="updated settings" />
+    <MESSAGE value="added reducers for settings" />
+    <MESSAGE value="added inventory hook, api set up code, app routes, css" />
+    <MESSAGE value="Add initial inventory setup page, add crud method for sending it to the api, fix notifications alerts, add portal jumbo" />
+    <MESSAGE value="add initial inventory setup" />
+    <MESSAGE value="updated env URLS" />
+    <MESSAGE value="can edit portal" />
+    <MESSAGE value="add upc, bulk form, upc list pull," />
+    <option name="LAST_COMMIT_MESSAGE" value="add upc, bulk form, upc list pull," />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

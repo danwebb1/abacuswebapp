@@ -24,7 +24,7 @@ const EditAdmins = () => {
   const [firstName, setFirstName] = useState(false);
   const [lastName, setLastName] = useState(false);
   const [email, setEmail] = useState(false);
-  const [alert, setAlert] = useState(false)
+  const [alert, setAlert] = useState(false);
   const user =  useUserProfile();
   const [portal, setPortal] = useState('');
   const state = useSelector(state => state);
@@ -34,7 +34,7 @@ const EditAdmins = () => {
   const location = useLocation();
   const hash = QueryString.parse(location.hash);
   const userId = hash.userId;
-
+  console.log(state)
 
    React.useEffect( () => {
        if (user && user.portal ) {

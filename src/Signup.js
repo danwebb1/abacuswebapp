@@ -130,6 +130,12 @@ const SignUp = () => {
                           <Row>
                               { showAlert() }
                           </Row>
+                            <ul id="progressbar" style={{margin:"3em"}}>
+                                <li>Subscribe to Abacus</li>
+                                <li>Set up inventory</li>
+                                <li>Map UPC to inventory</li>
+                            </ul>
+                            <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet" />
                             <Form.Row>
                                 <Col>
                                     <Form.Group controlid="formSignUpFirstName">

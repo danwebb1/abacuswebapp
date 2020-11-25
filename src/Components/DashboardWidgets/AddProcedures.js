@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import {sign_up_style} from "../../Styles";
 import {homepage_style} from "../../Styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEllipsisH, faFileUpload, faListOl} from "@fortawesome/free-solid-svg-icons";
+import {faListOl} from "@fortawesome/free-solid-svg-icons";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -10,16 +10,13 @@ import {useDispatch, useSelector} from "react-redux";
 import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
 import {getProfile} from "../../actions";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from "@material-ui/core/TextField";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import {submitInitialInventory, submitUpc} from "../../Utils/crudFunction";
+import {submitUpc} from "../../Utils/crudFunction";
 import {useUpc} from "../../Utils/hooks/upc";
-import Dropzone from "react-dropzone";
-import csv from "csv";
-import parseExcel from "../Utils/parseExcel";
 
 const AddProcedures = () => {
     const [profile, setProfile] = useState(false);
@@ -29,14 +26,11 @@ const AddProcedures = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const upc_codes = useUpc();
-    const [method, setMethod] = useState('individual');
     const [displayUpc, setDisplayUpc] = useState([]);
     let app_state = useSelector(state => state);
     const [inputFields, setInputFields] = useState([
        { upc: '', amount: '' }
     ]);
-    const [file, setFile] = useState(false);
-    const [headers, setHeaders] = useState(false);
 
 
     useEffect(() => {
@@ -57,55 +51,6 @@ const AddProcedures = () => {
         }
     },[upc_codes]);
 
-    useEffect(() => {
-        if (file) {
-            let output;
-            const reader = new FileReader();
-            reader.onabort = () => console.log("file reading was aborted");
-            reader.onerror = () => console.log("file reading failed");
-            reader.onload = () => {
-                if (file.type !== 'text/csv'){
-                    output = parseExcel(reader)
-                }else{
-                    output = reader.result
-                }
-                csv.parse(output, (err, data) => {
-                    let i = 0;
-                    let row;
-                    for(let _row = 0; _row < data.length; _row++){
-                        if(data[_row][0] !== ''){
-                            row = _row;
-                            _row = data.length;
-                            break;
-                        }
-                    }
-                    let column_headers = [];
-                     while (i < data[row].length) {
-                        if (data[row][i]) {
-                            let header_data = data[row][i].replace(/[^\x20-\x7E]+/g, "");
-                            header_data = header_data.replace(/\s/g, '');
-                            header_data = header_data.toLowerCase();
-                            column_headers.push(header_data);
-                            i++;
-                        }
-                    }
-                    if (i === data[row].length)
-                        setHeaders((column_headers.length > 0 ? column_headers : []))
-                });
-            };
-            file.forEach(file => reader.readAsBinaryString(file));
-        }
-    }, [file]);
-
-    const handleDrop = acceptedFiles => {
-        if (acceptedFiles[0].type === 'text/csv') {
-            setFile(acceptedFiles)
-        } else if (acceptedFiles[0].type === 'application/vnd.ms-excel' || acceptedFiles[0].type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-            setFile(acceptedFiles)
-        } else {
-            alert('The file type you have selected is not supported. Please provide a CSV or Microsoft Excel file type to continue')
-        }
-    };
     const handleInputChange = (index, event) => {
         const { name, value } = event.currentTarget;
         const values = [...inputFields];
@@ -140,14 +85,10 @@ const AddProcedures = () => {
         const submitted = submitUpc(user.portal.id, app_state.auth.token.i, payload);
         history.push("/inventory")
     }
-    if (method === 'individual') {
-        return (
+    return (
             <div>
                 <Card>
-                    <Card.Header><FontAwesomeIcon icon={faListOl}/> Record Completed Procedures<span
-                        style={{float: 'right'}}>
-                        <Link onClick={() => setMethod('bulk')}>[<FontAwesomeIcon
-                            icon={faEllipsisH}/>] Bulk Upload</Link></span></Card.Header>
+                    <Card.Header><FontAwesomeIcon icon={faListOl}/> Record Completed Procedures</Card.Header>
                     <Card.Body>
                         <Card variant="success" className="mb-3 card-callout">
                             <Card.Body className="border-success">
@@ -233,41 +174,6 @@ const AddProcedures = () => {
                 </Card>
             </div>
         );
-    }if(method === 'bulk'){
-        return(
-             <div>
-                <Card>
-                    <Card.Header><FontAwesomeIcon icon={faListOl}/> Record Completed Procedures<span
-                        style={{float: 'right'}}>
-                        <Link onClick={() => setMethod('individual')}>[<FontAwesomeIcon
-                            icon={faEllipsisH}/>] Individual Add</Link></span></Card.Header>
-                    <Card.Body>
-                        <div>
-                            <Dropzone accepts=".csv, application/vnd.ms-excel, text/csv" onDrop={handleDrop}>
-                                {({getRootProps, getInputProps}) => (
-                                    <div {...getRootProps({className: "dropzone"})}>
-                                        <input {...getInputProps()} />
-                                        <Card className="upload-drop-zone p-3" id="drop-zone" style={{border:"none"}}>
-                                            <Card.Body className="border-info rounded p-5" style={{border: '2px dashed'}}>
-                                                <div className="text-center">
-                                                    <p>
-                                                        <FontAwesomeIcon icon={faFileUpload} style={{fontSize:"88px", color:"#a9a9a9"}}/>
-                                                    </p>
-                                                    <p className="lead">
-                                                        Drag and drop your Excel or CSV export file here or click to <a href="#">Browse</a>
-                                                    </p>
-                                                </div>
-                                            </Card.Body>
-                                        </Card>
-                                    </div>
-                                )}
-                            </Dropzone>
-                        </div>
-                    </Card.Body>
-                </Card>
-            </div>
-        );
-    }
 };
 
 export default AddProcedures;

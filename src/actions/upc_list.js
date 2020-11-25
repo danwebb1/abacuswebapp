@@ -1,6 +1,6 @@
-export const REQUEST_UPC_LIST = "REQUEST_UPC";
-export const RECEIVED_UPC_LIST = "RECEIVE_UPC";
-export const UPC_LIST_FAILURE = "UPC_FAILURE";
+export const REQUEST_UPC_LIST = "REQUEST_UPC_LIST";
+export const RECEIVED_UPC_LIST = "RECEIVE_UPC_LIST";
+export const UPC_LIST_FAILURE = "UPC_LIST_FAILURE";
 
 export const requestUpcList = () => {
   return {

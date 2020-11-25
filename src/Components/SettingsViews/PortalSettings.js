@@ -11,31 +11,31 @@ import {Link} from "react-router-dom";
 
 const PortalSettings = () => {
     const portal = usePortal();
+    let users = JSON.parse(localStorage.getItem('portalUsers')) ? JSON.parse(localStorage.getItem('portalUsers')) : [];
+    let admins = JSON.parse(localStorage.getItem('portalAdmins')) ? JSON.parse(localStorage.getItem('portalAdmins')) : [];
     const [adminList, setAdminList] = useState([]);
     const [userList, setUserList] = useState([]);
-
     useEffect( () => {
-        if(portal.admins){
+        if(admins.admins.length > 0){
             async function fetchAdmins(){
-                for(let i = 0; i < portal.admins.length; i++){
-                    let _admins = await fetchUser(portal.admins[i].id);
+                for(let i = 0; i < admins.admins.length; i++){
+                    let _admins = await fetchUser(admins.admins[i]);
                     setAdminList(adminList => [...adminList, _admins.email])
                 }
             } fetchAdmins()
         }
-    },[portal]);
+    },[]);
 
     useEffect( () => {
-        if(portal.users){
+        if(users.users.length > 0 ){
             async function fetchUsers(){
-                for(let i = 0; i < portal.users.length; i++){
-                    let _users= await fetchUser(portal.users[i].id);
+                for(let i = 0; i < users.users.length; i++){
+                    let _users= await fetchUser(users.users[i]);
                     setUserList(userList => [...userList, _users.email])
                 }
             } fetchUsers()
         }
-    },[portal]);
-
+    },[]);
     return (
             <>
                 <Row>

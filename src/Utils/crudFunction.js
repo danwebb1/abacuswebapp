@@ -2,7 +2,6 @@ import AbacusAPIClient from "./../api/AbacusAPIClient";
 import MemoryCache from "./../api/storage";
 import React from "react";
 import {db} from "../config/firebase";
-import {useHistory} from "react-router-dom";
 
 function handleCredentials(token){
     const cache = new MemoryCache().enclosure();
@@ -45,7 +44,10 @@ export async function submitInitialInventory(portal_id, token, payload){
                     const portal = db.collection('portal').doc(data.portal);
                     portal.update({
                         inventorySetUp: true
-                    })
+                    });
+                    if(localStorage.getItem('abacusInventory')) {
+                        localStorage.removeItem('abacusInventory')
+                    }
                 }
             });
 
@@ -59,7 +61,27 @@ export async function submitUpc(portal_id, token, payload){
             };
             AbacusAPIClient.post('/v1/inventory/supply/submit_upc', data, headers).then(res =>{
                 if (res.status === 200) {
+                    if(localStorage.getItem('abacusInventory')) {
+                        localStorage.removeItem('abacusInventory')
+                    }
+                }
+            });
 
+}
+
+export async function submitUpcMap(portal_id, token, payload){
+
+        const headers = handleCredentials(token);
+            const data = {
+                'portal': portal_id,
+                'map_MAP': payload
+            };
+            AbacusAPIClient.post('/v1/inventory/supply/submit_upc_list', data, headers).then(res =>{
+                if (res.status === 200) {
+                    const portal = db.collection('portal').doc(data.portal);
+                    portal.update({
+                        upcMapComplete: true
+                    });
                 }
             });
 

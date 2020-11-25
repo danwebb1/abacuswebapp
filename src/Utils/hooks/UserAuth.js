@@ -33,6 +33,23 @@ export function usePortal(){
             dispatch(getPortal(profile.portal.id));
             if (state.portal.receivedPortal && portal.length < 1) {
                 setPortal(state.portal.portal);
+                let admins = [];
+                let users = [];
+                for(let i = 0; i < state.portal.portal.admins.length; i++){
+                    admins.push(state.portal.portal.admins[i].id)
+                }
+                for(let i = 0; i < state.portal.portal.users.length; i++){
+                    users.push(state.portal.portal.users[i].id)
+                }
+                if (admins.length > 0){
+                    localStorage.setItem('portalAdmins', JSON.stringify({admins:admins}))
+                }
+                if (users.length > 0){
+                    localStorage.setItem('portalUsers', JSON.stringify({users:users}))
+                }
+                if(state.portal.portal.display_name){
+                    localStorage.setItem('portalDisplay', state.portal.portal.display_name)
+                }
             }
         }
     }, [state.portal.receivedPortal]);

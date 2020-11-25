@@ -8,3 +8,4 @@ export * from "./inventory";
 export * from "./settings";
 export * from "./upc";
 export * from "./upc_list";
+export * from "./upc_map";

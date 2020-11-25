@@ -2,46 +2,104 @@ import React, {Fragment, useEffect, useState} from "react";
 import {sign_up_style} from "../../Styles";
 import {homepage_style} from "../../Styles";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faListAlt} from "@fortawesome/free-solid-svg-icons";
+import {faEllipsisH, faListAlt, faQuestionCircle, faTooth} from "@fortawesome/free-solid-svg-icons";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {useDispatch, useSelector} from "react-redux";
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-import {Link, Redirect, Route} from "react-router-dom";
+import {Link} from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import {getProfile} from "../../actions";
 import {useHistory} from "react-router-dom";
-import {useInventory} from "../../Utils/hooks/inventory";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {dental_code} from "./dental_codes";
 import TextField from "@material-ui/core/TextField";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import {submitInitialInventory} from "../../Utils/crudFunction";
+import {submitInitialInventory, submitUpcMap} from "../../Utils/crudFunction";
+import {useUpc} from "../../Utils/hooks/upc";
+import Row from "react-bootstrap/Row";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import {faMapMarkedAlt} from "@fortawesome/free-solid-svg-icons/faMapMarkedAlt";
+import List from "@material-ui/core/List";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItem from "@material-ui/core/ListItem";
+import Avatar from "@material-ui/core/Avatar";
+import {faHeadSideMask} from "@fortawesome/free-solid-svg-icons/faHeadSideMask";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from '@material-ui/icons/Delete';
+import {faMitten} from "@fortawesome/free-solid-svg-icons/faMitten";
+import {faCloud} from "@fortawesome/free-solid-svg-icons/faCloud";
+import {faShoppingBag} from "@fortawesome/free-solid-svg-icons/faShoppingBag";
+import {faScroll} from "@fortawesome/free-solid-svg-icons/faScroll";
+import {faPumpMedical} from "@fortawesome/free-solid-svg-icons/faPumpMedical";
+import {useInventory} from "../../Utils/hooks/inventory";
+import Chip from "@material-ui/core/Chip";
 
 const InventorySetUp = () => {
     const [profile, setProfile] = useState(false);
     const [user, setUser] = useState([]);
     const [error, setError] = useState(null);
     const [show, setShow] = useState(false);
+    const [method, setMethod] = useState('inventory');
     const dispatch = useDispatch();
     const history = useHistory();
-    let app_state = useSelector(state => state);
     const inventory = useInventory();
+    const upc_codes = useUpc();
+    const [activeCode, setActiveCode] = useState('');
+    const [displayUpc, setDisplayUpc] = useState([]);
+    let app_state = useSelector(state => state);
+    const [open, setOpen] = React.useState(false);
+    const [upcValue, setUpcValue] = useState([]);
 
-    const [inputFields, setInputFields] = useState([
-       { item: '', amount: 0 }
-    ]);
+    const [inputFields, setInputFields] = useState(() => {
+        if (method === 'inventory') {
+            return [{item: '', amount: 0}]
+        }
+        if (method === 'upc') {
+            return [{upc: ''}]
+        }
+    });
+    const [inputFields2, setInputFields2] = useState([{upc: '', item: '', amount:0}]);
+    const [mappedItems, setMappedItems] = useState([]);
+    const [currentUpc, setCurrentUpc] = useState('')
+
+    useEffect( () => {
+        if(method === 'inventory'){
+            if(!inputFields[0].item){
+                setInputFields([{item: '', amount: 0}])
+            }
+        }else{
+            if(!inputFields2[0].upc){
+                setInputFields2([{upc: '', item: 0, amount: 0}])
+            }
+        }
+    },[method]);
 
     useEffect( () => {
         if(app_state.settings) {
             if(app_state.settings.settings.inventorySetUp) {
-                history.push("/inventory")
+                setMethod('upc')
+            }
+            if(app_state.settings.settings.upcMapComplete) {
+                //history.push("/inventory")
             }
         }
     },);
+    useEffect( () => {
+        if(upc_codes) {
+            if (upc_codes.codes) {
+                setDisplayUpc(upc_codes.codes)
+            }
+        }
+    },[upc_codes]);
 
     useEffect(() => {
         if (!profile) {
@@ -56,23 +114,51 @@ const InventorySetUp = () => {
         const { name, value } = event.currentTarget;
         const values = [...inputFields];
         if (name === "item") {
-          values[index].item = value;
+            values[index].item = value;
         } else {
-          values[index].amount = value;
+            values[index].amount = value;
         }
         setInputFields(values);
     };
 
+    const handleInputChange2 = (index, event) => {
+        const { name, value } = event.currentTarget;
+        const values = [...inputFields2];
+        values[index].upc = currentUpc;
+        if(name === "item2") {
+            values[index].item = value;
+        } else {
+            values[index].amount = value;
+        }
+        setInputFields2(values);
+    };
+
     const handleAddFields = () => {
         const values = [...inputFields];
-        values.push({ item: '', amount: 0 });
+        if(method === 'inventory'){
+            values.push({item: '', amount: 0});
+        } else{
+            values.push({upc: ''});
+        }
+
         setInputFields(values);
+    };
+
+    const handleAddFields2 = () => {
+        const values = [...inputFields2];
+        values.push({upc: '', item: '', amount: 0});
+        setInputFields2(values);
     };
 
     const handleRemoveFields = index => {
         const values = [...inputFields];
         values.splice(index, 1);
         setInputFields(values);
+    };
+    const handleRemoveFields2 = index => {
+        const values = [...inputFields2];
+        values.splice(index, 1);
+        setInputFields2(values);
     };
 
     function item_to_name(item){
@@ -82,70 +168,179 @@ const InventorySetUp = () => {
             }
         }
     }
-    function handleSubmit() {
-        let payload = JSON.stringify(inputFields);
-        const submitted = submitInitialInventory(user.portal.id, app_state.auth.token.i, payload)
-        history.push("/inventory")
+
+    function item_to_desc(upc){
+        for(let i = 0; i < displayUpc.length; i++){
+            if(upc === displayUpc[i].upc){
+                return upc + " - " + displayUpc[i].desc
+            }
+        }
     }
-    return (
+    function triggerDialog(index, event, newValue) {
+        const {name, value} = event.currentTarget;
+        const values = [...inputFields];
+        setUpcValue(upcValue => [...upcValue, newValue]);
+        setActiveCode(newValue);
+        handleClickOpen();
+        setCurrentUpc(value)
+        setInputFields(values)
+    }
+
+    const handleClickOpen = () => {
+            setOpen(true);
+        };
+    const handleClose = (index, action) => {
+        if (action === 'save'){
+            setMappedItems([...mappedItems, inputFields2]);
+            setInputFields2([{upc: '', item: '', amount:0}]);
+        }
+        setOpen(false);
+        };
+
+    function getMapped(index) {
+        let items = mappedItems[index] ? mappedItems[index] : [];
+        let list = items.map((item, _index) => {
+             let name = item_to_name(item.item);
+            return (
+                <Chip
+                    id={index + '-' + _index}
+                    avatar={<Avatar style={{backgroundColor:"#fff", color:"#191e28",
+                            fontWeight:"900"}}>{item.amount}</Avatar>}
+                    label={name}
+                    color="primary"
+                    onDelete={() => removeItem(index, _index) }
+                    style={{color:"white", background:"#191e28", marginTop:".5em", marginLeft: ".25em"}}
+                />
+              )
+        });
+        return list
+    }
+
+     const MyTextField = ({ params, label }) => (
+        <TextField {...params} label={label} variant="outlined" />
+         );
+
+    function removeItem(index, _index) {
+        delete mappedItems[index][_index];
+        document.getElementById(index + '-' + _index).remove();
+    }
+
+    function handleSubmit() {
+        if(method === 'inventory') {
+            let payload = JSON.stringify(inputFields);
+            submitInitialInventory(user.portal.id, app_state.auth.token.i, payload)
+                .then(res => {
+                    if (res.status === 200) {
+                        setMethod('upc')
+                    }
+                })
+                .catch(error => {
+                    setError(error)
+                })
+        }
+        if(method === 'upc') {
+            let payload = JSON.stringify(mappedItems);
+            submitUpcMap(user.portal.id, app_state.auth.token.i, payload)
+                .then(res => {
+                    if (res.status === 200) {
+                        history.push("/settings")
+                    }
+                })
+                .catch(error => {
+                    setError(error)
+                })
+             setShow(true)
+        }
+
+    }
+    if (method === 'inventory') {
+        return (
             <div>
                 <Breadcrumb>
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
                     <Breadcrumb.Item><Link to="/inventory">Inventory</Link></Breadcrumb.Item>
                     <Breadcrumb.Item active>Inventory Set Up</Breadcrumb.Item>
                 </Breadcrumb>
-                    <Card>
-                    <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory Set Up</Card.Header>
+                <Card>
+                    <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory Set Up<span
+                        style={{float: 'right'}}>
+                        <Link onClick={() => setMethod('upc')}>[<FontAwesomeIcon
+                            icon={faEllipsisH}/>] Add Inventory Items</Link>
+                        </span></Card.Header>
                     <Card.Body>
-                         <Card variant="success" className="mb-3 card-callout">
+                        <Card variant="success" className="mb-3 card-callout">
                             <Card.Body className="border-success">
                                 <Card.Title>
-                                    Initial Inventory Supply Set Up
+                                    <h1>Record your current inventory</h1>
                                 </Card.Title>
                                 <p>
-                                    Use the form below to add the amount of each inventory supply item you currently have in stock as of
-                                    right now. Make sure these counts are accurate. Once this set up is complete, Abacus will handle the rest!
+                                    Use the form below to add the amount of each inventory supply item you currently
+                                    have in stock as of
+                                    right now. Make sure these counts are accurate. Once this set up is complete, Abacus
+                                    will handle the rest!
                                 </p>
 
                             </Card.Body>
-                         </Card>
+                        </Card>
                         <Form style={sign_up_style.formStyle} onSubmit={handleSubmit}>
                             {
-                                    show && (
-                                        <Alert key={1} variant={'success'}>
-                                        </Alert>
-                                    )
-                                }
-                                {inputFields.map((inputField, index) => (
-                                    <Fragment key={`${inputField}~${index}`}>
-                                        <Form.Row style={{marginBottom:"1em"}}>
+                                show && (
+                                    <Alert key={1} variant={'success'}>
+                                    </Alert>
+                                )
+                            }
+                            <Row style={{marginBottom: "1em"}}>
+                                        <Col></Col>
+                                        <Col><h6><strong>Inventory Item</strong> <OverlayTrigger
+                                                                                  placement="right"
+                                                                                  overlay={
+                                                                                      <Tooltip id={`tooltip-right`}>
+                                                                                            Select item based on item code or the name of the item. The form
+                                                                                            value will be the item code.
+                                                                                        </Tooltip>
+                                                                                  }>
+                                            <FontAwesomeIcon icon={faQuestionCircle} style={{color: "#3196b2", fontSize:".75em", verticalAlign: "top"}}/>
+                                                                                </OverlayTrigger>
+                                        </h6></Col>
+                                        <Col><h6><strong># Currently In-Stock</strong> <OverlayTrigger
+                                                                                  placement="right"
+                                                                                  overlay={
+                                                                                      <Tooltip id={`tooltip-right`}>
+                                                                                            Select the amount based on the unit of measurement (e.g. 1 item,
+                                                                                            1 box, 1 paid etc)
+                                                                                        </Tooltip>
+                                                                                  }>
+                                            <FontAwesomeIcon icon={faQuestionCircle} style={{color: "#3196b2", fontSize:".75em", verticalAlign: "top"}}/>
+                                            </OverlayTrigger>
+                                            </h6></Col>
+                                        <Col></Col>
+                            </Row>
+                            {inputFields.map((inputField, index) => (
+                                <Fragment key={`${inputField}~${index}`}>
+                                    <Form.Row style={{marginBottom: "1em"}}>
                                         <Col></Col>
                                         <Col>
-
-                                            <OverlayTrigger key='right' placement="top" overlay={
-                                                <Tooltip id="overlay-upgrade">
-                                                    Select item based on item code or the name of the item. The form value will be the item code.
-                                                </Tooltip>
-                                            } >
-                                                <Autocomplete
-                                                      id="combo-box-demo"
-                                                      options={dental_code}
-                                                      value={inputField.value}
-                                                      getOptionLabel={(option) => option.item}
-                                                      renderOption={(option) => {return (
-                                                          <React.Fragment>
-                                                              {item_to_name(option.item)}
-                                                          </React.Fragment>
-                                                      )}}
-                                                      renderInput={(params) => <TextField {...params}
-                                                          onBlur={event => handleInputChange(index, event)}
-                                                                                          label="Supply item"
-                                                                                          variant="outlined"
-                                                                                          name="item"
-                                                                                          inputProps={{
-                                                                                            ...params.inputProps}}/>}
+                                            <Autocomplete
+                                                id="combo-box-demo"
+                                                options={dental_code}
+                                                value={inputField.value}
+                                                getOptionLabel={(option) => option.item}
+                                                renderOption={(option) => {
+                                                    return (
+                                                        <React.Fragment>
+                                                            {item_to_name(option.item)}
+                                                        </React.Fragment>
+                                                    )
+                                                }}
+                                                renderInput={(params) => <TextField {...params}
+                                                                                        onBlur={event => handleInputChange(index, event)}
+                                                                                        label="Supply item"
+                                                                                        variant="outlined"
+                                                                                        name="item"
+                                                                                        inputProps={{
+                                                                                            ...params.inputProps
+                                                                                        }}/>}
                                                 />
-                                        </OverlayTrigger>
                                         </Col>
                                         <Col>
                                             <TextField
@@ -154,37 +349,270 @@ const InventorySetUp = () => {
                                                 type="number"
                                                 name="amount"
                                                 value={inputField.value}
+                                                defaultValue="0"
                                                 onChange={event => handleInputChange(index, event)}
                                             />
                                         </Col>
                                         <Col>
                                             <div id="add-field">
                                                 <Button className="remove" onClick={() => handleRemoveFields(index)}>
-                                                  -
+                                                    -
                                                 </Button>
                                                 <Button className="add" onClick={() => handleAddFields()}>
-                                                  +
+                                                    +
                                                 </Button>
                                             </div>
                                         </Col>
-                                        </Form.Row>
-                                    </Fragment>))}
-                            <Form.Row style={{marginBottom:"1em"}}>
+                                    </Form.Row>
+                                </Fragment>))}
+                            <Form.Row style={{marginBottom: "1em"}}>
                                 <Col></Col>
-                                     <div style={{width:"25%", marginTop:"1em"}}>
-                                     <Button variant="primary" style={homepage_style.button}
+                                <div style={{width: "25%", marginTop: "1em"}}>
+                                    <Button variant="primary" style={homepage_style.button}
                                             onClick={handleSubmit}>
                                         Save
                                     </Button>
-                                     </div>
+                                </div>
                                 <Col></Col>
                             </Form.Row>
                         </Form>
+                        <ul id="progressbar">
+                            <li className="active">Subscribe to Abacus</li>
+                            <li>Set up inventory</li>
+                            <li>Map UPC to inventory</li>
+                        </ul>
                     </Card.Body>
                 </Card>
+                <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet" />
             </div>
         );
+    }
+    if (method === 'upc') {
+        return (
+            <div>
+                <Breadcrumb>
+                    <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item><Link to="/inventory">Inventory</Link></Breadcrumb.Item>
+                    <Breadcrumb.Item active>Inventory Set Up</Breadcrumb.Item>
+                </Breadcrumb>
+                <Card>
+                    <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory Set Up<span
+                        style={{float: 'right'}}>
+                        <Link onClick={() => setMethod('inventory')}>[<FontAwesomeIcon
+                            icon={faEllipsisH}/>] Add Inventory Items</Link></span></Card.Header>
+                    <Card.Body>
+                        <Card variant="success" className="mb-3 card-callout">
+                            <Card.Body className="border-success">
+                                <Card.Title>
+                                    <h1>Map Inventory Items to UPC codes</h1>
+                                </Card.Title>
+                                <p>
+                                    Use the form below to map the inventory items your office needs and uses for
+                                    each office procedure represented as a UPC code. Once youre set up, each recorded procedure
+                                    will automatically deduct the appropriate amount of inventory from your inventory table
+                                </p>
 
+                            </Card.Body>
+                        </Card>
+                        <Form style={sign_up_style.formStyle} onSubmit={handleSubmit}>
+                            {
+                                show && (
+                                    <Alert key={1} variant={'success'}>
+                                        Congrats! You're all set up!
+                                    </Alert>
+                                )
+                            }<Row style={{marginBottom: "1em"}}>
+                                        <Col></Col>
+                                        <Col><h6><strong>Procedure Code</strong> <OverlayTrigger
+                                                                                  placement="right"
+                                                                                  overlay={
+                                                                                      <Tooltip id={`tooltip-right`}>
+                                                                                            Start typing the 5 digit UPC code and select from the auto populating
+                                                                                          list below.
+                                                                                        </Tooltip>
+                                                                                  }>
+                                            <FontAwesomeIcon icon={faQuestionCircle} style={{color: "#3196b2", fontSize:".75em", verticalAlign: "top"}}/>
+                                                                                </OverlayTrigger>
+                                        </h6></Col>
+                                        <Col></Col>
+                            </Row>
+                            {inputFields.map((inputField, index) => (
+                                <Fragment key={`${inputField}~${index}`}>
+                                    <Form.Row style={{marginBottom: "1em"}}>
+                                        <Col></Col>
+                                        <Col><Autocomplete
+                                            id="combo-box-demo"
+                                            options={displayUpc}
+                                            value={upcValue[index]} //value={inputField.value}
+                                            onChange={(event, newValue) => {
+                                                if(newValue && newValue.upc) {
+                                                    triggerDialog(index, event, newValue.upc)
+                                                }
+                                            }}
+                                            getOptionLabel={(option) => option.upc }
+                                            renderOption={(option) => {
+                                                return (
+                                                    <React.Fragment>
+                                                        {item_to_desc(option.upc)}
+                                                    </React.Fragment>
+                                                )
+                                            }}
+                                            renderInput={(params) => ( <MyTextField params={params} label={"UPC Code"} /> )}   /*<TextField {...params}
+                                                                                onClose={event => triggerDialog(index, event)}
+                                                                                label="Procedure Code"
+                                                                                variant="outlined"
+                                                                                name="upc"
+                                                                                inputProps={{
+                                                                                    ...params.inputProps
+                                                                                }}/>  }*/
+                                        />
+                                        </Col>
+                                        <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
+                                            <DialogTitle style={{background:"#191e28"}}>
+                                                <h3 style={{color:"white"}}><FontAwesomeIcon icon={faMapMarkedAlt} style={{marginRight:".5em"}}/>
+                                                 Map Items to <span style={{fontWeight:"bold"}}>{activeCode}</span></h3>
+                                            </DialogTitle>
+                                            <DialogContent>
+                                               <Form style={sign_up_style.formStyle} onSubmit={handleSubmit}>
+                                                    <Row style={{marginBottom: "1em"}}>
+                                                        <Col xs={4}>
+                                                            Item <OverlayTrigger
+                                                                                  placement="right"
+                                                                                  overlay={
+                                                                                      <Tooltip id={`tooltip-right`}>
+                                                                                            Select item based on item code or the name of the item. The form
+                                                                                            value will be the item code.
+                                                                                        </Tooltip>
+                                                                                  }>
+                                                                            <FontAwesomeIcon icon={faQuestionCircle} style={{color: "#3196b2", fontSize:".75em", verticalAlign: "top"}}/>
+                                                                                </OverlayTrigger>
+
+                                                        </Col>
+                                                        <Col xs={5}>
+                                                           Items per procedure <OverlayTrigger
+                                                                                  placement="right"
+                                                                                  overlay={
+                                                                                      <Tooltip id={`tooltip-right`}>
+                                                                                            Select the amount based on the unit of measurement (e.g. 1 item,
+                                                                                            1 box, 1 paid etc)
+                                                                                        </Tooltip>
+                                                                                  }>
+                                                                        <FontAwesomeIcon icon={faQuestionCircle} style={{color: "#3196b2", fontSize:".75em", verticalAlign: "top"}}/>
+                                                                        </OverlayTrigger>
+
+                                                        </Col>
+                                                        <Col xs={1}></Col>
+                                                </Row>
+                                                {inputFields2.map((inputField, index) => (
+                                                    <Fragment key={`${inputField}~${index}`}>
+                                                        <Form.Row style={{marginBottom: "1em"}}>
+                                                         <Col>
+                                                            <Autocomplete
+                                                                id="combo-box-demo"
+                                                                options={dental_code}
+                                                                value={inputField.value}
+                                                                getOptionLabel={(option) => option.item}
+                                                                renderOption={(option) => {
+                                                                    return (
+                                                                        <React.Fragment>
+                                                                            {item_to_name(option.item)}
+                                                                        </React.Fragment>
+                                                                    )
+                                                                }}
+                                                                renderInput={(params) => <TextField {...params}
+                                                                                                        onBlur={event => handleInputChange2(index, event)}
+                                                                                                        label="Supply item"
+                                                                                                        variant="outlined"
+                                                                                                        name="item2"
+                                                                                                        inputProps={{
+                                                                                                            ...params.inputProps
+                                                                                                        }}/>}
+                                                                />
+                                                    </Col>
+                                                    <Col>
+                                                    <TextField
+                                                        label="Supply Amount"
+                                                        variant="outlined"
+                                                        type="number"
+                                                        name="amount"
+                                                        value={inputField.value}
+                                                        defaultValue="0"
+                                                        onChange={event => handleInputChange2(index, event)}
+                                                    />
+                                                </Col>
+                                                <Col xs={3}>
+                                                    <div id="add-field">
+                                                        <Button className="remove" onClick={() => handleRemoveFields2(index)}>
+                                                            -
+                                                        </Button>
+                                                        <Button className="add" onClick={() => handleAddFields2()}>
+                                                            +
+                                                        </Button>
+                                                    </div>
+                                                </Col>
+                                        </Form.Row>
+                                    </Fragment>))}
+                                  </Form>
+                                            </DialogContent>
+                                            <DialogActions>
+                                              <Button onClick={() => handleClose(index, 'cancel')} color="primary">
+                                                Cancel
+                                              </Button>
+                                              <Button onClick={ () => handleClose(index, 'save')} color="primary">
+                                                Save
+                                              </Button>
+                                            </DialogActions>
+                                          </Dialog>
+                                        <Col>
+                                            <div id="add-field">
+                                                <Button className="remove" onClick={() => handleRemoveFields(index)}>
+                                                    -
+                                                </Button>
+                                                <Button className="add" onClick={() => handleAddFields()}>
+                                                    +
+                                                </Button>
+                                            </div>
+                                        </Col>
+                                    </Form.Row>
+                                    <Form.Row style={{marginBottom: "1em"}}>
+                                    <Col></Col>
+                                    <Col>
+
+                                        <div style={{display:"flex", justifyContent:"center",flexWrap:"wrap", "& > *": {margin: "0.5"}}}>
+                                            {getMapped(index)}
+                                        </div>
+
+                                    </Col>
+                                    <Col></Col>
+                                </Form.Row>
+                                </Fragment>))}
+                            <Form.Row style={{marginBottom: "1em"}}>
+                                <Col></Col>
+                                <div style={{width: "25%", marginTop: "1em"}}>
+                                    <Button variant="primary" style={homepage_style.button}
+                                            onClick={handleSubmit}>
+                                        Save
+                                    </Button>
+                                </div>
+                                <Col></Col>
+                            </Form.Row>
+                        </Form>
+                        <ul id="progressbar">
+                            <li className="active">Subscribe to Abacus</li>
+                            <li className="active" onClick={()=> setMethod('inventory')}>Set up inventory</li>
+                            <li className={ show && ( "active" )}>Map UPC to inventory</li>
+                        </ul>
+                    </Card.Body>
+                </Card>
+                <style dangerouslySetInnerHTML={{__html: `
+                    #select-multiple-native:focus {
+                        height: 10em;
+                    }
+                `}}></style>
+                <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet" />
+            </div>
+        );
+    }
 };
 
 export default InventorySetUp;

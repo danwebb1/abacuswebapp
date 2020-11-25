@@ -45,7 +45,8 @@ export function useInventory() {
                             response = await response;
                             if(response.data){
                                 receiveInventory(response.data);
-                                setInventory(response.data)
+                                setInventory(response.data);
+                                localStorage.setItem('abacusInventory', JSON.stringify(response.data));
                             }
                         } catch (err) {
                             dispatch(inventoryError(err));

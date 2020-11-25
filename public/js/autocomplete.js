@@ -28,7 +28,7 @@
 
   var dataAttribute = "data-id";
   var select = {
-    resultsList: "autoComplete_list",
+    resultsList: "autoComplete_MAP",
     result: "autoComplete_result",
     highlight: "autoComplete_highlighted",
     selectedResult: "autoComplete_selected"
@@ -501,7 +501,7 @@ const autoCompletejs = new autoComplete({
 	resultsList: {
 		render: true,
 		container: source => {
-      source.setAttribute("id", "autoComplete_list");
+      source.setAttribute("id", "autoComplete_MAP");
 		},
 		destination: document.querySelector("#autoComplete"),
 		position: "afterend",
@@ -518,7 +518,7 @@ const autoCompletejs = new autoComplete({
 		result.setAttribute("class", "no_result");
 		result.setAttribute("tabindex", "1");
 		result.innerHTML = "No Results";
-		document.querySelector("#autoComplete_list").appendChild(result);
+		document.querySelector("#autoComplete_MAP").appendChild(result);
 	},
 	onSelection: feedback => {
 	    const time = new Date(Date.now());

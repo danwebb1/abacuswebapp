@@ -3,7 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search, CSVExport } from 'react-bootstrap-table2-toolkit';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowsAltV, faBell, faListAlt, faCloudUploadAlt} from "@fortawesome/free-solid-svg-icons";
+import {faArrowsAltV, faCog, faListAlt, faCloudUploadAlt, faKey} from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {Link} from "react-router-dom";
@@ -12,11 +12,11 @@ import Spinner from "react-bootstrap/Spinner";
 import {useSelector} from "react-redux";
 
 const Inventory = () => {
-
+    const _inventory = JSON.parse(localStorage.getItem('abacusInventory')) ? JSON.parse(localStorage.getItem('abacusInventory')) : [];
     const { SearchBar, ClearSearchButton } = Search;
     const { ExportCSVButton } = CSVExport;
     const inventory = useInventory();
-    const [displayInventory, setDisplayInventory] = useState([]);
+    const [displayInventory, setDisplayInventory] = useState(_inventory.supply);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const state = useSelector(state => state);
     const [setup, setSetUp] = useState(false);
@@ -30,6 +30,7 @@ const Inventory = () => {
     useEffect( () => {
         if(inventory) {
             if (inventory.supply) {
+                console.log(inventory)
                 setDisplayInventory(inventory.supply)
             }
         }
@@ -86,6 +87,7 @@ const Inventory = () => {
                     <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
                     <Breadcrumb.Item active>Inventory</Breadcrumb.Item>
                 </Breadcrumb>
+                 <span className="card-prefix"><Link to={`/inventory/settings`}><FontAwesomeIcon icon={faCog}/> Inventory Settings</Link></span>
                 <Card>
                     <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory <span
                         style={{float: 'right'}}></span></Card.Header>
