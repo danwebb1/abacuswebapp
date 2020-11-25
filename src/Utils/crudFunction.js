@@ -76,12 +76,15 @@ export async function submitUpcMap(portal_id, token, payload){
                 'portal': portal_id,
                 'map_MAP': payload
             };
-            AbacusAPIClient.post('/v1/inventory/supply/submit_upc_list', data, headers).then(res =>{
+            AbacusAPIClient.post('/v1/inventory/supply/submit_upc_map', data, headers).then(res =>{
                 if (res.status === 200) {
                     const portal = db.collection('portal').doc(data.portal);
                     portal.update({
                         upcMapComplete: true
                     });
+                    if(localStorage.getItem('abacusUpcMap')) {
+                        localStorage.removeItem('abacusUpcMap')
+                    }
                 }
             });
 

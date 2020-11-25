@@ -4,7 +4,6 @@ import React, {useState} from "react";
 import {requestUpc, receivedUpc, upcError} from "../../actions/upc";
 import MemoryCache from "../../api/storage";
 import AbacusAPIClient from "../../api/AbacusAPIClient";
-import {getSettings} from "../../actions";
 
 export function useUpc() {
     const cache = new MemoryCache().enclosure();

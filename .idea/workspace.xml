@@ -2,28 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94597bb8-8622-4fee-a5ae-16ab34d6223d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/reducers/upc_map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/autocomplete.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/autocomplete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DashboardWidgets/AddProcedures.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DashboardWidgets/AddProcedures.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/Inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Inventory/InventoryAlertSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/InventorySettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Inventory/InventorySetUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/InventorySetUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/EditAdmins.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/EditAdmins.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/PortalInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/upc_map.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/PortalSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/PortalSettings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/TopNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/TopNav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Signup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Utils/hooks/UpcMap.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Utils/crudFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/crudFunction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/hooks/UserAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/hooks/UserAuth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/hooks/inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/hooks/inventory.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions/upc_list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/upc_list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/hooks/upc.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/hooks/upc.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -154,7 +135,7 @@
       <workItem from="1605229192125" duration="4413000" />
       <workItem from="1605320297371" duration="21014000" />
       <workItem from="1605573063680" duration="6339000" />
-      <workItem from="1605971020640" duration="53673000" />
+      <workItem from="1605971020640" duration="54066000" />
     </task>
     <task id="LOCAL-00001" summary="inital commit">
       <created>1599876859676</created>
@@ -282,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605465087626</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="auto complete file, new map and list for upc, add procedure component, inventory set up and settings component, edit admin, topnav, css, env vars">
+      <created>1606338651730</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1606338651730</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -330,7 +318,8 @@
     <MESSAGE value="updated env URLS" />
     <MESSAGE value="can edit portal" />
     <MESSAGE value="add upc, bulk form, upc list pull," />
-    <option name="LAST_COMMIT_MESSAGE" value="add upc, bulk form, upc list pull," />
+    <MESSAGE value="auto complete file, new map and list for upc, add procedure component, inventory set up and settings component, edit admin, topnav, css, env vars" />
+    <option name="LAST_COMMIT_MESSAGE" value="auto complete file, new map and list for upc, add procedure component, inventory set up and settings component, edit admin, topnav, css, env vars" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
