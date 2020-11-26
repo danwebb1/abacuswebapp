@@ -59,7 +59,7 @@ const Settings = () => {
                             <Tab eventKey="portal" title="My Practice">
                                 <PortalSettings/>
                             </Tab>
-                            <Tab eventKey="permissions" title="Privacy & Permissions">
+                            <Tab eventKey="permissions" title="Security & Permissions">
                                 <Permissions/>
                             </Tab>
                         </Tabs>

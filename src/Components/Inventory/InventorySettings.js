@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCog, faMapMarkedAlt, faQuestionCircle, faTooth} from "@fortawesome/free-solid-svg-icons";
+import {faBuilding, faCog, faEdit, faMapMarkedAlt, faQuestionCircle, faTooth} from "@fortawesome/free-solid-svg-icons";
 import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {Link} from "react-router-dom";
@@ -30,6 +30,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import Button from "react-bootstrap/Button";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 import Dialog from "@material-ui/core/Dialog/Dialog";
+import {faFolderPlus} from "@fortawesome/free-solid-svg-icons/faFolderPlus";
 
 const InventorySettings = (props) => {
     const display_name = localStorage.getItem('portalDisplay') ? localStorage.getItem('portalDisplay') : '';
@@ -115,6 +116,8 @@ const InventorySettings = (props) => {
               <Breadcrumb.Item active>Inventory Settings</Breadcrumb.Item>
             </Breadcrumb>
             <Card>
+                 <Card.Header><FontAwesomeIcon icon={faCog} /> Inventory Settings</Card.Header>
+
                 <Card.Body>
                     <div style={{width:"50%"}}>
                         <Row>
@@ -137,6 +140,7 @@ const InventorySettings = (props) => {
                         <Row>
                             <Col>
                                 <h4 className="spacer">UPC Maps</h4>
+                                <h5 style={{color:"#3196b2", cursor:"pointer"}}><FontAwesomeIcon icon={faFolderPlus}/> Add Mapping</h5>
                             </Col>
                             <Col>
                                 { getMapped(upcMap)}
