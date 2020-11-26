@@ -12,6 +12,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import PortalSettings from "./PortalSettings";
 import QueryString from 'query-string'
+import Permissions from "./Permissions";
 
 
 const Settings = () => {
@@ -57,6 +58,9 @@ const Settings = () => {
                             </Tab>
                             <Tab eventKey="portal" title="My Practice">
                                 <PortalSettings/>
+                            </Tab>
+                            <Tab eventKey="permissions" title="Privacy & Permissions">
+                                <Permissions/>
                             </Tab>
                         </Tabs>
                     </Card.Body>

@@ -30,7 +30,6 @@ const Inventory = () => {
     useEffect( () => {
         if(inventory) {
             if (inventory.supply) {
-                console.log(inventory)
                 setDisplayInventory(inventory.supply)
             }
         }

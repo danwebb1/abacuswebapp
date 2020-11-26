@@ -49,7 +49,8 @@ export function useUpcMap() {
                             response = await response;
                             if(response.data){
                                 receivedUpcMap(response.data);
-                                setUpcMap(response.data)
+                                setUpcMap(response.data);
+                                localStorage.setItem('abacusUpcMap', JSON.stringify(response.data))
                             }
                         } catch (err) {
                             dispatch(upcMapError(err));

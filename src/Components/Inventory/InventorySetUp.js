@@ -443,7 +443,7 @@ const InventorySetUp = () => {
                                         <Col><Autocomplete
                                             id="combo-box-demo"
                                             options={displayUpc}
-                                            value={upcValue[index]} //value={inputField.value}
+                                            value={upcValue[index]}
                                             onChange={(event, newValue) => {
                                                 if(newValue && newValue.upc) {
                                                     triggerDialog(index, event, newValue.upc)
@@ -457,14 +457,7 @@ const InventorySetUp = () => {
                                                     </React.Fragment>
                                                 )
                                             }}
-                                            renderInput={(params) => ( <MyTextField params={params} label={"UPC Code"} /> )}   /*<TextField {...params}
-                                                                                onClose={event => triggerDialog(index, event)}
-                                                                                label="Procedure Code"
-                                                                                variant="outlined"
-                                                                                name="upc"
-                                                                                inputProps={{
-                                                                                    ...params.inputProps
-                                                                                }}/>  }*/
+                                            renderInput={(params) => ( <MyTextField params={params} label={"UPC Code"} /> )}
                                         />
                                         </Col>
                                         <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>

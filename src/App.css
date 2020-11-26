@@ -519,6 +519,13 @@ input:checked + .slider:before {
 .header-bold {
     font-weight:700
 }
+.MuiSwitch-switchBase.Mui-checked {
+    color: #3196b2!important;
+}
+.MuiSwitch-colorDefault.Mui-checked + .MuiSwitch-track {
+     color: #3196b2!important;
+}
+
 @media only screen and (max-width: 500px) {
     #menu {
         display:none;
