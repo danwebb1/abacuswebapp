@@ -24,7 +24,6 @@ const RecentItems = (props) => {
      if(displayUpc) {
          displayUpc.sort((a, b) => (a.color > b.color) ? 1 : -1)
      }
-     console.log(displayUpc)
     return (
         <div>
             <span className="card-prefix"></span>

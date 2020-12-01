@@ -17,21 +17,26 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import {submitUpc} from "../../Utils/crudFunction";
 import {useUpc} from "../../Utils/hooks/upc";
+import {useUpcMap} from "../../Utils/hooks/UpcMap";
 
 const AddProcedures = () => {
+    const _permissions = localStorage.getItem('abacusPermissions') ? localStorage.getItem('abacusPermissions') : false;
+    const mapped_items = localStorage.getItem('abacusUpcMap') ? localStorage.getItem('abacusUpcMap') : false;
+    const [permissions, setPermissions] = useState(_permissions);
+    const [inventoryUpdate, setInventoryUpdate] = useState(false);
     const [profile, setProfile] = useState(false);
     const [user, setUser] = useState([]);
     const [error, setError] = useState(null);
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
-    const history = useHistory();
-    const upc_codes = useUpc();
-    const [displayUpc, setDisplayUpc] = useState([]);
+    const upc_map = useUpcMap();
+    const upc_codes = useUpc()
+    const [displayUpc, setDisplayUpc] = useState(JSON.parse(mapped_items));
+    const [displayUpcDescs, setDisplayUpcDescs] = useState();
     let app_state = useSelector(state => state);
     const [inputFields, setInputFields] = useState([
        { upc: '', amount: '' }
     ]);
-
 
     useEffect(() => {
         if (!profile) {
@@ -40,16 +45,45 @@ const AddProcedures = () => {
         }
          if(app_state.user && app_state.user.user_profile.hasOwnProperty('first_name')) {
              setUser(app_state.user.user_profile);
-           }
+         }
     }, );
 
     useEffect( () => {
-        if(upc_codes) {
-            if (upc_codes.codes) {
-                setDisplayUpc(upc_codes.codes)
+        let _permObj;
+        if(permissions){
+            if(typeof permissions === 'string') {
+                _permObj = JSON.parse(permissions);
+            }else{
+                _permObj = permissions
+            }
+            if(user.role !== 'admin') {
+                setInventoryUpdate(_permObj.userInventoryUpdate);
             }
         }
-    },[upc_codes]);
+    },[_permissions]);
+
+    useEffect( () => {
+       if(displayUpc){
+           if(displayUpc.upc_map) {
+                let _upcs = new Set();
+                let upcs = displayUpc.upc_map.forEach((upc) => _upcs.add(upc.upc__upc));
+                 _upcs = [..._upcs];
+                 setDisplayUpcDescs(displayUpc.upc_map)
+                setDisplayUpc(_upcs)
+           }
+       }else{
+           if(upc_map){
+               if(upc_map.upc_map){
+                   let _upcs = new Set();
+                   let upcs = upc_map.upc_map.forEach((upc) => _upcs.add(upc.upc__upc));
+                   _upcs = [..._upcs];
+                    setDisplayUpc(_upcs)
+               }
+           }
+       }
+
+
+    }, [upc_map]);
 
     const handleInputChange = (index, event) => {
         const { name, value } = event.currentTarget;
@@ -62,9 +96,9 @@ const AddProcedures = () => {
         setInputFields(values);
     };
     function item_to_desc(upc){
-        for(let i = 0; i < displayUpc.length; i++){
-            if(upc === displayUpc[i].upc){
-                return upc + " - " + displayUpc[i].desc
+        for(let i = 0; i < displayUpcDescs.length; i++){
+            if(upc === displayUpcDescs[i].upc__upc){
+                return upc + " - " + displayUpcDescs[i].upc__desc
             }
         }
     }
@@ -82,31 +116,42 @@ const AddProcedures = () => {
 
     function handleSubmit() {
         let payload = JSON.stringify(inputFields);
-        const submitted = submitUpc(user.portal.id, app_state.auth.token.i, payload);
-        history.push("/inventory")
+        submitUpc(user.portal.id, app_state.auth.token.i, payload).then(res => {
+            if (res === 200) {
+                setShow(true)
+            }
+        }).catch(error => {
+            setError(error)
+        })
     }
-    return (
+    if(user.role === 'admin' || inventoryUpdate) {
+        return (
             <div>
                 <Card>
                     <Card.Header><FontAwesomeIcon icon={faListOl}/> Record Completed Procedures</Card.Header>
                     <Card.Body>
+                        { show && (
+                         <Alert variant='success' style={sign_up_style.alertStyle} >
+                            UPC codes have been submitted!
+                        </Alert>
+                        )}
+                        { error && (
+                             <Alert variant='danger' style={sign_up_style.alertStyle} >
+                                Oops! Something went wrong! Error: {error}
+                            </Alert>
+                        )}
                         <Card variant="success" className="mb-3 card-callout">
                             <Card.Body className="border-success">
                                 <Card.Title>
                                     Update Your Inventory By Recording the Procedures You Completed
                                 </Card.Title>
                                 <p>
-                                    Use the form below to add the amount of each prodedure you ran since your last inventory supply update.
+                                    Use the form below to add the amount of each prodedure you ran since your last
+                                    inventory supply update.
                                 </p>
                             </Card.Body>
                         </Card>
                         <Form style={sign_up_style.formStyle} onSubmit={handleSubmit}>
-                            {
-                                show && (
-                                    <Alert key={1} variant={'success'}>
-                                    </Alert>
-                                )
-                            }
                             {inputFields.map((inputField, index) => (
                                 <Fragment key={`${inputField}~${index}`}>
                                     <Form.Row style={{marginBottom: "1em"}}>
@@ -120,11 +165,11 @@ const AddProcedures = () => {
                                                     id="combo-box-demo"
                                                     options={displayUpc}
                                                     value={inputField.value}
-                                                    getOptionLabel={(option) => option.upc}
+                                                    getOptionLabel={(option) => option}
                                                     renderOption={(option) => {
                                                         return (
                                                             <React.Fragment>
-                                                                {item_to_desc(option.upc)}
+                                                                {item_to_desc(option)}
                                                             </React.Fragment>
                                                         )
                                                     }}
@@ -139,16 +184,22 @@ const AddProcedures = () => {
                                                 />
                                             </OverlayTrigger>
                                         </Col>
-                                         <Col xs lg="2">
-                                                    <TextField
-                                                        label="amount"
-                                                        variant="outlined"
-                                                        type="number"
-                                                        name="amount"
-                                                        value={inputField.value}
-                                                        onChange={event => handleInputChange(index, event)}
-                                                    />
-                                            </Col>
+                                        <Col xs lg="2">
+                                            <TextField
+                                                label="amount"
+                                                variant="outlined"
+                                                type="number"
+                                                name="amount"
+                                                InputProps={{
+                                                    inputProps: {
+                                                        min: 1
+                                                    }
+                                                }}
+                                                defaultValue="0"
+                                                value={inputField.value}
+                                                onChange={event => handleInputChange(index, event)}
+                                            />
+                                        </Col>
                                         <Col xs lg="2">
                                             <div id="add-field">
                                                 <Button className="remove" onClick={() => handleRemoveFields(index)}>
@@ -159,12 +210,12 @@ const AddProcedures = () => {
                                                 </Button>
                                             </div>
                                         </Col>
-                                 </Form.Row>
+                                    </Form.Row>
                                 </Fragment>))}
                             <Form.Row style={{marginBottom: "1em"}}>
                                 <div style={{width: "25%", marginTop: "1em"}}>
                                     <Button variant="primary" style={homepage_style.button}
-                                    onClick={handleSubmit}>
+                                            onClick={handleSubmit}>
                                         Save
                                     </Button>
                                 </div>
@@ -174,6 +225,9 @@ const AddProcedures = () => {
                 </Card>
             </div>
         );
+    }else{
+        return <></>
+    }
 };
 
 export default AddProcedures;

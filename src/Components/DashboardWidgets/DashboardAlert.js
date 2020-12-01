@@ -22,14 +22,16 @@ const DashboardAlert = (props) => {
 
 
     useEffect( () => {
-        if(state.settings) {
-            if(!state.settings.settings.inventorySetUp) {
-                setSetUp(true)
+        if(state.settings.settings) {
+            if(Object.keys(state.settings.settings ).length > 0) {
+                if(state.settings.settings.inventorySetUp !== true) {
+                    setSetUp(true)
+                }
             }
         }
     },);
 
-    if(userName.length > 0 && !setup) {
+    if(userName.length > 0 && setup) {
         return (
             <Jumbotron>
                 <h1>Welcome, {userName}</h1>

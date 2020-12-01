@@ -26,20 +26,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import {faMapMarkedAlt} from "@fortawesome/free-solid-svg-icons/faMapMarkedAlt";
-import List from "@material-ui/core/List";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
 import Avatar from "@material-ui/core/Avatar";
-import {faHeadSideMask} from "@fortawesome/free-solid-svg-icons/faHeadSideMask";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from '@material-ui/icons/Delete';
-import {faMitten} from "@fortawesome/free-solid-svg-icons/faMitten";
-import {faCloud} from "@fortawesome/free-solid-svg-icons/faCloud";
-import {faShoppingBag} from "@fortawesome/free-solid-svg-icons/faShoppingBag";
-import {faScroll} from "@fortawesome/free-solid-svg-icons/faScroll";
-import {faPumpMedical} from "@fortawesome/free-solid-svg-icons/faPumpMedical";
 import {useInventory} from "../../Utils/hooks/inventory";
 import Chip from "@material-ui/core/Chip";
 
@@ -69,7 +56,7 @@ const InventorySetUp = () => {
     });
     const [inputFields2, setInputFields2] = useState([{upc: '', item: '', amount:0}]);
     const [mappedItems, setMappedItems] = useState([]);
-    const [currentUpc, setCurrentUpc] = useState('')
+    const [currentUpc, setCurrentUpc] = useState('');
 
     useEffect( () => {
         if(method === 'inventory'){
@@ -182,8 +169,8 @@ const InventorySetUp = () => {
         setUpcValue(upcValue => [...upcValue, newValue]);
         setActiveCode(newValue);
         handleClickOpen();
-        setCurrentUpc(value)
-        setInputFields(values)
+        setCurrentUpc(value);
+        setInputFields(values);
     }
 
     const handleClickOpen = () => {
@@ -240,7 +227,7 @@ const InventorySetUp = () => {
         }
         if(method === 'upc') {
             let payload = JSON.stringify(mappedItems);
-            submitUpcMap(user.portal.id, app_state.auth.token.i, payload)
+            submitUpcMap(user.portal.id, app_state.auth.token.i, payload, 'post')
                 .then(res => {
                     if (res.status === 200) {
                         history.push("/settings")
@@ -262,11 +249,7 @@ const InventorySetUp = () => {
                     <Breadcrumb.Item active>Inventory Set Up</Breadcrumb.Item>
                 </Breadcrumb>
                 <Card>
-                    <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory Set Up<span
-                        style={{float: 'right'}}>
-                        <Link onClick={() => setMethod('upc')}>[<FontAwesomeIcon
-                            icon={faEllipsisH}/>] Add Inventory Items</Link>
-                        </span></Card.Header>
+                    <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory Set Up</Card.Header>
                     <Card.Body>
                         <Card variant="success" className="mb-3 card-callout">
                             <Card.Body className="border-success">
@@ -396,10 +379,7 @@ const InventorySetUp = () => {
                     <Breadcrumb.Item active>Inventory Set Up</Breadcrumb.Item>
                 </Breadcrumb>
                 <Card>
-                    <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory Set Up<span
-                        style={{float: 'right'}}>
-                        <Link onClick={() => setMethod('inventory')}>[<FontAwesomeIcon
-                            icon={faEllipsisH}/>] Add Inventory Items</Link></span></Card.Header>
+                    <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory Set Up</Card.Header>
                     <Card.Body>
                         <Card variant="success" className="mb-3 card-callout">
                             <Card.Body className="border-success">

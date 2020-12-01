@@ -1,6 +1,5 @@
 import {db} from "../config/firebase";
 
-
 export const REQUEST_SETTINGS = "REQUEST_SETTINGS";
 export const RECEIVE_SETTINGS = "RECEIVE_SETTINGS";
 export const SETTINGS_FAILURE = "SETTINGS_FAILURE";
@@ -21,6 +20,22 @@ const settingsError = (error) => {
     type: SETTINGS_FAILURE,
     error
   };
+};
+
+export async function updateSettings(id, settingKey, value) {
+    if(id && settingKey){
+        const settings_ref = db.collection('settings').doc(id);
+        const settingsObj = {};
+        settingsObj[settingKey] = value;
+        settings_ref.update(settingsObj)
+            .then(res => {
+                let cached_permissions = JSON.parse(localStorage.getItem('abacusPermissions'));
+                cached_permissions[settingKey] = value;
+                cached_permissions = JSON.stringify(cached_permissions);
+                localStorage.removeItem('abacusPermissions');
+                localStorage.setItem('abacusPermissions', cached_permissions)
+            })
+    }
 };
 
 export const getSettings = (portal) => dispatch => {

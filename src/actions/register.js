@@ -59,13 +59,15 @@ async function createNewPortal(userObject, user_auth) {
     let settings = await db.collection('settings').add({
         portal: portal_ref,
         products: [products_ref],
+        role: 'admin',
         integration: "",
         inventorySetUp: false,
         upcMapComplete: false,
         userAddMappings: false,
         userAddUsers: false,
         userInventoryUpdate: false,
-        userViewSettings: false
+        userViewSettings: false,
+        inventoryAlertAmount: 0
     });
     settings = await settings.update({portal: portal_ref});
     const _ref = await ref.update({portal: portal_ref});

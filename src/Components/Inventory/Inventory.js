@@ -12,11 +12,11 @@ import Spinner from "react-bootstrap/Spinner";
 import {useSelector} from "react-redux";
 
 const Inventory = () => {
-    const _inventory = JSON.parse(localStorage.getItem('abacusInventory')) ? JSON.parse(localStorage.getItem('abacusInventory')) : [];
+    const _inventory = JSON.parse(localStorage.getItem('abacusInventory')) ? JSON.parse(localStorage.getItem('abacusInventory')) : [{supply:[]}];
     const { SearchBar, ClearSearchButton } = Search;
     const { ExportCSVButton } = CSVExport;
     const inventory = useInventory();
-    const [displayInventory, setDisplayInventory] = useState(_inventory.supply);
+    const [displayInventory, setDisplayInventory] = useState(_inventory.supply );
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const state = useSelector(state => state);
     const [setup, setSetUp] = useState(false);
@@ -28,12 +28,12 @@ const Inventory = () => {
         }
     },);
     useEffect( () => {
-        if(inventory) {
-            if (inventory.supply) {
-                setDisplayInventory(inventory.supply)
-            }
+                if (inventory) {
+                    if (inventory.supply) {
+                        setDisplayInventory(inventory.supply)
+                    }
         }
-    },[inventory]);
+    },);
     function sortFormatter(column, cell) {
         if(column.text === 'Item Quantity') {
             return (
@@ -79,49 +79,52 @@ const Inventory = () => {
       mode: 'checkbox',
       clickToSelect: true,
     };
-    if  (displayInventory.length > 0) {
-        return (
-            <div>
-                <Breadcrumb>
-                    <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item active>Inventory</Breadcrumb.Item>
-                </Breadcrumb>
-                 <span className="card-prefix"><Link to={`/inventory/settings`}><FontAwesomeIcon icon={faCog}/> Inventory Settings</Link></span>
-                <Card>
-                    <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory <span
-                        style={{float: 'right'}}></span></Card.Header>
-                    <Card.Body>
-                        <ToolkitProvider
-                            keyField='item'
-                            data={displayInventory}
-                            columns={columns}
-                            bordered={false}
-                            defaultSorted={defaultSorted}
-                            exportCSV={{onlyExportSelection: true, exportAll: false}}
-                            search
-                        >
-                            {
-                                props => (
-                                    <div>
-                                        <h4>Search for items</h4>
-                                        <SearchBar {...props.searchProps} />
-                                        <ClearSearchButton {...props.searchProps} />
-                                        <ExportCSVButton style={{float: 'right'}} {...props.csvProps}>Export
-                                            CSV</ExportCSVButton>
-                                        <hr/>
-                                        <BootstrapTable
-                                            {...props.baseProps}
-                                            selectRow={selectRow}
-                                            pagination={paginationFactory()}
-                                        />
-                                    </div>
-                                )
-                            }
-                        </ToolkitProvider>
-                    </Card.Body>
-                </Card>
-            </div>
-        )
+
+    if (displayInventory){
+        if(displayInventory.length > 0) {
+            return (
+                <div>
+                    <Breadcrumb>
+                        <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+                        <Breadcrumb.Item active>Inventory</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <span className="card-prefix"><Link to={`/inventory/settings`}><FontAwesomeIcon icon={faCog}/> Inventory Settings</Link></span>
+                    <Card>
+                        <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory <span
+                            style={{float: 'right'}}></span></Card.Header>
+                        <Card.Body>
+                            <ToolkitProvider
+                                keyField='item'
+                                data={displayInventory}
+                                columns={columns}
+                                bordered={false}
+                                defaultSorted={defaultSorted}
+                                exportCSV={{onlyExportSelection: true, exportAll: false}}
+                                search
+                            >
+                                {
+                                    props => (
+                                        <div>
+                                            <h4>Search for items</h4>
+                                            <SearchBar {...props.searchProps} />
+                                            <ClearSearchButton {...props.searchProps} />
+                                            <ExportCSVButton style={{float: 'right'}} {...props.csvProps}>Export
+                                                CSV</ExportCSVButton>
+                                            <hr/>
+                                            <BootstrapTable
+                                                {...props.baseProps}
+                                                selectRow={selectRow}
+                                                pagination={paginationFactory()}
+                                            />
+                                        </div>
+                                    )
+                                }
+                            </ToolkitProvider>
+                        </Card.Body>
+                    </Card>
+                </div>
+            )
+        }
     }else{
         if(!setup) {
             return (

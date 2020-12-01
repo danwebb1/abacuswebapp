@@ -1,8 +1,8 @@
 import Card from "react-bootstrap/Card";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEyeSlash, faQuestionCircle} from "@fortawesome/free-solid-svg-icons";
-import React, {useState} from "react";
-import {useSelector} from "react-redux";
+import React, {useEffect, useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
 import Container from "react-bootstrap/Container";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
@@ -11,20 +11,53 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 import Toggle from "../Utils/Toggle";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import Col from "react-bootstrap/Col";
+import {usePortal} from "../../Utils/hooks/UserAuth";
+import {updateSettings} from "../../actions";
 
 const Permissions = () => {
-    const [profile, setProfile] = useState(false);
-    const [user, setUser] = useState([]);
+    const _permissions = localStorage.getItem('abacusPermissions') ? localStorage.getItem('abacusPermissions') : false;
+    const portal = usePortal();
+    let state = useSelector(state => state);
+    const [permissions, setPermissions] = useState(_permissions);
     const [inventoryUpdate, setInventoryUpdate] = useState(false);
     const [addUsers, setAddUsers] = useState(false);
     const [addMappings, setAddMappings] = useState(false);
     const [viewSettings, setViewSettings] = useState(false);
-    let state = useSelector(state => state);
+
+    useEffect(() => {
+        if( !permissions ){
+            if(state.settings){
+                if(state.settings.settings){
+                    const permissionsObj = {
+                        userAddMappings: state.settings.settings.userAddMappings,
+                        userAddUsers: state.settings.settings.userAddUsers,
+                        userInventoryUpdate: state.settings.settings.userInventoryUpdate,
+                        userViewSettings: state.settings.settings.userViewSettings
+                    };
+                    setPermissions(permissionsObj)
+                }
+
+            }
+        }
+    },[permissions]);
+
+    useEffect( () => {
+        let _permObj;
+        if(permissions){
+            if(typeof permissions === 'string') {
+                _permObj = JSON.parse(permissions);
+            }else{
+                _permObj = permissions
+            }
+            setInventoryUpdate(_permObj.userInventoryUpdate);
+            setAddUsers(_permObj.userAddUsers);
+            setAddMappings(_permObj.userAddMappings);
+            setViewSettings(_permObj.userViewSettings)
+        }
+    },[_permissions]);
 
     const handleSwitch = (event) => {
         const { name, value } = event.currentTarget;
@@ -32,33 +65,41 @@ const Permissions = () => {
         if(name === "inventoryUpdate") {
             if(value === 'false') {
                 setInventoryUpdate(true);
+                updateSettings(state.settings.settings.id, "userInventoryUpdate", true);
             }
             if(value === 'true'){
-                setInventoryUpdate(false)
+                setInventoryUpdate(false);
+                updateSettings(state.settings.settings.id, "userInventoryUpdate", false);
             }
         }
         if(name === "addUsers") {
             if(value === 'false') {
                 setAddUsers(true);
+                updateSettings(state.settings.settings.id, "userAddUsers", true);
             }
             if(value === 'true'){
                 setAddUsers(false)
+                updateSettings(state.settings.settings.id, "userAddUsers", false);
             }
         }
         if(name === "addMappings") {
             if(value === 'false') {
                 setAddMappings(true);
+                updateSettings(state.settings.settings.id, "userAddMappings", true);
             }
             if(value === 'true'){
                 setAddMappings(false)
+                updateSettings(state.settings.settings.id, "userAddMappings", false);
             }
         }
         if(name === "viewSettings") {
             if(value === 'false') {
                 setViewSettings(true);
+                updateSettings(state.settings.settings.id, "userViewSettings", true);
             }
             if(value === 'true'){
-                setViewSettings(false)
+                setViewSettings(false);
+                updateSettings(state.settings.settings.id, "userViewSettings", false);
             }
         }
     };
@@ -112,7 +153,7 @@ const Permissions = () => {
                              <TableCell><Switcher action={addMappings} name="addMappings"/></TableCell>
                          </TableRow>
                          <TableRow>
-                             <TableCell style={{fontSize: "16px", padding:"8px"}}>Users can <strong><u>VIEW</u></strong> but not update account settings</TableCell>
+                             <TableCell style={{fontSize: "16px", padding:"8px"}}>Users can access account settings</TableCell>
                              <TableCell><Switcher action={viewSettings} name="viewSettings"/></TableCell>
                          </TableRow>
                         </TableBody>

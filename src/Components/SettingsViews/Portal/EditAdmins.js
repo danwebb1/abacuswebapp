@@ -34,7 +34,6 @@ const EditAdmins = () => {
   const location = useLocation();
   const hash = QueryString.parse(location.hash);
   const userId = hash.userId;
-  console.log(state)
 
    React.useEffect( () => {
        if (user && user.portal ) {

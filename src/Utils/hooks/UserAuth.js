@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import {useDispatch, useSelector} from "react-redux";
-import {getNotifications, getPortal, getProfile} from "../../actions";
+import {getNotifications, getPortal, getProfile, getSettings} from "../../actions";
 import {db} from "../../config/firebase";
 import {readMessage} from "./Notifications";
 
@@ -28,9 +28,29 @@ export function usePortal(){
     const state = useSelector(state => state);
     const dispatch = useDispatch();
     const [portal, setPortal] = useState([]);
+
+    React.useEffect( () => {
+        if(profile && profile.portal) {
+            dispatch(getSettings(profile.portal.id));
+            if (state.settings.receivedSettings) {
+                if (state.settings.settings) {
+                    const permissions = {
+                        userAddMappings: state.settings.settings.userAddMappings,
+                        userAddUsers: state.settings.settings.userAddUsers,
+                        userInventoryUpdate: state.settings.settings.userInventoryUpdate,
+                        userViewSettings: state.settings.settings.userViewSettings
+                    };
+                    localStorage.removeItem('abacusPermissions');
+                    localStorage.setItem('abacusPermissions', JSON.stringify(permissions))
+                }
+            }
+        }
+    },[state.settings.receivedSettings]);
+
     React.useEffect( () => {
         if(profile && profile.portal) {
             dispatch(getPortal(profile.portal.id));
+            dispatch(getSettings(profile.portal.id));
             if (state.portal.receivedPortal && portal.length < 1) {
                 setPortal(state.portal.portal);
                 let admins = [];

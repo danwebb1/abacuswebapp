@@ -50,7 +50,6 @@ const Support = () => {
 
 
     function showAlert(){
-        console.log(success)
           if (error) {
               return (
                   <Alert variant='danger' style={sign_up_style.alertStyle} onClose={() => setError(false)}

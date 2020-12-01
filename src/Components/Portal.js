@@ -11,17 +11,15 @@ import AddProcedures from "./DashboardWidgets/AddProcedures";
 
 
 const Portal = (props) => {
+    const _permissions = localStorage.getItem('abacusPermissions') ? localStorage.getItem('abacusPermissions') : false;
+    const [permissions, setPermissions] = useState(_permissions);
+    const [inventoryUpdate, setInventoryUpdate] = useState(false);
     const [profile, setProfile] = useState(false);
     const [user, setUser] = useState([]);
     const dispatch = useDispatch();
     const upc_list = useUpcList();
     const [passUpc, setPassUpc] = useState([])
     let state = useSelector(state => state);
-    useEffect( () => {
-        if(upc_list) {
-            setPassUpc(upc_list)
-        }
-    },[upc_list]);
 
     useEffect(() => {
         if (!profile) {
@@ -33,20 +31,54 @@ const Portal = (props) => {
                setUser(state.user.user_profile)
            }
     }, [profile]);
-    return (
-        <React.Fragment>
-            <DashboardAlert/>
-            <AddProcedures/>
-            <Row>
-                <Col>
-                    <RecentItems items={passUpc}/>
-                </Col>
-                <Col>
-                    <PortalInventoryQuickView profile={user}/>
-                </Col>
-            </Row>
-        </React.Fragment>
-    )
+
+    useEffect( () => {
+        let _permObj;
+        if(permissions){
+            if(typeof permissions === 'string') {
+                _permObj = JSON.parse(permissions);
+            }else{
+                _permObj = permissions
+            }
+            if(profile.role !== 'admin') {
+                setInventoryUpdate(_permObj.userInventoryUpdate);
+            }
+        }
+    },[_permissions]);
+
+
+    useEffect( () => {
+        if(upc_list) {
+            setPassUpc(upc_list)
+        }
+    },[upc_list]);
+
+    if(user.role === 'admin' || (inventoryUpdate && profile)) {
+        return (
+            <React.Fragment>
+                <DashboardAlert/>
+                <AddProcedures/>
+                <Row>
+                    <Col>
+                        <RecentItems items={passUpc}/>
+                    </Col>
+                    <Col>
+                        <PortalInventoryQuickView profile={user}/>
+                    </Col>
+                </Row>
+            </React.Fragment>
+        )
+    }if(profile){
+        return (
+            <React.Fragment>
+                <PortalInventoryQuickView profile={user}/>
+                <RecentItems items={passUpc}/>
+            </React.Fragment>
+        )
+    }
+    else{
+        return  <></>
+    }
 };
 
 export default Portal;
