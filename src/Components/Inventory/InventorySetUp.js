@@ -29,6 +29,8 @@ import {faMapMarkedAlt} from "@fortawesome/free-solid-svg-icons/faMapMarkedAlt";
 import Avatar from "@material-ui/core/Avatar";
 import {useInventory} from "../../Utils/hooks/inventory";
 import Chip from "@material-ui/core/Chip";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 const InventorySetUp = () => {
     const [profile, setProfile] = useState(false);
@@ -57,6 +59,8 @@ const InventorySetUp = () => {
     const [inputFields2, setInputFields2] = useState([{upc: '', item: '', amount:0}]);
     const [mappedItems, setMappedItems] = useState([]);
     const [currentUpc, setCurrentUpc] = useState('');
+    const [pending, setPending] = useState(false);
+
 
     useEffect( () => {
         if(method === 'inventory'){
@@ -169,7 +173,7 @@ const InventorySetUp = () => {
         setUpcValue(upcValue => [...upcValue, newValue]);
         setActiveCode(newValue);
         handleClickOpen();
-        setCurrentUpc(value);
+        setCurrentUpc(newValue);
         setInputFields(values);
     }
 
@@ -212,31 +216,32 @@ const InventorySetUp = () => {
         document.getElementById(index + '-' + _index).remove();
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         if(method === 'inventory') {
+            setPending(true);
             let payload = JSON.stringify(inputFields);
-            submitInitialInventory(user.portal.id, app_state.auth.token.i, payload)
-                .then(res => {
-                    if (res.status === 200) {
-                        setMethod('upc')
-                    }
-                })
-                .catch(error => {
-                    setError(error)
-                })
+            let submit_inventory = await submitInitialInventory(user.portal.id, app_state.auth.token.i, payload);
+            if (await submit_inventory.status === 200) {
+                setPending(false)
+                setMethod('upc')
+            }if(submit_inventory === 'error'){
+                setError('Oops! Something went wrong. Try again. If the problem persists contact support')
+            }
+
         }
         if(method === 'upc') {
+            setPending(true);
             let payload = JSON.stringify(mappedItems);
-            submitUpcMap(user.portal.id, app_state.auth.token.i, payload, 'post')
-                .then(res => {
-                    if (res.status === 200) {
-                        history.push("/settings")
-                    }
-                })
-                .catch(error => {
-                    setError(error)
-                })
-             setShow(true)
+            console.log(mappedItems)
+            let submit_upc = await submitUpcMap(user.portal.id, app_state.auth.token.i, payload, 'post');
+            if (await submit_upc.status === 200) {
+                setPending(false);
+                setShow(true);
+                history.push("/settings")
+            }if(submit_upc === 'error'){
+                setError('Oops! Something went wrong. Try again. If the problem persists contact support')
+            }
+
         }
 
     }
@@ -267,8 +272,14 @@ const InventorySetUp = () => {
                         </Card>
                         <Form style={sign_up_style.formStyle} onSubmit={handleSubmit}>
                             {
+                                pending && (
+                                    <LinearProgress style={{backgroundColor: "#3196b2"}}/>
+                                )
+                            }
+                            {
                                 show && (
                                     <Alert key={1} variant={'success'}>
+                                        Success!
                                     </Alert>
                                 )
                             }
@@ -395,6 +406,11 @@ const InventorySetUp = () => {
                             </Card.Body>
                         </Card>
                         <Form style={sign_up_style.formStyle} onSubmit={handleSubmit}>
+                            {
+                                pending && (
+                                    <LinearProgress style={{backgroundColor: "#3196b2"}}/>
+                                )
+                            }
                             {
                                 show && (
                                     <Alert key={1} variant={'success'}>

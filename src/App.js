@@ -105,8 +105,6 @@ function App(){
             }
         };
         if (role) {
-            console.log(role)
-            console.log(viewSettings)
             return (
                 <div>
                     <Router>

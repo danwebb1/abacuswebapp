@@ -31,6 +31,8 @@ import {updateSettings} from "../../actions";
 import {submitUpcMap} from "../../Utils/crudFunction";
 import {useUpc} from "../../Utils/hooks/upc";
 import Alert from "react-bootstrap/Alert";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 const InventorySettings = (props) => {
     const display_name = localStorage.getItem('portalDisplay') ? localStorage.getItem('portalDisplay') : '';
@@ -56,7 +58,9 @@ const InventorySettings = (props) => {
     const [showSave, setShowSave] = useState(false);
     const [showAddMapInput, setShowAddMapInput] = useState(false);
     const [displayUpc, setDisplayUpc] = useState([]);
-    const [newUpc, setNewUpc] = useState('')
+    const [newUpc, setNewUpc] = useState('');
+    const [pending, setPending] = useState(false);
+
 
     useEffect( () => {
         if(state.settings) {
@@ -113,7 +117,7 @@ const InventorySettings = (props) => {
                 }
         }
 
-    },[upcMap]);
+    },);
 
     const handleAddFields = () => {
         const values = [...inputFields];
@@ -245,23 +249,40 @@ const InventorySettings = (props) => {
                     setUpcMap(values);
                     setNewUpc(false)
                 }
+            }else{
+                const values = upcMap;
+                for(let i = 0; i < inputFields.length; i ++) {
+                    if (inputFields[i].upc === currentUpc) {
+                        values.upc_map.push({
+                            upc__upc: currentUpc,
+                            upc__desc: item_to_desc(currentUpc),
+                            item__item_code: inputFields[i].item,
+                            amount: inputFields[i].amount
+                        })
+                    }
+                    setUpcMap(values);
+                }
             }
             setShowSave(true);
         }
         setOpen(false);
         };
 
-    function handleSubmit() {
-        let payload = JSON.stringify(upcMap);
-            submitUpcMap(user.portal.id, state.auth.token.i, payload, 'put')
-                .then(res => {
-                    if (res.status === 200) {
-                    }
-                })
-                .catch(error => {
-                    setError(error)
-                });
-            //setShow(true)
+    async function handleSubmit() {
+        try {
+            setPending(true)
+            let payload = JSON.stringify(upcMap);
+            let submitted = await submitUpcMap(user.portal.id, state.auth.token.i, payload, 'put');
+            if (await submitted.status === 200) {
+                setPending(false)
+                setShow(true)
+            }if(submitted === 'error'){
+                setError(true)
+            }
+
+        }catch(err){
+            setError(true)
+        }
     }
     return (
         <div>
@@ -275,6 +296,11 @@ const InventorySettings = (props) => {
                  <Card.Header><FontAwesomeIcon icon={faCog} /> Inventory Settings</Card.Header>
 
                 <Card.Body>
+                    {
+                        pending && (
+                                <LinearProgress style={{backgroundColor: "#3196b2"}}/>
+                        )
+                    }
                     { show && (
                          <Alert variant='success' style={sign_up_style.alertStyle} >
                             Your UPC inventory map updates have been saved!

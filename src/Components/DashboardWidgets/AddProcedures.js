@@ -18,6 +18,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import {submitUpc} from "../../Utils/crudFunction";
 import {useUpc} from "../../Utils/hooks/upc";
 import {useUpcMap} from "../../Utils/hooks/UpcMap";
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const AddProcedures = () => {
     const _permissions = localStorage.getItem('abacusPermissions') ? localStorage.getItem('abacusPermissions') : false;
@@ -34,6 +35,7 @@ const AddProcedures = () => {
     const [displayUpc, setDisplayUpc] = useState(JSON.parse(mapped_items));
     const [displayUpcDescs, setDisplayUpcDescs] = useState();
     let app_state = useSelector(state => state);
+    const [pending, setPending] = useState(false);
     const [inputFields, setInputFields] = useState([
        { upc: '', amount: '' }
     ]);
@@ -96,9 +98,11 @@ const AddProcedures = () => {
         setInputFields(values);
     };
     function item_to_desc(upc){
-        for(let i = 0; i < displayUpcDescs.length; i++){
-            if(upc === displayUpcDescs[i].upc__upc){
-                return upc + " - " + displayUpcDescs[i].upc__desc
+        if(displayUpcDescs) {
+            for (let i = 0; i < displayUpcDescs.length; i++) {
+                if (upc === displayUpcDescs[i].upc__upc) {
+                    return upc + " - " + displayUpcDescs[i].upc__desc
+                }
             }
         }
     }
@@ -114,15 +118,21 @@ const AddProcedures = () => {
         setInputFields(values);
     };
 
-    function handleSubmit() {
-        let payload = JSON.stringify(inputFields);
-        submitUpc(user.portal.id, app_state.auth.token.i, payload).then(res => {
-            if (res === 200) {
+    async function handleSubmit() {
+        try {
+            setPending(true);
+            let payload = JSON.stringify(inputFields);
+            let submit = await submitUpc(user.portal.id, app_state.auth.token.i, payload);
+            if (await submit.status === 200) {
+                setPending(false);
                 setShow(true)
             }
-        }).catch(error => {
-            setError(error)
-        })
+            if (submit === 'error') {
+                setError('Oops! Something went wrong. Please try again. If problem persists, contact support')
+            }
+        }catch(err){
+            setError('Oops! Something went wrong. Please try again. If problem persists, contact support')
+        }
     }
     if(user.role === 'admin' || inventoryUpdate) {
         return (
@@ -151,6 +161,11 @@ const AddProcedures = () => {
                                 </p>
                             </Card.Body>
                         </Card>
+                        {
+                            pending && (
+                                    <LinearProgress style={{backgroundColor: "#3196b2"}}/>
+                            )
+                         }
                         <Form style={sign_up_style.formStyle} onSubmit={handleSubmit}>
                             {inputFields.map((inputField, index) => (
                                 <Fragment key={`${inputField}~${index}`}>

@@ -33,47 +33,47 @@ export async function registerNewApiPortal(portal_id, token){
                 AbacusAPIClient.post('/v1/inventory/auth/create_inventory', data, headers);
             });
 }
-export async function submitInitialInventory(portal_id, token, payload){
+export const submitInitialInventory = async (portal_id, token, payload) => {
         const headers = handleCredentials(token);
             const data = {
                 'portal': portal_id,
                 'inventory': payload
             };
-            AbacusAPIClient.post('/v1/inventory/supply/set_initial_inventory', data, headers).then(res =>{
-                if (res.status === 200) {
-                    const portal = db.collection('portal').doc(data.portal);
-                    portal.update({
-                        inventorySetUp: true
-                    });
-                    if(localStorage.getItem('abacusInventory')) {
+            let submit = AbacusAPIClient.post('/v1/inventory/supply/set_initial_inventory', data, headers);
+            if (await submit.status === 200){
+                const portal = db.collection('portal').doc(data.portal);
+                portal.update({
+                    inventorySetUp: true
+                });
+                if(localStorage.getItem('abacusInventory')) {
                         localStorage.removeItem('abacusInventory')
-                    }
                 }
-            });
+                return submit
+            }else{
+                return 'error'
+            }
+
 
 }
 
-export async function submitUpc(portal_id, token, payload){
+export const submitUpc = async (portal_id, token, payload) =>{
         const headers = handleCredentials(token);
             const data = {
                 'portal': portal_id,
                 'upc_list': payload
             };
-            AbacusAPIClient.post('/v1/inventory/supply/submit_upc', data, headers).then(res =>{
-                if (res.status === 200) {
+            let submit = await AbacusAPIClient.post('/v1/inventory/supply/submit_upc', data, headers);
+                if (submit.status === 200) {
                     if(localStorage.getItem('abacusInventory')) {
-                        localStorage.removeItem('abacusInventory')
-                        return 200
+                        localStorage.removeItem('abacusInventory');
                     }
+                    return submit
+                }else{
+                    return 'error'
                 }
-            }).catch(_error => {
-                    alert('There was an error! Check the UPC code you submitted to ensure it has a mapping setting.');
-                    return _error
-            });
-            return 200
 }
 
-export async function submitUpcMap(portal_id, token, payload, method){
+export const submitUpcMap = async (portal_id, token, payload, method) =>{
 
         const headers = handleCredentials(token);
             const data = {
@@ -82,26 +82,26 @@ export async function submitUpcMap(portal_id, token, payload, method){
                 'method': method
             };
             if(method === 'post') {
-                AbacusAPIClient.post('/v1/inventory/supply/submit_upc_map', data, headers).then(res => {
-                    if (res.status === 200) {
-                        const portal = db.collection('portal').doc(data.portal);
-                        portal.update({
-                            upcMapComplete: true
-                        });
-                        if (localStorage.getItem('abacusUpcMap')) {
+                let save = await AbacusAPIClient.post('/v1/inventory/supply/submit_upc_map', data, headers);
+                if(save.status === 200) {
+                    if (localStorage.getItem('abacusUpcMap')) {
                             localStorage.removeItem('abacusUpcMap')
                         }
-                    }
-                });
+                    return save
+                }else{
+                    return 'error'
+                }
             }
-            if(method === 'put'){
-                AbacusAPIClient.put('/v1/inventory/supply/update_upc_map', data, headers).then(res => {
-                    if (res.status === 200) {
-                        if (localStorage.getItem('abacusUpcMap')) {
+            if(method === 'put') {
+                let update = await AbacusAPIClient.put('/v1/inventory/supply/update_upc_map', data, headers);
+                if(update.status === 200) {
+                    if (localStorage.getItem('abacusUpcMap')) {
                             localStorage.removeItem('abacusUpcMap')
                         }
-                    }
-                });
+                    return update
+                }else{
+                    return 'error'
+                }
             }
 
-}
+};
