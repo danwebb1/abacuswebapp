@@ -60,7 +60,7 @@ const AddUser = () => {
                 .then(user => {
                     const _portal = db.collection('portal').doc(portal);
                     Myfirebase
-                    .auth().sendPasswordResetEmail(email)
+                    .auth().sendPasswordResetEmail(email);
                     db.collection('users')
                       .doc(user.user.uid )
                       .set({first_name: firstName, last_name: lastName, email: email, portal: _portal, uid: user.user.uid}).then(res => {

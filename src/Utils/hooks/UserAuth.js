@@ -28,6 +28,9 @@ export function usePortal(){
     const state = useSelector(state => state);
     const dispatch = useDispatch();
     const [portal, setPortal] = useState([]);
+    const [admins, setAdmins] = useState([]);
+    const [users, setUsers] = useState([]);
+
 
     React.useEffect( () => {
         if(profile && profile.portal) {
@@ -48,32 +51,60 @@ export function usePortal(){
     },[state.settings.receivedSettings]);
 
     React.useEffect( () => {
-        if(profile && profile.portal) {
+         if(profile && profile.portal) {
             dispatch(getPortal(profile.portal.id));
             dispatch(getSettings(profile.portal.id));
             if (state.portal.receivedPortal && portal.length < 1) {
-                setPortal(state.portal.portal);
-                let admins = [];
-                let users = [];
-                for(let i = 0; i < state.portal.portal.admins.length; i++){
-                    admins.push(state.portal.portal.admins[i].id)
+                setPortal(state.portal.portal)
+                if(state.portal.portal.admins.length > 0){
+                    setAdmins(state.portal.portal.admins)
                 }
-                for(let i = 0; i < state.portal.portal.users.length; i++){
-                    users.push(state.portal.portal.users[i].id)
+                if(state.portal.portal.users.length > 0){
+                    setUsers(state.portal.portal.users)
                 }
-                if (admins.length > 0){
-                    localStorage.setItem('portalAdmins', JSON.stringify({admins:admins}))
-                }
-                if (users.length > 0){
-                    localStorage.setItem('portalUsers', JSON.stringify({users:users}))
-                }
-                if(state.portal.portal.display_name){
-                    localStorage.setItem('portalDisplay', state.portal.portal.display_name)
+                if (state.portal.portal.display_name) {
+                        localStorage.setItem('portalDisplay', state.portal.portal.display_name)
                 }
             }
-        }
+
+         }
     }, [state.portal.receivedPortal]);
-    return portal
+
+    React.useEffect(  () => {
+                if(admins.length > 0) {
+                    GetUsers(admins, 'admins')
+                }
+
+    }, [admins]);
+
+     React.useEffect( () => {
+                if(users.length > 0) {
+                        GetUsers(users, 'users')
+                }
+
+    }, [users]);
+
+    return portal;
+}
+export async function GetUsers(users, type){
+     let _users = [];
+     for (let i = 0; i < users.length; i++) {
+         let _user = await fetchUser(users[i].id);
+         if(_user){
+             if(_user.email){
+                 _users.push(_user.email)
+             }
+         }
+     }
+     if (_users.length > 0) {
+         if(type === 'admins') {
+             localStorage.setItem('portalAdmins', JSON.stringify({admins: _users}))
+         }
+         if (type === 'users'){
+             localStorage.setItem('portalUsers', JSON.stringify({users: _users}))
+         }
+     }
+
 }
 
 export function fetchUser(uid){

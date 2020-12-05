@@ -11,7 +11,7 @@ import Card from "react-bootstrap/Card";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {Link} from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
-import {getProfile} from "../../actions";
+import {getProfile, welcome_notification} from "../../actions";
 import {useHistory} from "react-router-dom";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {dental_code} from "./dental_codes";
@@ -30,6 +30,8 @@ import Avatar from "@material-ui/core/Avatar";
 import {useInventory} from "../../Utils/hooks/inventory";
 import Chip from "@material-ui/core/Chip";
 import LinearProgress from '@material-ui/core/LinearProgress';
+import {db} from "../../config/firebase";
+import {usePortal} from "../../Utils/hooks/UserAuth";
 
 
 const InventorySetUp = () => {
@@ -47,6 +49,7 @@ const InventorySetUp = () => {
     let app_state = useSelector(state => state);
     const [open, setOpen] = React.useState(false);
     const [upcValue, setUpcValue] = useState([]);
+
 
     const [inputFields, setInputFields] = useState(() => {
         if (method === 'inventory') {
@@ -75,6 +78,9 @@ const InventorySetUp = () => {
     },[method]);
 
     useEffect( () => {
+        if(!localStorage.setUp){
+            //history.push("/inventory")
+        }
         if(app_state.settings) {
             if(app_state.settings.settings.inventorySetUp) {
                 setMethod('upc')
@@ -100,7 +106,7 @@ const InventorySetUp = () => {
          if(app_state.user && app_state.user.user_profile.hasOwnProperty('first_name')) {
              setUser(app_state.user.user_profile);
            }
-    }, );
+    }, [app_state.user.user]);
     const handleInputChange = (index, event) => {
         const { name, value } = event.currentTarget;
         const values = [...inputFields];
@@ -208,6 +214,7 @@ const InventorySetUp = () => {
     }
 
      const MyTextField = ({ params, label }) => (
+
         <TextField {...params} label={label} variant="outlined" />
          );
 
@@ -222,7 +229,9 @@ const InventorySetUp = () => {
             let payload = JSON.stringify(inputFields);
             let submit_inventory = await submitInitialInventory(user.portal.id, app_state.auth.token.i, payload);
             if (await submit_inventory.status === 200) {
-                setPending(false)
+                setInputFields([])
+                setInputFields([{upc:''}])
+                setPending(false);
                 setMethod('upc')
             }if(submit_inventory === 'error'){
                 setError('Oops! Something went wrong. Try again. If the problem persists contact support')
@@ -232,12 +241,14 @@ const InventorySetUp = () => {
         if(method === 'upc') {
             setPending(true);
             let payload = JSON.stringify(mappedItems);
-            console.log(mappedItems)
             let submit_upc = await submitUpcMap(user.portal.id, app_state.auth.token.i, payload, 'post');
             if (await submit_upc.status === 200) {
                 setPending(false);
                 setShow(true);
-                history.push("/settings")
+                const ref = db.collection('users').doc(user.uid);
+                ref.update({setUp:true})
+                welcome_notification(ref);
+                history.push("/notifications")
             }if(submit_upc === 'error'){
                 setError('Oops! Something went wrong. Try again. If the problem persists contact support')
             }
@@ -248,11 +259,6 @@ const InventorySetUp = () => {
     if (method === 'inventory') {
         return (
             <div>
-                <Breadcrumb>
-                    <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item><Link to="/inventory">Inventory</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item active>Inventory Set Up</Breadcrumb.Item>
-                </Breadcrumb>
                 <Card>
                     <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory Set Up</Card.Header>
                     <Card.Body>
@@ -271,6 +277,7 @@ const InventorySetUp = () => {
                             </Card.Body>
                         </Card>
                         <Form style={sign_up_style.formStyle} onSubmit={handleSubmit}>
+                            <div id="initial_alert" style={{margin: "1em"}}>
                             {
                                 pending && (
                                     <LinearProgress style={{backgroundColor: "#3196b2"}}/>
@@ -283,6 +290,7 @@ const InventorySetUp = () => {
                                     </Alert>
                                 )
                             }
+                            </div>
                             <Row style={{marginBottom: "1em"}}>
                                         <Col></Col>
                                         <Col><h6><strong>Inventory Item</strong> <OverlayTrigger
@@ -349,9 +357,15 @@ const InventorySetUp = () => {
                                         </Col>
                                         <Col>
                                             <div id="add-field">
-                                                <Button className="remove" onClick={() => handleRemoveFields(index)}>
-                                                    -
-                                                </Button>
+                                                {
+                                                    index > 0 ? (
+                                                        <Button className="remove" onClick={() => handleRemoveFields(index)}>
+                                                        -
+                                                        </Button>
+                                                    )
+                                                        :
+                                                ''
+                                                }
                                                 <Button className="add" onClick={() => handleAddFields()}>
                                                     +
                                                 </Button>
@@ -378,17 +392,24 @@ const InventorySetUp = () => {
                     </Card.Body>
                 </Card>
                 <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet" />
+                 <style dangerouslySetInnerHTML={{__html: `
+                    #select-multiple-native:focus {
+                        height: 10em;
+                    }
+                    #menu, #top-nav {display:none}
+                    .main-body {
+                        width: 100%;
+                        margin: 5em auto;
+                        display: block;
+                    }
+                    
+                `}}></style>
             </div>
         );
     }
     if (method === 'upc') {
         return (
             <div>
-                <Breadcrumb>
-                    <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item><Link to="/inventory">Inventory</Link></Breadcrumb.Item>
-                    <Breadcrumb.Item active>Inventory Set Up</Breadcrumb.Item>
-                </Breadcrumb>
                 <Card>
                     <Card.Header><FontAwesomeIcon icon={faListAlt}/> Inventory Set Up</Card.Header>
                     <Card.Body>
@@ -406,6 +427,7 @@ const InventorySetUp = () => {
                             </Card.Body>
                         </Card>
                         <Form style={sign_up_style.formStyle} onSubmit={handleSubmit}>
+                             <div id="initial_alert" style={{margin: "1em"}}>
                             {
                                 pending && (
                                     <LinearProgress style={{backgroundColor: "#3196b2"}}/>
@@ -417,7 +439,10 @@ const InventorySetUp = () => {
                                         Congrats! You're all set up!
                                     </Alert>
                                 )
-                            }<Row style={{marginBottom: "1em"}}>
+
+                            }
+                             </div>
+                            <Row style={{marginBottom: "1em"}}>
                                         <Col></Col>
                                         <Col><h6><strong>Procedure Code</strong> <OverlayTrigger
                                                                                   placement="right"
@@ -531,9 +556,15 @@ const InventorySetUp = () => {
                                                 </Col>
                                                 <Col xs={3}>
                                                     <div id="add-field">
-                                                        <Button className="remove" onClick={() => handleRemoveFields2(index)}>
-                                                            -
+                                                        {
+                                                    index > 0 ? (
+                                                        <Button className="remove" onClick={() => handleRemoveFields(index)}>
+                                                        -
                                                         </Button>
+                                                    )
+                                                        :
+                                                ''
+                                                }
                                                         <Button className="add" onClick={() => handleAddFields2()}>
                                                             +
                                                         </Button>
@@ -593,10 +624,17 @@ const InventorySetUp = () => {
                         </ul>
                     </Card.Body>
                 </Card>
-                <style dangerouslySetInnerHTML={{__html: `
+                 <style dangerouslySetInnerHTML={{__html: `
                     #select-multiple-native:focus {
                         height: 10em;
                     }
+                    #menu, #top-nav {display:none}
+                    .main-body {
+                        width: 100%;
+                        margin: 5em auto;
+                        display: block;
+                    }
+                    
                 `}}></style>
                 <link href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" rel="stylesheet" />
             </div>

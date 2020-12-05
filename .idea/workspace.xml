@@ -4,10 +4,14 @@
     <list default="true" id="94597bb8-8622-4fee-a5ae-16ab34d6223d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/DashboardWidgets/AddProcedures.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/DashboardWidgets/AddProcedures.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Components/Inventory/InventorySetUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/InventorySetUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Inventory/InventorySettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Inventory/InventorySettings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/Portal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Portal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/AddUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Portal/AddUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/PortalSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/PortalSettings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/SettingsViews/Settings.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Utils/crudFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/crudFunction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/hooks/UserAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/hooks/UserAuth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actions/register.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions/register.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,16 +40,16 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/public/images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/Components/Inventory" />
       <recent name="$PROJECT_DIR$/public/js" />
       <recent name="$PROJECT_DIR$/public/inventory" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/src" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public" />
-      <recent name="$PROJECT_DIR$/public/images" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -142,7 +146,11 @@
       <workItem from="1606409973503" duration="44114000" />
       <workItem from="1606782147607" duration="5323000" />
       <workItem from="1606822127433" duration="6414000" />
-      <workItem from="1606873036027" duration="5401000" />
+      <workItem from="1606873036027" duration="6698000" />
+      <workItem from="1606956375836" duration="13537000" />
+      <workItem from="1607045557076" duration="4493000" />
+      <workItem from="1607120750740" duration="4616000" />
+      <workItem from="1607166974770" duration="7483000" />
     </task>
     <task id="LOCAL-00001" summary="inital commit">
       <created>1599876859676</created>
@@ -305,7 +313,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606825974671</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="fix async returns and incorporate permissions">
+      <created>1606881962351</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1606881962351</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -358,7 +373,8 @@
     <MESSAGE value="updated inventory settings added permissions" />
     <MESSAGE value="add persmissions, set initial permissions in settings when account is created" />
     <MESSAGE value="add permissions checks throughout app, add upc mapping updates and adds after initial setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="add permissions checks throughout app, add upc mapping updates and adds after initial setup" />
+    <MESSAGE value="fix async returns and incorporate permissions" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix async returns and incorporate permissions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -367,6 +383,11 @@
           <url>file://$PROJECT_DIR$/src/Components/Utils/Toggle.js</url>
           <line>2</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/Utils/hooks/UserAuth.js</url>
+          <line>24</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

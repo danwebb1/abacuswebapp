@@ -1,5 +1,7 @@
 import {db, Myfirebase, time} from "../config/firebase";
 import {registerNewApiPortal} from "../Utils/crudFunction";
+import {logoutUser} from "./auth";
+import {useDispatch} from "react-redux";
 
 export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
@@ -35,6 +37,8 @@ export const SignUpUser = (userObject) => dispatch => {
       const user_auth = user.user.getIdToken();
       delete userObject.password;
       delete userObject.password2;
+      userObject.role = 'admin';
+      userObject.setUp = false;
       dispatch(receiveSignUp(userObject));
       db.collection('users')
           .doc(userObject.uid)
@@ -46,6 +50,7 @@ export const SignUpUser = (userObject) => dispatch => {
       dispatch(SignUpError(error));
     });
 };
+
 async function createNewPortal(userObject, user_auth) {
     const products_ref = db.collection('products').doc('VLZoWE00o2zga4MQQcYa');
     const ref = db.collection('users').doc(userObject.uid);
@@ -59,7 +64,6 @@ async function createNewPortal(userObject, user_auth) {
     let settings = await db.collection('settings').add({
         portal: portal_ref,
         products: [products_ref],
-        role: 'admin',
         integration: "",
         inventorySetUp: false,
         upcMapComplete: false,
@@ -71,7 +75,6 @@ async function createNewPortal(userObject, user_auth) {
     });
     settings = await settings.update({portal: portal_ref});
     const _ref = await ref.update({portal: portal_ref});
-    welcome_notification(ref);
     return registerNewApiPortal(portal.id, user_auth.i)
 
 }
@@ -80,9 +83,9 @@ export const welcome_notification = (user_ref) => {
      let welcome_message = db.collection('user_messages').add({
         date: time.serverTimestamp(),
         from: 'Abacus Support Team',
-        message: `Welcome to Abacus Dental Inventory Management System! Feel free to look around. 
-                  We've populated the application and dashboard with dummy data to help you get a sense of what your experience will be like. 
-                  When you're ready, go to your <a href="settings">settings</a> page to get started!`,
+        message: `Welcome to Abacus Dental Inventory Management System! We're glad you've trusted Abacus with your businesses'
+        inventory management needs. We will be continually adding features and improving Abacus to help you navigate the fast paced, and
+        ever changing world of technology. If you have any questions, suggestions, or frustrations, please don't hesitate to contact us!`,
         read: false,
         subject: "Welcome!",
         user: user_ref

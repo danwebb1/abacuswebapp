@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import LoadingBar from 'react-top-loading-bar'
-import {BrowserRouter as Router, Route, Switch, Link, useRouteMatch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, Link, useRouteMatch, useHistory} from "react-router-dom";
 import { useSelector, useDispatch} from "react-redux";
 import './App.css';
 import Login from "./Login.js"
@@ -52,6 +52,7 @@ function App(){
             let _check_auth = state.auth.isAuthenticated;
             setIsAuth(_check_auth)
         }
+
     }, [state.auth]);
 
     useEffect(() => {
@@ -61,7 +62,6 @@ function App(){
                 setProfile(true);
             }
         }
-
         if(state.user.user_profile && state.user.user_profile.hasOwnProperty('first_name')) {
                setUser(state.user.user_profile)
         }
@@ -97,14 +97,10 @@ function App(){
         window.location.pathname = '/';
     };
     if(isAuth) {
+        let load_portal = portal;
         document.body.style.backgroundColor = app_style.bodyStyle.backgroundColor;
-        window.onload = function () {
-            if (!localStorage.justOnce) {
-                localStorage.setItem("justOnce", "true");
-                window.location.reload();
-            }
-        };
         if (role) {
+
             return (
                 <div>
                     <Router>

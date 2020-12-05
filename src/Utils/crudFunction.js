@@ -39,8 +39,8 @@ export const submitInitialInventory = async (portal_id, token, payload) => {
                 'portal': portal_id,
                 'inventory': payload
             };
-            let submit = AbacusAPIClient.post('/v1/inventory/supply/set_initial_inventory', data, headers);
-            if (await submit.status === 200){
+            let submit = await AbacusAPIClient.post('/v1/inventory/supply/set_initial_inventory', data, headers);
+            if (submit.status === 200){
                 const portal = db.collection('portal').doc(data.portal);
                 portal.update({
                     inventorySetUp: true
@@ -87,6 +87,11 @@ export const submitUpcMap = async (portal_id, token, payload, method) =>{
                     if (localStorage.getItem('abacusUpcMap')) {
                             localStorage.removeItem('abacusUpcMap')
                         }
+
+                    const portal = db.collection('portal').doc(data.portal);
+                    portal.update({
+                        upcMapComplete: true
+                    });
                     return save
                 }else{
                     return 'error'

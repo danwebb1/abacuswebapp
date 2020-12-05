@@ -33,6 +33,7 @@ const Portal = (props) => {
     }, [profile]);
 
     useEffect( () => {
+
         let _permObj;
         if(permissions){
             if(typeof permissions === 'string') {
@@ -54,9 +55,12 @@ const Portal = (props) => {
     },[upc_list]);
 
     if(user.role === 'admin' || (inventoryUpdate && profile)) {
+        if (!user.setUp ||  window.location.pathname !== '/inventory/setup') {
+                 window.location.pathname = '/inventory/setup'
+        }
+
         return (
             <React.Fragment>
-                <DashboardAlert/>
                 <AddProcedures/>
                 <Row>
                     <Col>

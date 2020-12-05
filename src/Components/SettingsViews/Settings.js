@@ -13,6 +13,7 @@ import Tab from "react-bootstrap/Tab";
 import PortalSettings from "./PortalSettings";
 import QueryString from 'query-string'
 import Permissions from "./Permissions";
+import {usePortal} from "../../Utils/hooks/UserAuth";
 
 
 const Settings = () => {
@@ -24,6 +25,7 @@ const Settings = () => {
     const [_eventKey, setEventKey] = useState('overview');
     const dispatch = useDispatch();
     const history = useHistory();
+    const portal = usePortal();
     let app_state = useSelector(state => state);
 
     useEffect(() => {
