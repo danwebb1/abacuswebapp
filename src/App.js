@@ -32,6 +32,7 @@ import InventorySetUp from "./Components/Inventory/InventorySetUp";
 import EditPortal from "./Components/SettingsViews/Portal/EditPortal";
 import InventorySettings from "./Components/Inventory/InventorySettings";
 import {usePortal} from "./Utils/hooks/UserAuth";
+import Image from "react-bootstrap/Image";
 const logo = '/images/abacus_logo.png';
 
 function App(){
@@ -186,11 +187,11 @@ function App(){
                 return (
                     <div>
                         <LoadingBar color="#fff" progress={progress}/>
-                        <Container style={homepage_style.containerStyle}>
-                            <Row>
-                                <img src={logo} alt="Logo" style={homepage_style.logoStyle}/>
-                            </Row>
-                        </Container>
+                         <Container>
+                        <Row>
+                            <Image src={logo} alt="Logo" fluid style={{ display: 'block', width: '50%', margin: '1em auto'}}/>
+                        </Row>
+                    </Container>
                     </div>
                 )
             }
@@ -202,9 +203,9 @@ function App(){
             return (
                 <div>
                     <LoadingBar color="#fff" progress={progress}/>
-                    <Container style={homepage_style.containerStyle}>
+                    <Container>
                         <Row>
-                            <img src={logo} alt="Logo" style={homepage_style.logoStyle}/>
+                            <Image src={logo} alt="Logo" fluid style={{ display: 'block', width: '50%', margin: '1em auto'}}/>
                         </Row>
                     </Container>
                 </div>

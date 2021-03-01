@@ -55,7 +55,7 @@ const Portal = (props) => {
     },[upc_list]);
 
     if(user.role === 'admin' || (inventoryUpdate && profile)) {
-        if (!user.setUp ||  window.location.pathname !== '/inventory/setup') {
+        if (user.role === 'admin' && !user.setUp &&  window.location.pathname !== '/inventory/setup') {
                  window.location.pathname = '/inventory/setup'
         }
 

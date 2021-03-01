@@ -69,10 +69,6 @@ const homepage_styles = {
     containerStyle: {
         marginTop: '10em',
     },
-    logoStyle: { /*80% width on mobile*/
-        margin: '1em auto 3em auto',
-        maxWidth: '50%'
-    },
     formStyle: { /*80% width on mobile*/
         margin: '0 auto',
         background: '#fff',

@@ -13,6 +13,7 @@ import { loginUser } from "./actions";
 import './App.css'
 import Alert from "react-bootstrap/Alert";
 import {sign_up_style} from "./Styles";
+import Image from "react-bootstrap/Image";
 const logo = '/images/abacus_logo.png';
 
 const Login = () => {
@@ -57,9 +58,9 @@ const Login = () => {
     return (
                 <Container style={homepage_style.containerStyle}>
                     {showAlert()}
-                    <Row id="login-logo">
-                        <img src={logo} alt="Logo" style={homepage_style.logoStyle}/>
-                    </Row>
+                         <Row>
+                            <Image src={logo} alt="Logo" fluid style={{ display: 'block', width: '50%', margin: '1em auto'}}/>
+                        </Row>
                     <Row>
                         <h2 className="login-form" style={homepage_style.h2Style}>Provider Login</h2>
                     </Row>
@@ -93,7 +94,7 @@ const Login = () => {
                                     />
                                 </InputGroup>
                             </Form.Group>
-                            <Button variant="primary" style={homepage_style.button}
+                            <Button variant="primary" id="login-button" style={homepage_style.button}
                                 onClick={ handler }
                             >
                                 Log In

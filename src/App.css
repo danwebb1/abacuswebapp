@@ -541,13 +541,6 @@ input:checked + .slider:before {
     .row{
         display:block;
     }
-    #login-logo{
-        text-align:center;
-        width: 100%;
-    }
-     #login-logo img{
-        max-width: 75%!important;
-    }
     .login-form h2, .login-form form, .login-form h5 {
         width: 75%;
     }
@@ -577,6 +570,10 @@ input:checked + .slider:before {
     }
     .row{
         display:block;
+    }
+    .login-form, h2, #login-button, .login-form ::placeholder
+ {
+        font-size: 4vw
     }
 }
 @media only screen and (min-width: 700px) and (max-width: 1100px) {
